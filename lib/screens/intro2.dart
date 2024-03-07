@@ -14,16 +14,16 @@ class Second_Intro extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/logo.png'),
+              Image.asset('assets/intro2.png'),
               Padding(
                 padding: EdgeInsets.only(top: 16),
                 child: Text(
                   'التسجيل كصاحب صنعه او عميل  ',
-                  style: GoogleFonts.abrilFatface(
-                    color: sec_color,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style: TextStyle(
+                      color: sec_color,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w800,
+                      fontFamily: 'Marhey'),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -31,21 +31,21 @@ class Second_Intro extends StatelessWidget {
                 padding: EdgeInsets.only(top: 16),
                 child: Text(
                   'يمكن التسجيل كصاحب صنعه او عميل و الاستفاده من',
-                  style: GoogleFonts.abrilFatface(
-                    color: main_color,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style: TextStyle(
+                      color: main_color,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      fontFamily: 'Marhey'),
                   textAlign: TextAlign.center,
                 ),
               ),
               Text(
                 ' خدمات صنعه',
-                style: GoogleFonts.abrilFatface(
-                  color: main_color,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: TextStyle(
+                    color: main_color,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: 'Marhey'),
                 textAlign: TextAlign.center,
               ),
             ],

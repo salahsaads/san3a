@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/screens/intro1.dart';
 import 'package:project/screens/intro2.dart';
 import 'package:project/screens/intro3.dart';
+import 'package:project/screens/introduction_screen.dart';
 
 void main() {
   runApp(const Salah());
@@ -14,7 +15,7 @@ class Salah extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Third_Intro(),
+      home: Introduction_screen(),
     );
   }
 }
