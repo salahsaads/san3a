@@ -39,6 +39,7 @@ class Third_Intro extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
+              
             ],
           ),
         ),
