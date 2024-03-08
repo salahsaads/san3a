@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/screens/intro1.dart';
-import 'package:project/screens/intro2.dart';
-import 'package:project/screens/intro3.dart';
+
 import 'package:project/screens/introduction_screen.dart';
 
 void main() {
