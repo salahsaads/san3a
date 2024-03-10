@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project/constant/constant.dart';
+import 'package:project/screens/auth/choice.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -10,14 +11,17 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 60),
         child: SingleChildScrollView(
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/logo.png'),
+              Image.asset(
+                'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png',
+                height: 200,
+              ),
               const Text(
-                '..مرحبا بك من جديد',
+                'مرحبا بك من جديد',
                 style: TextStyle(
                     color: main_color,
                     fontSize: 20,
@@ -27,19 +31,25 @@ class Login extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'انشء حساب جديد',
-                    style: TextStyle(
-                        color: sec_color,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                        fontFamily: 'Marhey'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Choice()));
+                    },
+                    child: Text(
+                      'انشء حساب جديد',
+                      style: TextStyle(
+                          color: sec_color,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: 'Marhey'),
+                    ),
                   ),
                   Text(
-                    ' ليس لديك حساب؟',
+                    '   ليس لديك حساب؟',
                     style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -119,7 +129,7 @@ class Login extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         fontFamily: 'Marhey'),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 130,
                   ),
                   const Text(
@@ -139,7 +149,7 @@ class Login extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
@@ -157,7 +167,7 @@ class Login extends StatelessWidget {
                       fontFamily: 'Marhey'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -168,8 +178,8 @@ class Login extends StatelessWidget {
                       color: Colors.grey[400],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
                     child: Text(
                       'أو',
                       style: TextStyle(
@@ -187,14 +197,14 @@ class Login extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       border: Border.all(
                           color: const Color.fromARGB(255, 35, 33, 33)),
@@ -207,11 +217,11 @@ class Login extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
                   Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       border: Border.all(
                           color: const Color.fromARGB(255, 33, 32, 32)),
