@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:project/constant/constant.dart';
 
 class Workmanship_Register extends StatelessWidget {
@@ -317,35 +319,151 @@ class Workmanship_Register extends StatelessWidget {
 
               //------------------------------------------
               ,
-              SizedBox(
+              const SizedBox(
                 height: 80,
               ),
-              Container(
-                height: 80,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    // border: Border.all(color: Colors.black, width: 2),
-                    color: main_color,
-                    borderRadius: BorderRadius.circular(10)),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        size: 50,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        'أستمر في التسجيل',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: 'Marhey'),
-                      ),
-                    ],
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Center(
+                              child: Text(
+                            'ادخل كود النفعيل ',
+                            style: TextStyle(
+                                color: main_color,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: 'Marhey'),
+                          )),
+                          content: Container(
+                            height: 400,
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                const Text(
+                                  'تم ارسال كود التفعيل الي ',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w800,
+                                      fontFamily: 'Marhey'),
+                                ),
+                                const Text(
+                                  '01063012453',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w800,
+                                      fontFamily: 'Marhey'),
+                                ),
+                                const Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text(
+                                      'تغير الرقم ',
+                                      style: TextStyle(color: Colors.grey),
+                                    )),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                OtpTextField(
+                                  fieldWidth: 35,
+                                  disabledBorderColor: Colors.black,
+
+                                  focusedBorderColor: main_color,
+                                  numberOfFields: 6,
+                                  enabledBorderColor: Colors.black,
+                                  // borderColor: main_color,
+                                  //set to true to show as box or false to show as dash
+                                  showFieldAsBox: true,
+                                  //runs when a code is typed in
+                                  onCodeChanged: (String code) {
+                                    //handle validation or checks here
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '00:10  ',
+                                      style: TextStyle(color: main_color),
+                                    ),
+                                    Text('سيتم ارسال الكود خلال')
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                Container(
+                                  height: 80,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      // border: Border.all(color: Colors.black, width: 2),
+                                      color: main_color,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              const Color.fromARGB(255, 5, 5, 5)
+                                                  .withOpacity(0.5),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: const Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 20, right: 20),
+                                    child: Text(
+                                      'تاكيد',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w800,
+                                          fontFamily: 'Marhey'),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                },
+                child: Container(
+                  height: 80,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      // border: Border.all(color: Colors.black, width: 2),
+                      color: main_color,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'أستمر في التسجيل',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: 'Marhey'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
