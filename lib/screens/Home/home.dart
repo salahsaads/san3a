@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/screens/Home/body_home1.dart';
 import 'package:project/screens/Home/body_home2.dart';
@@ -23,7 +24,7 @@ class _HomeState extends State<Home> {
         centerTitle: true,
         title: Image.asset(
           'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png',
-          width: 70,
+          width: 70.w,
         ),
         actions: const [
           Padding(
@@ -35,10 +36,10 @@ class _HomeState extends State<Home> {
             ),
           )
         ],
-        leading: const Padding(
-          padding: const EdgeInsets.only(left: 6),
+        leading:  Padding(
+          padding:  EdgeInsets.only(left: 6),
           child: CircleAvatar(
-            radius: 4,
+            radius: 4.r,
           ),
         ),
       ),
