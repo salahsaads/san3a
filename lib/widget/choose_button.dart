@@ -21,7 +21,9 @@ class MyWidget_button extends StatelessWidget {
               fontWeight: FontWeight.w700,
               fontFamily: 'Marhey'),
           btnCancelOnPress: () {},
-          btnOkOnPress: () {},
+          btnOkOnPress: () {
+            Navigator.pushNamed(context, 'Home');
+          },
           btnCancelText: 'لا',
           btnOkText: 'نعم',
           btnOkColor: main_color,

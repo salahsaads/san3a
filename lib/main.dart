@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/screens/Home/home.dart';
 
 import 'package:project/screens/introduction_screen.dart';
 import 'package:project/screens/workmanship/Choose_to_make_it.dart';
@@ -16,8 +17,9 @@ class Salah extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        'Workmanship_Register':(context) => Workmanship_Register(),
-        'Choose_to_make_it':(context) => Choose_to_make_it()
+        'Workmanship_Register': (context) => const Workmanship_Register(),
+        'Choose_to_make_it': (context) => const Choose_to_make_it(),
+        'Home': (context) => Home(),
       },
       home: Introduction_screen(),
     );
