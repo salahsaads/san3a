@@ -22,7 +22,7 @@ class MyWidget_button extends StatelessWidget {
               fontFamily: 'Marhey'),
           btnCancelOnPress: () {},
           btnOkOnPress: () {
-            Navigator.pushNamed(context, 'Home');
+            Navigator.pushNamed(context, 'Nav');
           },
           btnCancelText: 'لا',
           btnOkText: 'نعم',
