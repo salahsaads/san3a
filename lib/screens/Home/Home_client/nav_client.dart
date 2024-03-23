@@ -5,26 +5,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/screens/Home/home.dart';
-import 'package:project/screens/Home/home2.dart';
-import 'package:project/screens/Home/home3.dart';
+import 'package:project/screens/Home/Home_client/home1_client.dart';
+import 'package:project/screens/Home/Home_client/home2_clinet.dart';
+import 'package:project/screens/Home/Home_client/home3_clinet.dart';
+
 import 'package:project/widget/choose_button.dart';
 
-class Nav extends StatefulWidget {
-  Nav({super.key});
+class Nav_Client extends StatefulWidget {
+  Nav_Client({super.key});
 
   @override
-  State<Nav> createState() => _NavState();
+  State<Nav_Client> createState() => _NavState();
 }
 
-class _NavState extends State<Nav> {
+class _NavState extends State<Nav_Client> {
   static const TextStyle optionStyle = TextStyle(
       color: main_color,
       fontSize: 16,
       fontWeight: FontWeight.w700,
       fontFamily: 'Marhey');
   int _selectedIndex = 0;
-  List<Widget> body = [Home(), Home2(), Home3()];
+  List<Widget> body = [Home1Client(), Home2Client(), Home3Client()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +50,7 @@ class _NavState extends State<Nav> {
               ),
               MyWidget_button(
                 text: 'تواصل معانا',
-                back_color1: Colors.white,
+                 back_color1: Colors.white,
               ),
               SizedBox(
                 height: 30,

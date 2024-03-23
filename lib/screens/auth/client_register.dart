@@ -61,8 +61,7 @@ class Client_Register extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => Client_Register()));
+                Navigator.pushNamed(context, 'nav_client');
               },
               child: Container(
                 height: 80,
