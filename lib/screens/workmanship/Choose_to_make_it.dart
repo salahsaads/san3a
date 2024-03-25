@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -215,16 +216,16 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                 onTap: () async {
                   var z = await Auth.signUpWithEmailAndPassword(
                       widget.email, widget.password);
-                  if (z !=null) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Login()));
+                  if (z != null) {
+                    FireStore().addUser(
+                        fullName: widget.fullname,
+                        dateOfBirth: widget.dateofbirth,
+                        location: widget.location,
+                        phonenumber: widget.phoneNumber,
+                        email: widget.email,
+                        work: selectText);
+                    Navigator.pushNamed(context, 'EmailVerificationScreen');
                   }
-                  FireStore().addUser(
-                      fullName: widget.fullname,
-                      dateOfBirth: widget.dateofbirth,
-                      location: widget.location,
-                      phonenumber: widget.phoneNumber,
-                      work: selectText);
                 },
                 child: Custom_Buttom(
                   text: 'تسجيل',

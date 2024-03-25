@@ -1,18 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class Auth {
   static final FirebaseAuth auth = FirebaseAuth.instance;
-
   // sign in with email and password
   static Future signInWithEmailAndPassword(
       String email, String password) async {
+   
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       return "yes";
     } catch (e) {
-      print('ooooooooooooooooooooooooooooooooooooooooooooooooo');
-      print(e.toString());
-      return null;
+      //print('ooooooooooooooooooooooooooooooooooooooooooooooooo');
+      print(e);
+      return e.toString();
     }
   }
 

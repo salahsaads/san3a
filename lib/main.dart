@@ -4,13 +4,16 @@ import 'package:project/screens/Home/Home_client/nav_client.dart';
 import 'package:project/screens/Home/home.dart';
 import 'package:project/screens/Home/nav.dart';
 import 'package:project/screens/auth/login.dart';
+import 'package:project/screens/auth/verified.dart';
 
 import 'package:project/screens/introduction_screen.dart';
 import 'package:project/screens/workmanship/Choose_to_make_it.dart';
 import 'package:project/screens/workmanship/workmanship_register.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:project/service/auth_service.dart';
 import 'firebase_options.dart';
-void main()  async {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -36,9 +39,11 @@ class Salah extends StatelessWidget {
               'Home': (context) => Home(),
               "Nav": (context) => Nav(),
               'login': (context) => Login(),
-              'nav_client':(context) => Nav_Client()
+              'nav_client': (context) => Nav_Client(),
+              'EmailVerificationScreen': (context) => EmailVerificationScreen()
             },
-            home: Introduction_screen(),
+            home:
+                Auth.auth?.currentUser != null ? Nav() : Introduction_screen(),
           );
         });
   }
