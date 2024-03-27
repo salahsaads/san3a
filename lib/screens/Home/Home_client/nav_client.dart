@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/screens/Home/Home_client/home1_client.dart';
 import 'package:project/screens/Home/Home_client/home2_clinet.dart';
 import 'package:project/screens/Home/Home_client/home3_clinet.dart';
+import 'package:project/service/auth_service.dart';
 
 import 'package:project/widget/choose_button.dart';
 
@@ -19,25 +21,25 @@ class Nav_Client extends StatefulWidget {
 }
 
 class _NavState extends State<Nav_Client> {
-  static const TextStyle optionStyle = TextStyle(
+  static  TextStyle optionStyle = TextStyle(
       color: main_color,
-      fontSize: 16,
+      fontSize: 16.sp,
       fontWeight: FontWeight.w700,
       fontFamily: 'Marhey');
   int _selectedIndex = 0;
-  List<Widget> body = [Home1Client(), Home2Client(), Home3Client()];
+  List<Widget> body = [const Home1Client(), const Home2Client(), const Home3Client()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: Drawer(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 150),
+          padding:  EdgeInsets.only(left: 16.w, right: 16.w, top: 150.h),
           child: Column(
             children: [
               Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
+                width: 100.w,
+                height: 100.h,
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
                         'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png'),
@@ -46,30 +48,33 @@ class _NavState extends State<Nav_Client> {
                 ),
               ),
               SizedBox(
-                height: 100,
+                height: 100.h,
               ),
               MyWidget_button(
                 text: 'تواصل معانا',
-                 back_color1: Colors.white,
+                back_color1: Colors.white,
               ),
-              SizedBox(
-                height: 30,
+             SizedBox(
+                height: 30.h,
               ),
               MyWidget_button(
                 text: 'من نحن؟',
-                 back_color1: Colors.white,
+                back_color1: Colors.white,
               ),
               SizedBox(
-                height: 30,
+                height: 30.h,
               ),
               GestureDetector(
                 onTap: () {
+                  GoogleSignIn googleSignIn = GoogleSignIn();
+                  googleSignIn.disconnect();
+                  Auth.SignOut();
                   Navigator.pushNamedAndRemoveUntil(
                       context, "login", (route) => false);
                 },
                 child: MyWidget_button(
                   text: 'تسجيل الخروج',
-                   back_color1: Colors.white,
+                  back_color1: Colors.white,
                 ),
               )
             ],
@@ -98,10 +103,10 @@ class _NavState extends State<Nav_Client> {
           Builder(
             builder: (context) => IconButton(
               icon: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 150.h),
                 child: Icon(
                   Icons.menu,
-                  size: 40,
+                  size: 40.sp,
                   color: main_color,
                 ),
               ),
@@ -111,11 +116,11 @@ class _NavState extends State<Nav_Client> {
           ),
         ],
         leading: Padding(
-          padding: EdgeInsets.only(left: 6),
+          padding: EdgeInsets.only(left: 6.w),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              image: DecorationImage(
+              borderRadius: BorderRadius.circular(50.r),
+              image: const DecorationImage(
                 image: AssetImage(
                     'assets/WhatsApp Image 2024-03-19 at 8.43.10 PM.jpeg'),
                 fit: BoxFit.cover,
@@ -131,22 +136,22 @@ class _NavState extends State<Nav_Client> {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              blurRadius: 20,
+              blurRadius: 20.r,
               color: Colors.black.withOpacity(.1),
             )
           ],
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            padding:  EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 8.h),
             child: GNav(
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
               gap: 8,
               activeColor: main_color,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              duration: Duration(milliseconds: 400),
+              padding:  EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+              duration: const Duration(milliseconds: 400),
               tabBackgroundColor: Colors.grey[100]!,
               color: Colors.black,
               tabs: [

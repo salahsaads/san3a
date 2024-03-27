@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 
 class Home1Client extends StatefulWidget {
@@ -15,7 +16,7 @@ class _Home1ClientState extends State<Home1Client> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 50),
+        padding:  EdgeInsets.only(left: 16.w, right: 16.w, top: 50.h),
         child: Column(
           children: [
             GestureDetector(
@@ -23,13 +24,13 @@ class _Home1ClientState extends State<Home1Client> {
                 //صفحه search
               },
               child: Padding(
-                padding: const EdgeInsets.only(left: 14, right: 14),
+                padding: EdgeInsets.only(left: 14.w, right: 14.w),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 70,
+                  height: 70.h,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -38,19 +39,19 @@ class _Home1ClientState extends State<Home1Client> {
                         'بحث',
                         style: TextStyle(
                             color: sec_color,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w700,
                             fontFamily: 'Marhey'),
                       ),
                       SizedBox(
-                        width: 15,
+                        width: 15.w,
                       ),
                       Icon(
                         Icons.search,
-                        size: 30,
+                        size: 30.sp,
                       ),
                       SizedBox(
-                        width: 10,
+                        width: 10.w,
                       ),
                     ],
                   ),
@@ -61,7 +62,7 @@ class _Home1ClientState extends State<Home1Client> {
 
             ,
             SizedBox(
-              height: 30,
+              height: 30.h,
             ),
             Align(
               alignment: Alignment.centerRight,
@@ -69,15 +70,15 @@ class _Home1ClientState extends State<Home1Client> {
                 ':المفضله',
                 style: TextStyle(
                     color: main_color,
-                    fontSize: 18,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w700,
                     fontFamily: 'Marhey'),
               ),
             ),
             SizedBox(
-              height: 120,
+              height: 120.h,
             ),
-            Divider(
+            const Divider(
               thickness: 1,
             ),
             //----------------------------------------------------------------
@@ -87,15 +88,15 @@ class _Home1ClientState extends State<Home1Client> {
                 ':حرفيين متميزين',
                 style: TextStyle(
                     color: main_color,
-                    fontSize: 18,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w700,
                     fontFamily: 'Marhey'),
               ),
             ),
             SizedBox(
-              height: 120,
+              height: 120.h,
             ),
-            Divider(
+         const   Divider(
               thickness: 1,
             ),
             //------------------------------------------------------------------------------------
@@ -105,13 +106,13 @@ class _Home1ClientState extends State<Home1Client> {
                 ':ورش مميزه',
                 style: TextStyle(
                     color: main_color,
-                    fontSize: 18,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w700,
                     fontFamily: 'Marhey'),
               ),
             ),
             SizedBox(
-              height: 120,
+              height: 120.h,
             ),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/screens/Home/Home_client/nav_client.dart';
@@ -7,7 +8,6 @@ import 'package:project/screens/auth/login.dart';
 import 'package:project/screens/auth/verified.dart';
 
 import 'package:project/screens/introduction_screen.dart';
-import 'package:project/screens/workmanship/Choose_to_make_it.dart';
 import 'package:project/screens/workmanship/workmanship_register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project/service/auth_service.dart';
@@ -42,8 +42,11 @@ class Salah extends StatelessWidget {
               'nav_client': (context) => Nav_Client(),
               'EmailVerificationScreen': (context) => EmailVerificationScreen()
             },
-            home:
-                Auth.auth?.currentUser != null ? Nav() : Introduction_screen(),
+            home: Auth.auth.currentUser != null
+                ? FirebaseAuth.instance.currentUser!.emailVerified
+                    ? Nav()
+                    : EmailVerificationScreen()
+                : Introduction_screen(),
           );
         });
   }

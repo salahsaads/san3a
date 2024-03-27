@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/screens/auth/login.dart';
 import 'package:project/service/auth_service.dart';
 import 'package:project/service/store.dart';
 import 'package:project/widget/choose_button.dart';
@@ -36,21 +36,21 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16),
+        padding:  EdgeInsets.only(left: 16.w, right: 16.w),
         child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 80),
+                padding:  EdgeInsets.only(top: 80.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 30,
-                      height: 30,
+                      width: 30.w,
+                      height: 30.h,
                       decoration: BoxDecoration(
-                          border: Border.all(color: main_color, width: 3),
-                          borderRadius: BorderRadius.circular(7)),
+                          border: Border.all(color: main_color, width: 3.w),
+                          borderRadius: BorderRadius.circular(7.r)),
                       child: GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
@@ -61,19 +61,19 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                         ),
                       ),
                     ),
-                    const Text(
+                   Text(
                       'تسجيل الحساب كا صاحب صنعه',
                       style: TextStyle(
                           color: main_color,
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w800,
                           fontFamily: 'Marhey'),
                     )
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
+             SizedBox(
+                height: 30.h,
               ),
               GestureDetector(
                 onTap: () {
@@ -88,8 +88,8 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                 ),
               ),
               //-------------------------------------------------------------------------------------
-              const SizedBox(
-                height: 30,
+               SizedBox(
+                height: 30.h,
               ),
               GestureDetector(
                 onTap: () {
@@ -103,8 +103,8 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 2 ? main_color : Colors.white,
                 ),
               ),
-              const SizedBox(
-                height: 30,
+               SizedBox(
+                height: 30.h,
               ),
               GestureDetector(
                 onTap: () {
@@ -118,8 +118,8 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 3 ? main_color : Colors.white,
                 ),
               ),
-              const SizedBox(
-                height: 30,
+               SizedBox(
+                height: 30.h,
               ),
               GestureDetector(
                 onTap: () {
@@ -133,8 +133,8 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 4 ? main_color : Colors.white,
                 ),
               ),
-              const SizedBox(
-                height: 30,
+               SizedBox(
+                height: 30.h,
               ),
               GestureDetector(
                 onTap: () {
@@ -148,8 +148,8 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 5 ? main_color : Colors.white,
                 ),
               ),
-              const SizedBox(
-                height: 30,
+            SizedBox(
+                height: 30.h,
               ),
               GestureDetector(
                 onTap: () {
@@ -163,8 +163,8 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 6 ? main_color : Colors.white,
                 ),
               ),
-              const SizedBox(
-                height: 30,
+               SizedBox(
+                height: 30.h,
               ),
               GestureDetector(
                 onTap: () {
@@ -178,8 +178,8 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 7 ? main_color : Colors.white,
                 ),
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: 30.h,
               ),
               GestureDetector(
                 onTap: () {
@@ -193,8 +193,8 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 8 ? main_color : Colors.white,
                 ),
               ),
-              const SizedBox(
-                height: 30,
+               SizedBox(
+                height: 30.h,
               ),
               GestureDetector(
                 onTap: () {
@@ -208,31 +208,33 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 9 ? main_color : Colors.white,
                 ),
               ),
-              const SizedBox(
-                height: 40,
+             SizedBox(
+                height: 40.h,
               ),
 
               GestureDetector(
                 onTap: () async {
                   var z = await Auth.signUpWithEmailAndPassword(
                       widget.email, widget.password);
-                  if (z != null) {
-                    FireStore().addUser(
-                        fullName: widget.fullname,
-                        dateOfBirth: widget.dateofbirth,
-                        location: widget.location,
-                        phonenumber: widget.phoneNumber,
-                        email: widget.email,
-                        work: selectText);
-                    Navigator.pushNamed(context, 'EmailVerificationScreen');
+                  Navigator.pushNamed(context, 'EmailVerificationScreen');
+                  if (FirebaseAuth.instance.currentUser!.emailVerified) {
+                    if (z != null) {
+                      FireStore().addUser(
+                          fullName: widget.fullname,
+                          dateOfBirth: widget.dateofbirth,
+                          location: widget.location,
+                          phonenumber: widget.phoneNumber,
+                          email: widget.email,
+                          work: selectText);
+                    }
                   }
                 },
                 child: Custom_Buttom(
                   text: 'تسجيل',
                 ),
               ),
-              const SizedBox(
-                height: 40,
+             SizedBox(
+                height: 40.h,
               ),
             ],
           ),

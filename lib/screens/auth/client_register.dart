@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/screens/auth/choice.dart';
+import 'package:project/screens/Home/Home_client/nav_client.dart';
 import 'package:project/screens/auth/login.dart';
+import 'package:project/service/auth_service.dart';
 
 class Client_Register extends StatelessWidget {
   const Client_Register({super.key});
@@ -11,23 +13,23 @@ class Client_Register extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 100),
+        padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 100.h),
         child: Column(
           children: [
             Image.asset(
               'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png',
-              height: 200,
+              height: 200.h,
             ),
-            const Text(
+             Text(
               'اهلا بك ',
               style: TextStyle(
                   color: main_color,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w800,
                   fontFamily: 'Marhey'),
             ),
-            const SizedBox(
-              height: 20,
+             SizedBox(
+              height: 20.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -37,34 +39,40 @@ class Client_Register extends StatelessWidget {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const Login()));
                   },
-                  child: const Text(
+                  child:  Text(
                     'سجل دخولك',
                     style: TextStyle(
                         color: sec_color,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w800,
                         fontFamily: 'Marhey'),
                   ),
                 ),
-                const Text(
+                 Text(
                   '   لديك حساب بالفعل ؟',
                   style: TextStyle(
                       color: Colors.grey,
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w800,
                       fontFamily: 'Marhey'),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 50,
+             SizedBox(
+              height: 50.h,
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, 'nav_client');
+              onTap: () async {
+                bool s = await Auth.signInWithGoogle();
+                if (s == true) {
+                  Navigator.pushAndRemoveUntil(
+                      context as BuildContext,
+                      MaterialPageRoute(builder: (context) => Nav_Client()),
+                      (route) => false);
+                }
               },
               child: Container(
-                height: 80,
+                height: 80.h,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     //  border: Border.all(color: Colors.black, width: 2),
@@ -78,18 +86,18 @@ class Client_Register extends StatelessWidget {
                       ),
                     ],
                     borderRadius: BorderRadius.circular(10)),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
+                child:  Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.r),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image(image: AssetImage('assets/google.png'), width: 50),
+                      Image(image: AssetImage('assets/google.png'), width: 50.w),
                       //  Icon(Icons.search_google),
                       Text(
                         'التسجيل عبر حساب جوجل ',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w800,
                             fontFamily: 'Marhey'),
                       ),
@@ -98,11 +106,11 @@ class Client_Register extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 30,
+             SizedBox(
+              height: 30.h,
             ),
             Container(
-              height: 80,
+              height: 80.h,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   // border: Border.all(color: Colors.black, width: 2),
@@ -111,27 +119,27 @@ class Client_Register extends StatelessWidget {
                     BoxShadow(
                       color: Color.fromARGB(255, 5, 5, 5).withOpacity(0.5),
 
-                      spreadRadius: 5,
+                      spreadRadius: 5.r,
                       blurRadius: 7,
                       offset: Offset(0, 3), // changes position of shadow
                     ),
                   ],
-                  borderRadius: BorderRadius.circular(10)),
-              child: const Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                  borderRadius: BorderRadius.circular(10.r)),
+              child:  Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Icon(
                       Icons.facebook,
-                      size: 50,
+                      size: 50.sp,
                       color: Colors.white,
                     ),
                     Text(
                       'التسجيل عبر الفيسبوك',
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w800,
                           fontFamily: 'Marhey'),
                     ),
@@ -140,7 +148,7 @@ class Client_Register extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 30.h,
             ),
             Row(
               children: [
@@ -150,13 +158,13 @@ class Client_Register extends StatelessWidget {
                     color: Colors.grey[400],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                 Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Text(
                     'أو',
                     style: TextStyle(
                         color: sec_color,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w700,
                         fontFamily: 'Marhey'),
                   ),
@@ -170,10 +178,10 @@ class Client_Register extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 30,
+              height: 30.h,
             ),
             Container(
-              height: 80,
+              height: 80.h,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   //  border: Border.all(color: Colors.black, width: 2),
@@ -181,20 +189,20 @@ class Client_Register extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                       color: Color.fromARGB(255, 5, 5, 5).withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
+                      spreadRadius: 5.r,
+                      blurRadius: 7.r,
                       offset: Offset(0, 3), // changes position of shadow
                     ),
                   ],
-                  borderRadius: BorderRadius.circular(10)),
-              child: const Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                  borderRadius: BorderRadius.circular(10.r)),
+              child:  Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Icon(
                       Icons.email,
-                      size: 40,
+                      size: 40.sp,
                       color: Colors.white,
                     ),
                     //  Icon(Icons.search_google),
@@ -202,7 +210,7 @@ class Client_Register extends StatelessWidget {
                       'التسجيل عبر الاميل',
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w800,
                           fontFamily: 'Marhey'),
                     ),

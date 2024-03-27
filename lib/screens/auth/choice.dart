@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/screens/auth/client_register.dart';
 import 'package:project/screens/workmanship/workmanship_register.dart';
@@ -10,53 +11,52 @@ class Choice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 100),
+        padding:  EdgeInsets.only(left: 16.w, right: 16.w, top: 100.h),
         child: Column(
           children: [
             Image.asset(
               'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png',
-              height: 200,
+              height: 200.h,
             ),
-            const Text(
+             Text(
               'اهلا بك ',
               style: TextStyle(
                   color: main_color,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w800,
                   fontFamily: 'Marhey'),
             ),
-            const SizedBox(
-              height: 20,
+           SizedBox(
+              height: 20.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Choice()));
+                    Navigator.of(context).pop();
                   },
-                  child: const Text(
+                  child:  Text(
                     'سجل دخولك',
                     style: TextStyle(
                         color: sec_color,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w800,
                         fontFamily: 'Marhey'),
                   ),
                 ),
-                const Text(
+               Text(
                   '   لديك حساب بالفعل ؟',
                   style: TextStyle(
                       color: Colors.grey,
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w800,
                       fontFamily: 'Marhey'),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 50,
+            SizedBox(
+              height: 50.h,
             ),
             GestureDetector(
               onTap: () {
@@ -64,15 +64,15 @@ class Choice extends StatelessWidget {
                     builder: (context) => const Client_Register()));
               },
               child: Container(
-                height: 80,
+                height: 80.h,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
                         color:
                             const Color.fromARGB(255, 5, 5, 5).withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
+                        spreadRadius: 5.r,
+                        blurRadius: 7.r,
                         offset:
                             const Offset(0, 3), // changes position of shadow
                       ),
@@ -80,22 +80,22 @@ class Choice extends StatelessWidget {
                     // border: Border.all(color: Colors.black, width: 2),
 
                     color: main_color,
-                    borderRadius: BorderRadius.circular(10)),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
+                    borderRadius: BorderRadius.circular(10.r)),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Icon(
                         Icons.person,
-                        size: 50,
+                        size: 50.sp,
                         color: Colors.white,
                       ),
                       Text(
                         'حساب عميل',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w800,
                             fontFamily: 'Marhey'),
                       ),
@@ -104,8 +104,8 @@ class Choice extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 30,
+           SizedBox(
+              height: 30.h,
             ),
             GestureDetector(
               onTap: () {
@@ -113,7 +113,7 @@ class Choice extends StatelessWidget {
                     builder: (context) => Workmanship_Register()));
               },
               child: Container(
-                height: 80,
+                height: 80.h,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     // border: Border.all(color: Colors.black, width: 2),
@@ -122,28 +122,28 @@ class Choice extends StatelessWidget {
                       BoxShadow(
                         color:
                             const Color.fromARGB(255, 5, 5, 5).withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
+                        spreadRadius: 5.r,
+                        blurRadius: 7.r,
                         offset:
                             const Offset(0, 3), // changes position of shadow
                       ),
                     ],
-                    borderRadius: BorderRadius.circular(10)),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
+                    borderRadius: BorderRadius.circular(10.r)),
+                child:  Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Icon(
                         Icons.carpenter_sharp,
-                        size: 50,
+                        size: 50.sp,
                         color: Colors.white,
                       ),
                       Text(
                         'حساب صاحب صنعه',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w800,
                             fontFamily: 'Marhey'),
                       ),

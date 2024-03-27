@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/screens/Home/nav.dart';
@@ -17,8 +18,9 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool icon_check = true;
+  // ignore: non_constant_identifier_names
   bool icon_check_o = true;
-  Icon icon = Icon(Icons.visibility_off);
+  Icon icon = const Icon(Icons.visibility_off);
   bool _save = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController password = TextEditingController();
@@ -29,7 +31,7 @@ class _LoginState extends State<Login> {
       inAsyncCall: _save,
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 60),
+          padding:  EdgeInsets.only(left: 16.w, right: 16.w, top: 60.h),
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -38,18 +40,18 @@ class _LoginState extends State<Login> {
                 children: [
                   Image.asset(
                     'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png',
-                    height: 200,
+                    height: 200.h,
                   ),
-                  const Text(
+                   Text(
                     'مرحبا بك من جديد',
                     style: TextStyle(
                         color: main_color,
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.w800,
                         fontFamily: 'Marhey'),
                   ),
-                  const SizedBox(
-                    height: 20,
+                 SizedBox(
+                    height: 20.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -59,41 +61,41 @@ class _LoginState extends State<Login> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const Choice()));
                         },
-                        child: const Text(
+                        child: Text(
                           'انشء حساب جديد',
                           style: TextStyle(
                               color: sec_color,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w800,
                               fontFamily: 'Marhey'),
                         ),
                       ),
-                      const Text(
+                       Text(
                         '   ليس لديك حساب؟',
                         style: TextStyle(
                             color: Colors.grey,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w800,
                             fontFamily: 'Marhey'),
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 30,
+                 SizedBox(
+                    height: 30.h,
                   ),
-                  const Align(
+                 Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'البريد الالكتروني',
                       style: TextStyle(
                           color: sec_color,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
                           fontFamily: 'Marhey'),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                   SizedBox(
+                    height: 10.h,
                   ),
                   TextFormField(
                     validator: (value) {
@@ -109,26 +111,26 @@ class _LoginState extends State<Login> {
                         hintStyle: const TextStyle(color: Colors.grey),
                         hintText: 'xxxxxxxxxxxx@gmail.com',
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15))),
+                            borderRadius: BorderRadius.circular(15.r))),
                   )
                   /**/ ///////////////////////////////////////////// */
                   ,
-                  const SizedBox(
-                    height: 30,
+                   SizedBox(
+                    height: 30.h,
                   ),
-                  const Align(
+                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'كلمه السر',
                       style: TextStyle(
                           color: sec_color,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
                           fontFamily: 'Marhey'),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                   SizedBox(
+                    height: 10.h,
                   ),
                   TextFormField(
                     validator: (value) {
@@ -152,14 +154,14 @@ class _LoginState extends State<Login> {
                             setState(() {});
                           },
                           child: icon_check_o
-                              ? Icon(Icons.visibility)
-                              : Icon(Icons.visibility_off),
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
                         ),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15))),
+                            borderRadius: BorderRadius.circular(15.r))),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 20.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,31 +176,31 @@ class _LoginState extends State<Login> {
                               dialogType: DialogType.info,
                               title:
                                   'تم ارسال لينك اعاده تعين رقم السري علي بريدك',
-                              titleTextStyle: TextStyle(
+                              titleTextStyle:  TextStyle(
                                   color: sec_color,
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Marhey'),
                             ).show();
                           }
                         },
-                        child: const Text(
+                        child:  Text(
                           'نسيت كلمه السر؟',
                           style: TextStyle(
                               color: sec_color,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Marhey'),
                         ),
                       ),
-                      const SizedBox(
-                        width: 130,
+                      SizedBox(
+                        width: 130.w,
                       ),
-                      const Text(
+                     Text(
                         'تذكر كلمه السر',
                         style: TextStyle(
                             color: sec_color,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w700,
                             fontFamily: 'Marhey'),
                       ),
@@ -219,8 +221,8 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 30,
+                 SizedBox(
+                    height: 30.h,
                   ),
                   GestureDetector(
                     onTap: () async {
@@ -232,32 +234,58 @@ class _LoginState extends State<Login> {
                             email.text, password.text);
                         if (x == 'yes') {
                           _save = false;
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Nav()));
+                          setState(() {});
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => Nav()),
+                              (route) => false);
+                        } else {
+                          _save = false;
+                          setState(() {});
+                          if (x.message ==
+                              "The supplied auth credential is incorrect, malformed or has expired.") {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title:
+                                      const Text("Invalid email or password!"),
+                                  content: const Text("Please try again."),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          _save = false;
+                                          setState(() {});
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("Ok")),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         }
-                        _save = false;
-                        setState(() {});
                       }
                     },
                     child: Container(
-                      height: 60,
-                      width: 250,
+                      height: 60.h,
+                      width: 250.w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: main_color,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Text(
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child:  Text(
                         'سجل دخولك الان',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w800,
                             fontFamily: 'Marhey'),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
+                   SizedBox(
+                    height: 30.h,
                   ),
                   Row(
                     children: [
@@ -267,13 +295,13 @@ class _LoginState extends State<Login> {
                           color: Colors.grey[400],
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                         child: Text(
                           'أو',
                           style: TextStyle(
                               color: sec_color,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Marhey'),
                         ),
@@ -293,33 +321,33 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(20),
+                        padding: EdgeInsets.only(left:20.w,right: 20.w,top: 20.h,bottom: 20.h),
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: const Color.fromARGB(255, 35, 33, 33)),
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(16.r),
                           color: Colors.grey[200],
                         ),
                         child: Image.asset(
                           'assets/logof.jpg',
-                          height: 20,
+                          height: 20.h,
                           fit: BoxFit.cover,
                         ),
                       ),
-                      const SizedBox(
-                        width: 30,
+                     SizedBox(
+                        width: 30.w,
                       ),
                       Container(
-                        padding: const EdgeInsets.all(20),
+                        padding: EdgeInsets.only(left:20.w,right: 20.w,top: 20.h,bottom: 20.h),
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: const Color.fromARGB(255, 33, 32, 32)),
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(16.r),
                           color: Colors.grey[200],
                         ),
                         child: Image.asset(
                           'assets/google.png',
-                          height: 20,
+                          height: 20.h,
                         ),
                       )
                     ],

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 
+// ignore: must_be_immutable
 class Custom_Buttom extends StatelessWidget {
   Custom_Buttom({
     super.key,
@@ -12,19 +14,19 @@ class Custom_Buttom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: 80.h,
       alignment: Alignment.center,
       decoration: BoxDecoration(
           // border: Border.all(color: Colors.black, width: 2),
           color: main_color,
-          borderRadius: BorderRadius.circular(10)),
+          borderRadius: BorderRadius.circular(10.r)),
       child: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20),
+        padding: EdgeInsets.only(left: 20.w, right: 20.w),
         child: Text(
           text,
           style: TextStyle(
               color: Colors.white,
-              fontSize: 25,
+              fontSize: 25.sp,
               fontWeight: FontWeight.w800,
               fontFamily: 'Marhey'),
         ),

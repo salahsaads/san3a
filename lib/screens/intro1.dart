@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 
 class First_Intro extends StatelessWidget {
@@ -15,11 +15,11 @@ class First_Intro extends StatelessWidget {
           children: [
             Image.asset('assets/intro.png'),
             Padding(
-              padding: const EdgeInsets.only(top: 16),
+              padding:  EdgeInsets.only(top: 16.h),
               child: Text(
                 'اهلا بك في منصة صنعه ',
                 style: TextStyle(
-                    color: sec_color, fontSize: 32, fontFamily: 'Marhey'),
+                    color: sec_color, fontSize: 32.sp, fontFamily: 'Marhey'),
               ),
             ),
           ],
