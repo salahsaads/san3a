@@ -35,14 +35,14 @@ class Auth {
     final GoogleSignInAuthentication? googleAuth =
         await googleUser.authentication;
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+    // // Create a new credential
+    // final credential = GoogleAuthProvider.credential(
+    //   accessToken: googleAuth?.accessToken,
+    //   idToken: googleAuth?.idToken,
+    // );
 
-    // Once signed in, return the UserCredential
-    await FirebaseAuth.instance.signInWithCredential(credential);
+    // // Once signed in, return the UserCredential
+    // await FirebaseAuth.instance.signInWithCredential(credential);
     return true;
   }
 
@@ -94,4 +94,8 @@ class Auth {
   //     return null;
   //   }
   // }
+
+
+
+
 }

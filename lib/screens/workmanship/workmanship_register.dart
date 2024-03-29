@@ -32,6 +32,8 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
   TextEditingController fullname = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController loaction = TextEditingController();
+  TextEditingController workshop_name = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -119,6 +121,51 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
                   decoration: InputDecoration(hintText: 'ادخل اسمك'),
                 )
                 //------------------------------------------------------------------------------------------------------------------
+                ,
+                SizedBox(
+                  height: 50.h,
+                ),
+
+                Row(
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey, // Set the border color
+                          width: 2.0.w, // Set the border width
+                        ),
+                        borderRadius: BorderRadius.circular(12.0
+                            .r), // Set border radius if you want rounded corners
+                      ),
+                      child: Icon(
+                        Icons.person,
+                        size: 20.sp,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      ' اسم ورشتك ',
+                      style: TextStyle(
+                          color: sec_color,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Marhey'),
+                    ),
+                  ],
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'من فضلك ادخل الاسم';
+                    }
+                    return null;
+                  },
+                  controller: workshop_name,
+                  decoration: InputDecoration(hintText: 'ادخل اسم ورشتك'),
+                )
+                //--------------------------------------------------------------------
                 ,
                 SizedBox(
                   height: 50.h,
@@ -307,8 +354,6 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'من فضلك ادخل تاكيد كلمه السر';
-                    } else if (password != password_sure) {
-                      return 'الكليمتين غير متساويتن';
                     }
                     return null;
                   },
@@ -399,28 +444,30 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
                 ),
                 //------------------------------------------------------------------------------------------------------------------
 
-               SizedBox(
+                SizedBox(
                   height: 50.w,
                 ),
                 Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),// Adjust the padding as needed
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 3.w,
+                          vertical: 3.h), // Adjust the padding as needed
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.grey, // Set the border color
                           width: 2.0.w, // Set the border width
                         ),
-                        borderRadius: BorderRadius.circular(
-                            12.0.r), // Set border radius if you want rounded corners
+                        borderRadius: BorderRadius.circular(12.0
+                            .r), // Set border radius if you want rounded corners
                       ),
-                      child:  Icon(
+                      child: Icon(
                         Icons.location_on,
                         size: 20.sp,
                         color: Colors.grey,
                       ),
                     ),
-                     Text(
+                    Text(
                       '   موقع ورشتك أو موقعك ',
                       style: TextStyle(
                           color: sec_color,
@@ -447,7 +494,7 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
                 //------------------------------------------
                 ,
 
-               SizedBox(
+                SizedBox(
                   height: 30.h,
                 ),
 
@@ -464,6 +511,7 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
                                     phoneNumber: phoneNumber.text,
                                     email: email.text,
                                     dateofbirth: age.text,
+                                    workshop_name: workshop_name.text,
                                   )));
                     }
                   },

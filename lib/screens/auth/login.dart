@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
       inAsyncCall: _save,
       child: Scaffold(
         body: Padding(
-          padding:  EdgeInsets.only(left: 16.w, right: 16.w, top: 60.h),
+          padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 60.h),
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -42,7 +42,7 @@ class _LoginState extends State<Login> {
                     'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png',
                     height: 200.h,
                   ),
-                   Text(
+                  Text(
                     'مرحبا بك من جديد',
                     style: TextStyle(
                         color: main_color,
@@ -50,7 +50,7 @@ class _LoginState extends State<Login> {
                         fontWeight: FontWeight.w800,
                         fontFamily: 'Marhey'),
                   ),
-                 SizedBox(
+                  SizedBox(
                     height: 20.h,
                   ),
                   Row(
@@ -70,7 +70,7 @@ class _LoginState extends State<Login> {
                               fontFamily: 'Marhey'),
                         ),
                       ),
-                       Text(
+                      Text(
                         '   ليس لديك حساب؟',
                         style: TextStyle(
                             color: Colors.grey,
@@ -80,10 +80,10 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
-                 SizedBox(
+                  SizedBox(
                     height: 30.h,
                   ),
-                 Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'البريد الالكتروني',
@@ -94,7 +94,7 @@ class _LoginState extends State<Login> {
                           fontFamily: 'Marhey'),
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     height: 10.h,
                   ),
                   TextFormField(
@@ -115,10 +115,10 @@ class _LoginState extends State<Login> {
                   )
                   /**/ ///////////////////////////////////////////// */
                   ,
-                   SizedBox(
+                  SizedBox(
                     height: 30.h,
                   ),
-                   Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'كلمه السر',
@@ -129,7 +129,7 @@ class _LoginState extends State<Login> {
                           fontFamily: 'Marhey'),
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     height: 10.h,
                   ),
                   TextFormField(
@@ -176,7 +176,7 @@ class _LoginState extends State<Login> {
                               dialogType: DialogType.info,
                               title:
                                   'تم ارسال لينك اعاده تعين رقم السري علي بريدك',
-                              titleTextStyle:  TextStyle(
+                              titleTextStyle: TextStyle(
                                   color: sec_color,
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w700,
@@ -184,7 +184,7 @@ class _LoginState extends State<Login> {
                             ).show();
                           }
                         },
-                        child:  Text(
+                        child: Text(
                           'نسيت كلمه السر؟',
                           style: TextStyle(
                               color: sec_color,
@@ -194,9 +194,9 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       SizedBox(
-                        width: 130.w,
+                        width: 90.w,
                       ),
-                     Text(
+                      Text(
                         'تذكر كلمه السر',
                         style: TextStyle(
                             color: sec_color,
@@ -221,7 +221,7 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
-                 SizedBox(
+                  SizedBox(
                     height: 30.h,
                   ),
                   GestureDetector(
@@ -274,7 +274,7 @@ class _LoginState extends State<Login> {
                       decoration: BoxDecoration(
                           color: main_color,
                           borderRadius: BorderRadius.circular(10.r)),
-                      child:  Text(
+                      child: Text(
                         'سجل دخولك الان',
                         style: TextStyle(
                             color: Colors.white,
@@ -284,7 +284,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     height: 30.h,
                   ),
                   Row(
@@ -314,14 +314,15 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: 30.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(left:20.w,right: 20.w,top: 20.h,bottom: 20.h),
+                        padding: EdgeInsets.only(
+                            left: 20.w, right: 20.w, top: 20.h, bottom: 20.h),
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: const Color.fromARGB(255, 35, 33, 33)),
@@ -334,11 +335,12 @@ class _LoginState extends State<Login> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                     SizedBox(
+                      SizedBox(
                         width: 30.w,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left:20.w,right: 20.w,top: 20.h,bottom: 20.h),
+                        padding: EdgeInsets.only(
+                            left: 20.w, right: 20.w, top: 20.h, bottom: 20.h),
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: const Color.fromARGB(255, 33, 32, 32)),

@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "109031174232-5aod9rhof31irq61d78t8l4vh4fpvsm1.apps.googleusercontent.com",
+          "client_id": "109031174232-casf4lmlousvjaf0u8o3uotp0is9fri2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "109031174232-smvj452i0f6sfakatib6sa3g6ustshna.apps.googleusercontent.com",
+              "client_id": "109031174232-7fr8nakp5ku03q0k9rpk0uc2j4rt7uff.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.app"
+                "bundle_id": "com.example.project"
               }
             }
           ]
@@ -50,7 +50,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "109031174232-5aod9rhof31irq61d78t8l4vh4fpvsm1.apps.googleusercontent.com",
+          "client_id": "109031174232-nvlukrnrrlokh2trgm4kqcnoraqsp2p9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app",
+            "certificate_hash": "7d3699a6daab7363aa5f1f2b34c621911cd51a29"
+          }
+        },
+        {
+          "client_id": "109031174232-casf4lmlousvjaf0u8o3uotp0is9fri2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -67,10 +75,10 @@
               "client_type": 3
             },
             {
-              "client_id": "109031174232-smvj452i0f6sfakatib6sa3g6ustshna.apps.googleusercontent.com",
+              "client_id": "109031174232-7fr8nakp5ku03q0k9rpk0uc2j4rt7uff.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.app"
+                "bundle_id": "com.example.project"
               }
             }
           ]
@@ -86,7 +94,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "109031174232-5aod9rhof31irq61d78t8l4vh4fpvsm1.apps.googleusercontent.com",
+          "client_id": "109031174232-casf4lmlousvjaf0u8o3uotp0is9fri2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -103,10 +111,10 @@
               "client_type": 3
             },
             {
-              "client_id": "109031174232-smvj452i0f6sfakatib6sa3g6ustshna.apps.googleusercontent.com",
+              "client_id": "109031174232-7fr8nakp5ku03q0k9rpk0uc2j4rt7uff.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.app"
+                "bundle_id": "com.example.project"
               }
             }
           ]

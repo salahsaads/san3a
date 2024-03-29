@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,21 +9,22 @@ import 'package:project/widget/choose_button.dart';
 import 'package:project/screens/workmanship/Custom_Button.dart';
 
 class Choose_to_make_it extends StatefulWidget {
-  Choose_to_make_it({
-    super.key,
-    required this.fullname,
-    required this.phoneNumber,
-    required this.location,
-    required this.dateofbirth,
-    required this.email,
-    required this.password,
-  });
+  Choose_to_make_it(
+      {super.key,
+      required this.fullname,
+      required this.phoneNumber,
+      required this.location,
+      required this.dateofbirth,
+      required this.email,
+      required this.password,
+      required this.workshop_name});
   final String fullname;
   final String phoneNumber;
   final String location;
   final String dateofbirth;
   final String email;
   final String password;
+  final String workshop_name;
   @override
   State<Choose_to_make_it> createState() => _Choose_to_make_itState();
 }
@@ -36,12 +36,12 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding:  EdgeInsets.only(left: 16.w, right: 16.w),
+        padding: EdgeInsets.only(left: 16.w, right: 16.w),
         child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding:  EdgeInsets.only(top: 80.h),
+                padding: EdgeInsets.only(top: 80.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -61,7 +61,7 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                         ),
                       ),
                     ),
-                   Text(
+                    Text(
                       'تسجيل الحساب كا صاحب صنعه',
                       style: TextStyle(
                           color: main_color,
@@ -72,7 +72,7 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   ],
                 ),
               ),
-             SizedBox(
+              SizedBox(
                 height: 30.h,
               ),
               GestureDetector(
@@ -88,7 +88,7 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                 ),
               ),
               //-------------------------------------------------------------------------------------
-               SizedBox(
+              SizedBox(
                 height: 30.h,
               ),
               GestureDetector(
@@ -103,7 +103,7 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 2 ? main_color : Colors.white,
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 30.h,
               ),
               GestureDetector(
@@ -118,7 +118,7 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 3 ? main_color : Colors.white,
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 30.h,
               ),
               GestureDetector(
@@ -133,7 +133,7 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 4 ? main_color : Colors.white,
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 30.h,
               ),
               GestureDetector(
@@ -148,7 +148,7 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 5 ? main_color : Colors.white,
                 ),
               ),
-            SizedBox(
+              SizedBox(
                 height: 30.h,
               ),
               GestureDetector(
@@ -163,7 +163,7 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 6 ? main_color : Colors.white,
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 30.h,
               ),
               GestureDetector(
@@ -193,7 +193,7 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 8 ? main_color : Colors.white,
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 30.h,
               ),
               GestureDetector(
@@ -208,7 +208,7 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   back_color1: select0 == 9 ? main_color : Colors.white,
                 ),
               ),
-             SizedBox(
+              SizedBox(
                 height: 40.h,
               ),
 
@@ -216,24 +216,23 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                 onTap: () async {
                   var z = await Auth.signUpWithEmailAndPassword(
                       widget.email, widget.password);
-                  Navigator.pushNamed(context, 'EmailVerificationScreen');
-                  if (FirebaseAuth.instance.currentUser!.emailVerified) {
-                    if (z != null) {
-                      FireStore().addUser(
-                          fullName: widget.fullname,
-                          dateOfBirth: widget.dateofbirth,
-                          location: widget.location,
-                          phonenumber: widget.phoneNumber,
-                          email: widget.email,
-                          work: selectText);
-                    }
+                  if (z != null) {
+                    FireStore().addUser(
+                        fullName: widget.fullname,
+                        dateOfBirth: widget.dateofbirth,
+                        location: widget.location,
+                        phonenumber: widget.phoneNumber,
+                        email: widget.email,
+                        work: selectText,
+                        workshop_name: widget.workshop_name);
+                    Navigator.pushNamed(context, 'EmailVerificationScreen');
                   }
                 },
                 child: Custom_Buttom(
                   text: 'تسجيل',
                 ),
               ),
-             SizedBox(
+              SizedBox(
                 height: 40.h,
               ),
             ],

@@ -50,6 +50,8 @@ dependencies:
   flutter_fast_forms: ^15.0.0
   modal_progress_hud_nsn: ^0.5.1
   google_sign_in: ^6.2.1
+  image_picker: ^1.0.7
+  firebase_storage: ^11.6.11
 
 dev_dependencies:
   flutter_test:

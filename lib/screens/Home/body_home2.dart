@@ -3,9 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
+import 'package:project/model/info_model.dart';
+import 'package:project/service/store.dart';
 
-class Body_Home2 extends StatelessWidget {
+class Body_Home2 extends StatefulWidget {
   const Body_Home2({super.key});
+
+  @override
+  State<Body_Home2> createState() => _Body_Home2State();
+}
+
+class _Body_Home2State extends State<Body_Home2> {
+  Info_Model? info_model;
+
+  getdata() async {
+    info_model = await FireStore().Get_Info();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getdata();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,40 +47,40 @@ class Body_Home2 extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.r),
                   color: Colors.amber),
             ),
-             SizedBox(
+            SizedBox(
               height: 20.h,
             ),
-            const Text(
-              '  صلاح سعد',
+            Text(
+              '${info_model?.fullName}',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 25,
+                  fontSize: 25.sp,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Marhey'),
             ),
-           SizedBox(
+            SizedBox(
               height: 10.h,
             ),
-             Text(
-              'سباك',
+            Text(
+              '${info_model?.work}',
               style: TextStyle(
                   color: main_color,
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Marhey'),
             ),
-             SizedBox(
+            SizedBox(
               height: 10.h,
             ),
-           Text(
-              '   أجا - المنصوره ',
+            Text(
+              '${info_model?.location}',
               style: TextStyle(
                   color: sec_color,
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Marhey'),
             ),
-             SizedBox(
+            SizedBox(
               height: 10.h,
             ),
             const Row(
@@ -72,10 +93,10 @@ class Body_Home2 extends StatelessWidget {
                 Icon(Icons.star_border)
               ],
             ),
-           SizedBox(
+            SizedBox(
               height: 30.h,
             ),
-             Align(
+            Align(
                 alignment: Alignment.centerRight,
                 child: Text(
                   ':الصور',
@@ -94,11 +115,13 @@ class Body_Home2 extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 8.w,vertical: 8.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
                       child: Container(
                         child: Text('$index'),
                         // margin: EdgeInsets.all(4),
-                        padding:  EdgeInsets.symmetric(horizontal: 8.w,vertical: 8.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.w, vertical: 8.h),
                         width: 150.w,
                         decoration: BoxDecoration(
                             color: Colors.amber,
@@ -116,7 +139,7 @@ class Body_Home2 extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   color: main_color, borderRadius: BorderRadius.circular(10)),
-              child:  Text(
+              child: Text(
                 'اضافه صوره',
                 style: TextStyle(
                     color: Colors.white,
@@ -128,7 +151,7 @@ class Body_Home2 extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-           Align(
+            Align(
                 alignment: Alignment.centerRight,
                 child: Text(
                   ':التعليقات',
