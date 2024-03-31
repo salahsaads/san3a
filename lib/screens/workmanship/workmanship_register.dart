@@ -40,7 +40,7 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 50.h),
+        padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 30.h),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,

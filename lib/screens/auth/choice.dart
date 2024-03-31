@@ -62,7 +62,7 @@ class Choice extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Client_Register()));
+                      builder: (context) =>  Client_Register()));
                 },
                 child: Container(
                   height: 80.h,

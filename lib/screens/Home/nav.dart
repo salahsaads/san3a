@@ -10,6 +10,7 @@ import 'package:project/constant/constant.dart';
 import 'package:project/screens/Home/home.dart';
 import 'package:project/screens/Home/home2.dart';
 import 'package:project/screens/Home/home3.dart';
+import 'package:project/screens/Home/worker_prof.dart';
 import 'package:project/screens/auth/login.dart';
 import 'package:project/widget/choose_button.dart';
 
@@ -23,12 +24,13 @@ class Nav extends StatefulWidget {
 class _NavState extends State<Nav> {
   bool isLoading = false;
 
-  static  TextStyle optionStyle = TextStyle(
+  static TextStyle optionStyle = TextStyle(
       color: main_color,
       fontSize: 16.sp,
       fontWeight: FontWeight.w700,
       fontFamily: 'Marhey');
   int _selectedIndex = 0;
+
   List<Widget> body = [Home(), const Home2(), const Home3()];
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class _NavState extends State<Nav> {
       child: Scaffold(
         endDrawer: Drawer(
           child: Padding(
-            padding:  EdgeInsets.only(left: 16.w, right: 16.w, top: 150.h),
+            padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 150.h),
             child: Column(
               children: [
                 Container(
@@ -108,7 +110,7 @@ class _NavState extends State<Nav> {
             Builder(
               builder: (context) => IconButton(
                 icon: Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 8.w,vertical: 8.w),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w),
                   child: Icon(
                     Icons.menu,
                     size: 40.sp,
@@ -121,17 +123,23 @@ class _NavState extends State<Nav> {
             ),
           ],
           leading: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6.w,vertical: 6.w),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50.r),
-                image: const DecorationImage(
-                  image: AssetImage(
-                      'assets/WhatsApp Image 2024-03-19 at 8.43.10 PM.jpeg'),
-                  fit: BoxFit.cover,
+            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.w),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Worker_prof()));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.r),
+                  image: const DecorationImage(
+                    image: AssetImage(
+                        'assets/WhatsApp Image 2024-03-19 at 8.43.10 PM.jpeg'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
+                child: null /* add child content here */,
               ),
-              child: null /* add child content here */,
             ),
           ),
         ),
@@ -148,15 +156,14 @@ class _NavState extends State<Nav> {
           ),
           child: SafeArea(
             child: Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 8.h),
+              padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 8.h),
               child: GNav(
                 rippleColor: Colors.grey[300]!,
                 hoverColor: Colors.grey[100]!,
                 gap: 8,
                 activeColor: main_color,
                 iconSize: 24.sp,
-                padding:  EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                 duration: const Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.grey[100]!,
                 color: Colors.black,

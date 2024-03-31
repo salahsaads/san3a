@@ -1,4 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -8,9 +10,28 @@ import 'package:project/screens/auth/login.dart';
 import 'package:project/service/auth_service.dart';
 
 class Client_Register extends StatelessWidget {
-  const Client_Register({super.key});
+  Client_Register({super.key});
+  // Future signInWithGoogle() async {
+  //   // Trigger the authentication flow
+  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //   if (googleUser == null) {
+  //     return;
+  //   }
+  //   // Obtain the auth details from the request
+  //   final GoogleSignInAuthentication? googleAuth =
+  //       await googleUser?.authentication;
+  //   // Create a new credential
+  //   final credential = GoogleAuthProvider.credential(
+  //     accessToken: googleAuth?.accessToken,
+  //     idToken: googleAuth?.idToken,
+  //   );
+  //   // Once signed in, return the UserCredential
+  //   await FirebaseAuth.instance.signInWithCredential(credential);
+  //   Navigator.of(context as BuildContext)
+  //       .pushNamedAndRemoveUntil('nav_client', (route) => false);
+  // }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -64,16 +85,8 @@ class Client_Register extends StatelessWidget {
                 height: 50.h,
               ),
               GestureDetector(
-                onTap: () async {
-                  //final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-                  // bool s = await Auth.signInWithGoogle();
-                  // if (s == true) {
-                  //   Navigator.pushAndRemoveUntil(
-                  //       context as BuildContext,
-                  //       MaterialPageRoute(builder: (context) => Nav_Client()),
-                  //       (route) => false);
-                  // }
+                onTap: () {
+                 // signInWithGoogle();
                 },
                 child: Container(
                   height: 60.h,
