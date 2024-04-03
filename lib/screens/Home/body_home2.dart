@@ -57,9 +57,11 @@ class _Body_Home2State extends State<Body_Home2> {
 
   getdata() async {
     info_model = await FireStore().Get_Info();
-
+    image_model_prof = await FireStore().Get_Image_prof2();
     setState(() {});
   }
+
+  Image_Model_work image_model_prof = Image_Model_work();
 
   @override
   void initState() {
@@ -86,12 +88,18 @@ class _Body_Home2State extends State<Body_Home2> {
               width: 160.w,
               height: 160.h,
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: new AssetImage(
-                          "assets/WhatsApp Image 2024-03-19 at 8.43.10 PM.jpeg"),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(10.r),
-                  color: Colors.amber),
+                borderRadius: BorderRadius.circular(10.r),
+                image: image_model_prof.url != null
+                    ? DecorationImage(
+                        image: NetworkImage(image_model_prof.url!),
+                        fit: BoxFit.cover,
+                      )
+                    : DecorationImage(
+                        image: AssetImage(
+                            'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png'),
+                        fit: BoxFit.cover,
+                      ), // No image if url is null
+              ),
             ),
             SizedBox(
               height: 20.h,
@@ -205,7 +213,10 @@ class _Body_Home2State extends State<Body_Home2> {
 
                                 setState(() {});
                               },
-                              child: Icon(Icons.cancel,color: Colors.red,),
+                              child: Icon(
+                                Icons.cancel,
+                                color: Colors.red,
+                              ),
                             ), // Display relevant data here
                             padding: EdgeInsets.symmetric(
                                 horizontal: 8.w, vertical: 8.h),

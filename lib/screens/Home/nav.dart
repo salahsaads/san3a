@@ -7,11 +7,13 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project/constant/constant.dart';
+import 'package:project/model/image_model_work.dart';
 import 'package:project/screens/Home/home.dart';
 import 'package:project/screens/Home/home2.dart';
 import 'package:project/screens/Home/home3.dart';
 import 'package:project/screens/Home/worker_prof.dart';
 import 'package:project/screens/auth/login.dart';
+import 'package:project/service/store.dart';
 import 'package:project/widget/choose_button.dart';
 
 class Nav extends StatefulWidget {
@@ -32,6 +34,20 @@ class _NavState extends State<Nav> {
   int _selectedIndex = 0;
 
   List<Widget> body = [Home(), const Home2(), const Home3()];
+  Image_Model_work image_model_prof = Image_Model_work();
+  getdata() async {
+    image_model_prof = await FireStore().Get_Image_prof2();
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getdata();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -132,13 +148,18 @@ class _NavState extends State<Nav> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50.r),
-                  image: const DecorationImage(
-                    image: AssetImage(
-                        'assets/WhatsApp Image 2024-03-19 at 8.43.10 PM.jpeg'),
-                    fit: BoxFit.cover,
-                  ),
+                  image: image_model_prof.url != null
+                      ? DecorationImage(
+                          image: NetworkImage(image_model_prof.url!),
+                          fit: BoxFit.cover,
+                        )
+                      : DecorationImage(
+                          image: AssetImage(
+                              'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png'),
+                          fit: BoxFit.cover,
+                        ), // No image if url is null
                 ),
-                child: null /* add child content here */,
+                // Placeholder content if url is null
               ),
             ),
           ),

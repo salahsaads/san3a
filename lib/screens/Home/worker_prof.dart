@@ -1,10 +1,20 @@
+import 'dart:io';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
+import 'package:project/model/image_model_work.dart';
+import 'package:project/model/info_model.dart';
 import 'package:project/screens/auth/login.dart';
+import 'package:project/service/store.dart';
 import 'package:project/widget/choose_button.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
 class Worker_prof extends StatefulWidget {
   const Worker_prof({super.key});
@@ -14,6 +24,54 @@ class Worker_prof extends StatefulWidget {
 }
 
 class _Worker_profState extends State<Worker_prof> {
+  File? file2;
+  bool getimage = false;
+  String? url2;
+  UploadImage_camera3() async {
+    ImagePicker picker = ImagePicker();
+    XFile? image = await picker.pickImage(source: ImageSource.camera);
+
+    if (image != null) {
+      setState(() {
+        file2 = File(image.path);
+        getimage = true;
+      });
+
+      var metadata = SettableMetadata(
+        contentType: "image/jpeg",
+      );
+      var imgname = basename(image.path);
+      var ref = FirebaseStorage.instance.ref("work_prof/$imgname");
+      await ref.putFile(file2!, metadata);
+
+      url2 = await ref.getDownloadURL();
+    }
+  }
+
+  add() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    FireStore().addImage_pro2(url: url2!, email: user!);
+    image_model_prof = await FireStore().Get_Image_prof2();
+    setState(() {});
+  }
+
+  Image_Model_work image_model_prof = Image_Model_work();
+
+  Info_Model info_model = Info_Model();
+  getdata() async {
+    info_model = await FireStore().Get_Info();
+    image_model_prof = await FireStore().Get_Image_prof2();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getdata();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,18 +173,83 @@ class _Worker_profState extends State<Worker_prof> {
       body: Padding(
         padding: EdgeInsets.only(left: 16.w, right: 16.w),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: 150.w,
-              height: 150.h,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: new AssetImage(
-                          "assets/WhatsApp Image 2024-03-19 at 8.43.10 PM.jpeg"),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(150.r),
-                  color: Colors.amber),
+            Stack(
+              children: [
+                if (image_model_prof.url != null)
+                  Container(
+                    width: 100.w,
+                    height: 100.h,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(image_model_prof.url!),
+                            fit: BoxFit.cover),
+                        borderRadius: BorderRadius.circular(150.r),
+                        color: Colors.amber),
+                  )
+                else
+                  Container(
+                    width: 100.w,
+                    height: 100.h,
+                    decoration: BoxDecoration(
+                        // image: DecorationImage(
+                        //     image: NetworkImage(image_model_prof.url!),
+                        //     fit: BoxFit.cover),
+                        borderRadius: BorderRadius.circular(150.r),
+                        color: Colors.amber),
+                  ),
+                GestureDetector(
+                  onTap: () async {
+                    await UploadImage_camera3();
+                    if (getimage) {
+                      AwesomeDialog(
+                        context: context,
+                        animType: AnimType.scale,
+                        dialogType: DialogType.info,
+                        body: Center(
+                          child: Text(
+                            'تأكيد تغير صوره الملف الشخصي ',
+                            style: TextStyle(
+                                color: sec_color,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Marhey'),
+                          ),
+                        ),
+                        btnCancelText: 'لا',
+                        btnOkText: 'نعم',
+                        btnOkOnPress: () {
+                          add();
+                        },
+                        btnCancelOnPress: () {},
+                      )..show();
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 3.w,
+                        vertical: 3.h), // Adjust the padding as needed
+                    decoration: BoxDecoration(
+                      color: main_color,
+                      border: Border.all(
+                        color: Colors.black, // Set the border color
+                        width: 2.0.w, // Set the border width
+                      ),
+                      borderRadius: BorderRadius.circular(12.0
+                          .r), // Set border radius if you want rounded corners
+                    ),
+                    child: Icon(
+                      Icons.camera_alt,
+                      size: 20.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30.h,
             ),
             Row(
               children: [
@@ -156,11 +279,31 @@ class _Worker_profState extends State<Worker_prof> {
                 ),
               ],
             ),
-
+            SizedBox(
+              height: 10.h,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${info_model.fullName}',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Marhey'),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Divider(
+              thickness: 0.9,
+              color: Colors.grey[400],
+            ),
             //--------------------------------------------------------------------
 
             SizedBox(
-              height: 50.h,
+              height: 10.h,
             ),
             Row(
               children: [
@@ -191,11 +334,89 @@ class _Worker_profState extends State<Worker_prof> {
                 ),
               ],
             ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${info_model.phonenumber}',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Marhey'),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Divider(
+              thickness: 0.9,
+              color: Colors.grey[400],
+            ),
+            //--------------------------------------------------------------------
+
+            SizedBox(
+              height: 10.h,
+            ),
 
             //------------------------------------------------------------------------------------------------------------------
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 3.w,
+                      vertical: 3.h), // Adjust the padding as needed
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey, // Set the border color
+                      width: 2.0.w, // Set the border width
+                    ),
+                    borderRadius: BorderRadius.circular(12.0
+                        .r), // Set border radius if you want rounded corners
+                  ),
+                  child: Icon(
+                    Icons.calendar_month,
+                    size: 20.sp,
+                    color: Colors.grey,
+                  ),
+                ),
+                Text(
+                  '   تاريخ الميلاد',
+                  style: TextStyle(
+                      color: sec_color,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Marhey'),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${info_model.dateOfBirth}',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Marhey'),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Divider(
+              thickness: 0.9,
+              color: Colors.grey[400],
+            ),
+            //--------------------------------------------------------------------
 
-            const SizedBox(
-              height: 50,
+            SizedBox(
+              height: 10.h,
             ),
             Row(
               children: [
@@ -227,11 +448,89 @@ class _Worker_profState extends State<Worker_prof> {
                 ),
               ],
             ),
-
-            //------------------------------------------------------------------------------------------------------------------
+            SizedBox(
+              height: 10.h,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${info_model.email}',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Marhey'),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Divider(
+              thickness: 0.9,
+              color: Colors.grey[400],
+            ),
+            //--------------------------------------------------------------------
 
             SizedBox(
-              height: 50.h,
+              height: 10.h,
+            ),
+            //------------------------------------------------------------------------------------------------------------------
+
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 3.w,
+                      vertical: 3.h), // Adjust the padding as needed
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey, // Set the border color
+                      width: 2.0.w, // Set the border width
+                    ),
+                    borderRadius: BorderRadius.circular(12.0
+                        .r), // Set border radius if you want rounded corners
+                  ),
+                  child: Icon(
+                    Icons.location_on,
+                    size: 20.sp,
+                    color: Colors.grey,
+                  ),
+                ),
+                Text(
+                  '   موقع ورشتك أو موقعك ',
+                  style: TextStyle(
+                      color: sec_color,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Marhey'),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${info_model.location}',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Marhey'),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Divider(
+              thickness: 0.9,
+              color: Colors.grey[400],
+            ),
+            //--------------------------------------------------------------------
+
+            SizedBox(
+              height: 10.h,
             ),
             Row(
               children: [
@@ -260,6 +559,27 @@ class _Worker_profState extends State<Worker_prof> {
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'Marhey'),
+                ),
+                SizedBox(
+                  width: 50.w,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 3.w,
+                      vertical: 3.h), // Adjust the padding as needed
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey, // Set the border color
+                      width: 2.0.w, // Set the border width
+                    ),
+                    borderRadius: BorderRadius.circular(12.0
+                        .r), // Set border radius if you want rounded corners
+                  ),
+                  child: Icon(
+                    Icons.border_color,
+                    size: 20.sp,
+                    color: Colors.grey,
+                  ),
                 ),
               ],
             ),

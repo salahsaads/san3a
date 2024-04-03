@@ -316,7 +316,7 @@ class _Body_Home1State extends State<Body_Home1> {
               height: 20.h,
             ),
             Text(
-              '   ${info_model?.workshop_name}',
+                  '   ${info_model?.workshop_name}',
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 25.sp,
