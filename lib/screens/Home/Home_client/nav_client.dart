@@ -9,6 +9,8 @@ import 'package:project/constant/constant.dart';
 import 'package:project/screens/Home/Home_client/home1_client.dart';
 import 'package:project/screens/Home/Home_client/home2_clinet.dart';
 import 'package:project/screens/Home/Home_client/home3_clinet.dart';
+import 'package:project/screens/auth/login_client.dart';
+import 'package:project/service/auth_client.dart';
 import 'package:project/service/auth_service.dart';
 
 import 'package:project/widget/choose_button.dart';
@@ -21,19 +23,23 @@ class Nav_Client extends StatefulWidget {
 }
 
 class _NavState extends State<Nav_Client> {
-  static  TextStyle optionStyle = TextStyle(
+  static TextStyle optionStyle = TextStyle(
       color: main_color,
       fontSize: 16.sp,
       fontWeight: FontWeight.w700,
       fontFamily: 'Marhey');
   int _selectedIndex = 0;
-  List<Widget> body = [const Home1Client(), const Home2Client(), const Home3Client()];
+  List<Widget> body = [
+    const Home1Client(),
+    const Home2Client(),
+    const Home3Client()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: Drawer(
         child: Padding(
-          padding:  EdgeInsets.only(left: 16.w, right: 16.w, top: 150.h),
+          padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 100.h),
           child: Column(
             children: [
               Container(
@@ -54,7 +60,7 @@ class _NavState extends State<Nav_Client> {
                 text: 'تواصل معانا',
                 back_color1: Colors.white,
               ),
-             SizedBox(
+              SizedBox(
                 height: 30.h,
               ),
               MyWidget_button(
@@ -65,12 +71,12 @@ class _NavState extends State<Nav_Client> {
                 height: 30.h,
               ),
               GestureDetector(
-                onTap: () {
-                  GoogleSignIn googleSignIn = GoogleSignIn();
-                  googleSignIn.disconnect();
-                  Auth.SignOut();
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "login", (route) => false);
+                onTap: ()async {
+                await  Auth.SignOut();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login_client()),
+                      (route) => false);
                 },
                 child: MyWidget_button(
                   text: 'تسجيل الخروج',
@@ -102,13 +108,10 @@ class _NavState extends State<Nav_Client> {
         actions: [
           Builder(
             builder: (context) => IconButton(
-              icon: Padding(
-                padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 150.h),
-                child: Icon(
-                  Icons.menu,
-                  size: 40.sp,
-                  color: main_color,
-                ),
+              icon: Icon(
+                Icons.menu,
+                size: 40.sp,
+                color: main_color,
               ),
               onPressed: () => Scaffold.of(context).openEndDrawer(),
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
@@ -143,14 +146,14 @@ class _NavState extends State<Nav_Client> {
         ),
         child: SafeArea(
           child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 8.h),
+            padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 8.h),
             child: GNav(
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
               gap: 8,
               activeColor: main_color,
               iconSize: 24,
-              padding:  EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
               duration: const Duration(milliseconds: 400),
               tabBackgroundColor: Colors.grey[100]!,
               color: Colors.black,

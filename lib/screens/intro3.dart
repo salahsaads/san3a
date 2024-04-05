@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/screens/auth/login.dart';
+import 'package:project/screens/auth/login_worker.dart';
 
 class Third_Intro extends StatelessWidget {
   const Third_Intro({Key? key}) : super(key: key);
@@ -47,7 +47,7 @@ class Third_Intro extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => Login()));
+                      .push(MaterialPageRoute(builder: (context) => Login_worker()));
                 },
                 child: Container(
                   height: 60.h,

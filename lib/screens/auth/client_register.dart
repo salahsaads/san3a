@@ -1,37 +1,16 @@
-
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/screens/Home/Home_client/nav_client.dart';
-import 'package:project/screens/auth/login.dart';
-import 'package:project/service/auth_service.dart';
+import 'package:project/screens/Home/Home_client/Email_Register.dart';
+import 'package:project/screens/auth/login_worker.dart';
 
-class Client_Register extends StatelessWidget {
-  Client_Register({super.key});
-  // Future signInWithGoogle() async {
-  //   // Trigger the authentication flow
-  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  //   if (googleUser == null) {
-  //     return;
-  //   }
-  //   // Obtain the auth details from the request
-  //   final GoogleSignInAuthentication? googleAuth =
-  //       await googleUser?.authentication;
-  //   // Create a new credential
-  //   final credential = GoogleAuthProvider.credential(
-  //     accessToken: googleAuth?.accessToken,
-  //     idToken: googleAuth?.idToken,
-  //   );
-  //   // Once signed in, return the UserCredential
-  //   await FirebaseAuth.instance.signInWithCredential(credential);
-  //   Navigator.of(context as BuildContext)
-  //       .pushNamedAndRemoveUntil('nav_client', (route) => false);
-  // }
+class Client_Register1 extends StatelessWidget {
+  Client_Register1({super.key, required this.type_email});
 
- @override
+  String type_email;
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -60,7 +39,7 @@ class Client_Register extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const Login()));
+                          builder: (context) => const Login_worker()));
                     },
                     child: Text(
                       'سجل دخولك',
@@ -86,7 +65,7 @@ class Client_Register extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                 // signInWithGoogle();
+                  // signInWithGoogle();
                 },
                 child: Container(
                   height: 60.h,
@@ -182,41 +161,52 @@ class Client_Register extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
-              Container(
-                height: 60.h,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    //  border: Border.all(color: Colors.black, width: 2),
-                    color: main_color,
-                    /*  boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 5, 5, 5).withOpacity(0.5),
-                        spreadRadius: 5.r,
-                        blurRadius: 7.r,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],*/
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(
-                        Icons.email,
-                        size: 40.sp,
-                        color: Colors.white,
-                      ),
-                      //  Icon(Icons.search_google),
-                      Text(
-                        'التسجيل عبر الاميل',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: 'Marhey'),
-                      ),
-                    ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Register_client_Email(
+                              email_type: type_email,
+                            )),
+                  );
+                },
+                child: Container(
+                  height: 60.h,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      //  border: Border.all(color: Colors.black, width: 2),
+                      color: main_color,
+                      /*  boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 5, 5, 5).withOpacity(0.5),
+                          spreadRadius: 5.r,
+                          blurRadius: 7.r,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],*/
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(
+                          Icons.email,
+                          size: 40.sp,
+                          color: Colors.white,
+                        ),
+                        //  Icon(Icons.search_google),
+                        Text(
+                          'التسجيل عبر الاميل',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: 'Marhey'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

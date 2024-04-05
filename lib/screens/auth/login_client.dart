@@ -5,18 +5,20 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/screens/Home/nav.dart';
+import 'package:project/screens/Home/Home_client/nav_client.dart';
 import 'package:project/screens/auth/choice.dart';
+import 'package:project/screens/auth/login_worker.dart';
+import 'package:project/service/auth_client.dart';
 import 'package:project/service/auth_service.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Login_client extends StatefulWidget {
+  const Login_client({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Login_client> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login_client> {
   bool icon_check = true;
   // ignore: non_constant_identifier_names
   bool icon_check_o = true;
@@ -52,6 +54,36 @@ class _LoginState extends State<Login> {
                   ),
                   SizedBox(
                     height: 20.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const Login_worker()));
+                        },
+                        child: Text(
+                          'تبديل؟',
+                          style: TextStyle(
+                              color: sec_color,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: 'Marhey'),
+                        ),
+                      ),
+                      Text(
+                        '  حساب عميل ',
+                        style: TextStyle(
+                            color: main_color,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: 'Marhey'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -230,14 +262,15 @@ class _LoginState extends State<Login> {
                       if (_formKey.currentState!.validate()) {
                         _save = true;
                         setState(() {});
-                        x = await Auth.signInWithEmailAndPassword(
+                        x = await Auth_client.signInWithEmailAndPassword(
                             email.text, password.text);
                         if (x == 'yes') {
                           _save = false;
                           setState(() {});
                           Navigator.pushAndRemoveUntil(
                               context,
-                              MaterialPageRoute(builder: (context) => Nav()),
+                              MaterialPageRoute(
+                                  builder: (context) => Nav_Client()),
                               (route) => false);
                         } else {
                           _save = false;

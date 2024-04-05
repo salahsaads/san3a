@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/service/auth_service.dart';
+import 'package:project/service/stor_client_and_worker.dart';
 import 'package:project/service/store.dart';
 import 'package:project/widget/choose_button.dart';
 import 'package:project/screens/workmanship/Custom_Button.dart';
@@ -17,7 +18,8 @@ class Choose_to_make_it extends StatefulWidget {
       required this.dateofbirth,
       required this.email,
       required this.password,
-      required this.workshop_name});
+      required this.workshop_name,
+      required this.email_type});
   final String fullname;
   final String phoneNumber;
   final String location;
@@ -25,6 +27,7 @@ class Choose_to_make_it extends StatefulWidget {
   final String email;
   final String password;
   final String workshop_name;
+  final String email_type;
   @override
   State<Choose_to_make_it> createState() => _Choose_to_make_itState();
 }
@@ -217,7 +220,12 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                   var z = await Auth.signUpWithEmailAndPassword(
                       widget.email, widget.password);
                   if (z != null) {
-                    FireStore().addUser(
+                    await FireStore_client_worker().addEmail_type(
+                      email: widget.email,
+                      email_type: widget.email_type,
+                    );
+                    await FireStore().addUser(
+                        email_type: widget.email_type,
                         fullName: widget.fullname,
                         dateOfBirth: widget.dateofbirth,
                         location: widget.location,

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,7 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/image_model_work.dart';
 import 'package:project/model/info_model.dart';
-import 'package:project/screens/auth/login.dart';
+import 'package:project/screens/auth/login_worker.dart';
+import 'package:project/service/auth_service.dart';
 import 'package:project/service/store.dart';
 import 'package:project/widget/choose_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -116,7 +116,7 @@ class _Worker_profState extends State<Worker_prof> {
                     print('log out');
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => const Login()),
+                        MaterialPageRoute(builder: (context) => const Login_worker()),
                         (route) => false);
                   },
                   child: MyWidget_button(
@@ -223,7 +223,7 @@ class _Worker_profState extends State<Worker_prof> {
                           add();
                         },
                         btnCancelOnPress: () {},
-                      )..show();
+                      ).show();
                     }
                   },
                   child: Container(
@@ -563,22 +563,48 @@ class _Worker_profState extends State<Worker_prof> {
                 SizedBox(
                   width: 50.w,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 3.w,
-                      vertical: 3.h), // Adjust the padding as needed
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey, // Set the border color
-                      width: 2.0.w, // Set the border width
+                GestureDetector(
+                  onTap: () {
+                    AwesomeDialog(
+                      context: context,
+                      animType: AnimType.scale,
+                      dialogType: DialogType.info,
+                      body: Center(
+                        child: Text(
+                          'تأكيد تغير الباسورد',
+                          style: TextStyle(
+                              color: sec_color,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Marhey'),
+                        ),
+                      ),
+                      btnCancelText: 'لا',
+                      btnOkText: 'نعم',
+                      btnOkOnPress: () async {
+                        await Auth.auth
+                            .sendPasswordResetEmail(email: info_model.email!);
+                      },
+                      btnCancelOnPress: () {},
+                    ).show();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 3.w,
+                        vertical: 3.h), // Adjust the padding as needed
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey, // Set the border color
+                        width: 2.0.w, // Set the border width
+                      ),
+                      borderRadius: BorderRadius.circular(12.0
+                          .r), // Set border radius if you want rounded corners
                     ),
-                    borderRadius: BorderRadius.circular(12.0
-                        .r), // Set border radius if you want rounded corners
-                  ),
-                  child: Icon(
-                    Icons.border_color,
-                    size: 20.sp,
-                    color: Colors.grey,
+                    child: Icon(
+                      Icons.border_color,
+                      size: 20.sp,
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
               ],

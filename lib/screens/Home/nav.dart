@@ -12,7 +12,7 @@ import 'package:project/screens/Home/home.dart';
 import 'package:project/screens/Home/home2.dart';
 import 'package:project/screens/Home/home3.dart';
 import 'package:project/screens/Home/worker_prof.dart';
-import 'package:project/screens/auth/login.dart';
+import 'package:project/screens/auth/login_worker.dart';
 import 'package:project/service/store.dart';
 import 'package:project/widget/choose_button.dart';
 
@@ -92,7 +92,7 @@ class _NavState extends State<Nav> {
                     print('log out');
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => const Login()),
+                        MaterialPageRoute(builder: (context) => const Login_worker()),
                         (route) => false);
                   },
                   child: MyWidget_button(

@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:project/model/image_model_all.dart';
 import 'package:project/model/image_model_work.dart';
 import 'package:project/model/info_model.dart';
@@ -20,10 +21,12 @@ class FireStore {
       required String location,
       required String phonenumber,
       required String work,
-      required String email}) {
+      required String email,
+      required String email_type}) {
     // Call the user's CollectionReference to add a new user
     return users
         .add({
+          'email_type': email_type,
           'full_name': fullName,
           'dateofbirth': dateOfBirth,
           'location': location,
@@ -49,8 +52,9 @@ class FireStore {
         .then((value) => print("Image Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
+
 ///////////////////////////////////////////////////////////////////////////
-CollectionReference image_url_work3 =
+  CollectionReference image_url_work3 =
       FirebaseFirestore.instance.collection('image_work_prof');
   Future<void> addImage_pro2({required String url, required User email}) {
     // Call the user's CollectionReference to add a new user
@@ -149,9 +153,10 @@ CollectionReference image_url_work3 =
       } else {
         // If no matching document found, return null or throw an error
         // Depending on your use case
-        throw Exception("No user found with email ${user.email}");
+        // throw Exception("No user found with email ${user.email}");
         // You can also return null if you prefer
-        // return null;
+        Info_Model info_model = Info_Model();
+        return info_model;
       }
     } else {
       // If no user is currently authenticated, handle this case accordingly

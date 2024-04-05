@@ -1,25 +1,20 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/screens/workmanship/Choose_to_make_it.dart';
 import 'package:project/screens/workmanship/Custom_Button.dart';
-import 'package:intl/intl.dart';
+import 'package:project/service/auth_client.dart';
+import 'package:project/service/stor_client_and_worker.dart';
+import 'package:project/service/store_client.dart';
 
-class Workmanship_Register extends StatefulWidget {
-  Workmanship_Register({super.key, this.email_type});
-  String? email_type;
+class Register_client_Email extends StatefulWidget {
+  Register_client_Email({super.key, required this.email_type});
+  String email_type;
   @override
-  State<Workmanship_Register> createState() => _Workmanship_RegisterState();
+  State<Register_client_Email> createState() => _Register_clientState();
 }
 
-class _Workmanship_RegisterState extends State<Workmanship_Register> {
+class _Register_clientState extends State<Register_client_Email> {
   int select0 = 0;
   DateTime? time;
   bool icon_check1 = true;
@@ -35,7 +30,6 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
   TextEditingController workshop_name = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +41,7 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 80.h),
+                  padding: EdgeInsets.only(top: 50.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -68,7 +62,7 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
                         ),
                       ),
                       Text(
-                        'تسجيل الحساب كا صاحب صنعه',
+                        'تسجيل الحساب كا عميل',
                         style: TextStyle(
                             color: main_color,
                             fontSize: 18.sp,
@@ -122,53 +116,8 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
                 )
                 //------------------------------------------------------------------------------------------------------------------
                 ,
-                SizedBox(
-                  height: 50.h,
-                ),
-
-                Row(
-                  children: [
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey, // Set the border color
-                          width: 2.0.w, // Set the border width
-                        ),
-                        borderRadius: BorderRadius.circular(12.0
-                            .r), // Set border radius if you want rounded corners
-                      ),
-                      child: Icon(
-                        Icons.person,
-                        size: 20.sp,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Text(
-                      ' اسم ورشتك ',
-                      style: TextStyle(
-                          color: sec_color,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Marhey'),
-                    ),
-                  ],
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'من فضلك ادخل الاسم';
-                    }
-                    return null;
-                  },
-                  controller: workshop_name,
-                  decoration: InputDecoration(hintText: 'ادخل اسم ورشتك'),
-                )
-                //--------------------------------------------------------------------
-                ,
-                SizedBox(
-                  height: 50.h,
+                const SizedBox(
+                  height: 50,
                 ),
                 Row(
                   children: [
@@ -381,145 +330,32 @@ class _Workmanship_RegisterState extends State<Workmanship_Register> {
                 SizedBox(
                   height: 50.h,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 3.w,
-                          vertical: 3.h), // Adjust the padding as needed
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey, // Set the border color
-                          width: 2.0.w, // Set the border width
-                        ),
-                        borderRadius: BorderRadius.circular(12.0
-                            .r), // Set border radius if you want rounded corners
-                      ),
-                      child: Icon(
-                        Icons.calendar_month,
-                        size: 20.sp,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Text(
-                      '   تاريخ الميلاد',
-                      style: TextStyle(
-                          color: sec_color,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Marhey'),
-                    ),
-                  ],
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'من فضلك ادخل تاريح الميلاد';
-                    }
-                    return null;
-                  },
-                  controller: age,
-                  decoration: InputDecoration(
-                      suffixIcon: GestureDetector(
-                    onTap: () async {
-                      time = await showDatePicker(
-                          context: context,
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime(2025),
-                          initialDate: DateTime.now());
-                      print(time);
-                      // ignore: unused_local_variable
-                      DateTime dateTime = DateTime.now();
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd HH:mm:ss').format(time!);
-                      print(formattedDate);
-
-                      age.text = formattedDate.substring(0, 11);
-                      print(age.text);
-                    },
-                    child: Icon(
-                      Icons.calendar_month,
-                    ),
-                  )),
-                ),
-                //------------------------------------------------------------------------------------------------------------------
-
-                SizedBox(
-                  height: 50.w,
-                ),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 3.w,
-                          vertical: 3.h), // Adjust the padding as needed
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey, // Set the border color
-                          width: 2.0.w, // Set the border width
-                        ),
-                        borderRadius: BorderRadius.circular(12.0
-                            .r), // Set border radius if you want rounded corners
-                      ),
-                      child: Icon(
-                        Icons.location_on,
-                        size: 20.sp,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Text(
-                      '   موقع ورشتك أو موقعك ',
-                      style: TextStyle(
-                          color: sec_color,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Marhey'),
-                    ),
-                  ],
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'من فضلك ادخل الموقع';
-                    }
-                    return null;
-                  },
-                  controller: loaction,
-                  decoration: InputDecoration(
-                      suffixIcon: Icon(
-                    Icons.location_on,
-                  )),
-                )
-
-                //------------------------------------------
-                ,
-
-                SizedBox(
-                  height: 30.h,
-                ),
-
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Choose_to_make_it(
-                                    email_type: widget.email_type!,
-                                    location: loaction.text,
-                                    fullname: fullname.text,
-                                    password: password.text,
-                                    phoneNumber: phoneNumber.text,
-                                    email: email.text,
-                                    dateofbirth: age.text,
-                                    workshop_name: workshop_name.text,
-                                  )));
+                      var x = await Auth_client.signUpWithEmailAndPassword(
+                          email.text, password.text);
+
+                      if (x != null) {
+                        FireStore_client_worker().addEmail_type(
+                          email: email.text,
+                          email_type: widget.email_type,
+                        );
+                        FireStore_client().addUser_client(
+                            email_type: widget.email_type,
+                            fullName: fullname.text,
+                            phonenumber: phoneNumber.text,
+                            email: email.text);
+                        Navigator.pushNamed(
+                            context, 'EmailVerificationScreen_client');
+                      }
                     }
                   },
                   child: Custom_Buttom(
-                    text: 'الاستمرار في التسجيل',
+                    text: 'التسجيل',
                   ),
                 )
+                //------------------------------------------------------------------------------------------------------------------
               ],
             ),
           ),
