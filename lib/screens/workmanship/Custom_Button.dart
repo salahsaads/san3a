@@ -14,7 +14,7 @@ class Custom_Buttom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60.h,
+      height: 50.h,
       alignment: Alignment.center,
       decoration: BoxDecoration(
           // border: Border.all(color: Colors.black, width: 2),

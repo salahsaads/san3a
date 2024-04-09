@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:project/model/image_model_all.dart';
 import 'package:project/model/image_model_work.dart';
 import 'package:project/model/info_model.dart';
@@ -40,6 +39,85 @@ class FireStore {
             (error) => print("--------------Failed to add User: $error"));
   }
 
+  //////////////////////////////////////////////////////////////////////////////
+
+  void addImageUser({required String url, required String email}) async {
+    try {
+      var collectionName = 'users'; // Replace with your collection name
+
+      // Query 'image_work_all' collection to find the document with the matching email
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection(collectionName)
+              .where('email', isEqualTo: email)
+              .get();
+
+      // Check if any documents match the query
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the first document (assuming there's only one document per email)
+        var imageWorkDocument = querySnapshot.docs.first;
+
+        // Extract the document ID from the 'image_work_all' collection
+        var docId = imageWorkDocument.id;
+
+        // Reference the document in the 'users' collection using the extracted docId
+        var docRef =
+            FirebaseFirestore.instance.collection(collectionName).doc(docId);
+
+        // Use set with merge option to add/update the 'url' field in the 'users' document
+        await docRef.update({
+          'url': url,
+        });
+
+        print('Field added successfully!');
+      } else {
+        print('No document found in image_work_all with email: $email');
+      }
+    } catch (e) {
+      print('Error adding image URL: $e');
+    }
+  }
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+  void addImageUser2({required String url, required String email}) async {
+    try {
+      var collectionName = 'users'; // Replace with your collection name
+
+      // Query 'image_work_all' collection to find the document with the matching email
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection(collectionName)
+              .where('email', isEqualTo: email)
+              .get();
+
+      // Check if any documents match the query
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the first document (assuming there's only one document per email)
+        var imageWorkDocument = querySnapshot.docs.first;
+
+        // Extract the document ID from the 'image_work_all' collection
+        var docId = imageWorkDocument.id;
+
+        // Reference the document in the 'users' collection using the extracted docId
+        var docRef =
+            FirebaseFirestore.instance.collection(collectionName).doc(docId);
+
+        // Use set with merge option to add/update the 'url' field in the 'users' document
+        await docRef.update({
+          'url_work': url,
+        });
+
+        print('Field added successfully!');
+      } else {
+        print('No document found in image_work_all with email: $email');
+      }
+    } catch (e) {
+      print('Error adding image URL: $e');
+    }
+  }
+
+/////////////////////////////////////////////////////////////////////////////////////
   CollectionReference image_url_work =
       FirebaseFirestore.instance.collection('image_work');
   Future<void> addImage_pro({required String url, required User email}) {
@@ -424,4 +502,28 @@ class FireStore {
   }
 
 /////////////////////////////////////////////////////////////////////////////
+  ///
+  ///
+
+  void getDocumentID({required String collectionName}) async {
+    try {
+      // Specify the collection path
+      // Replace with your collection name
+
+      // Access the Firestore instance and specify the collection
+      var collectionRef = FirebaseFirestore.instance.collection(collectionName);
+
+      // Get the documents in the collection
+      var querySnapshot = await collectionRef.get();
+
+      // Loop through the documents to retrieve the IDs
+      querySnapshot.docs.forEach((doc) {
+        var docID = doc.id;
+        print('Document ID: $docID');
+        // You can use this docID as needed, such as for updating or deleting documents
+      });
+    } catch (e) {
+      print('Error getting document ID: $e');
+    }
+  }
 }

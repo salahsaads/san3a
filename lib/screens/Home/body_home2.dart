@@ -30,6 +30,7 @@ class _Body_Home2State extends State<Body_Home2> {
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
+  Image_Model_work image_model_prof = Image_Model_work();
   bool getimage = false;
   UploadImage_camera2() async {
     ImagePicker picker = ImagePicker();
@@ -49,19 +50,14 @@ class _Body_Home2State extends State<Body_Home2> {
       await ref.putFile(file2!, metadata);
 
       url2 = await ref.getDownloadURL();
-      User? user = FirebaseAuth.instance.currentUser;
-
-      FireStore().addImage_work2(url: url2!, email: user!);
     }
   }
 
   getdata() async {
     info_model = await FireStore().Get_Info();
-    image_model_prof = await FireStore().Get_Image_prof2();
+
     setState(() {});
   }
-
-  Image_Model_work image_model_prof = Image_Model_work();
 
   @override
   void initState() {
@@ -89,9 +85,9 @@ class _Body_Home2State extends State<Body_Home2> {
               height: 160.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.r),
-                image: image_model_prof.url != null
+                image: info_model != null && info_model!.url != null
                     ? DecorationImage(
-                        image: NetworkImage(image_model_prof.url!),
+                        image: NetworkImage(info_model!.url!),
                         fit: BoxFit.cover,
                       )
                     : DecorationImage(

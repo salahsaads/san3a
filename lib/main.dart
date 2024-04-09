@@ -85,7 +85,7 @@ class _SalahState extends State<Salah> {
                     ? Nav_Client()
                     : (email_type_model!.email_type == 'صاحب صنعه')
                         ? Nav()
-                        : Introduction_screen()
+                        : Center(child: CircularProgressIndicator())
                 : Introduction_screen());
       },
     );

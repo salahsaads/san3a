@@ -49,11 +49,8 @@ class _Body_Home1State extends State<Body_Home1> {
       var ref = FirebaseStorage.instance.ref('work_image/$imagename');
       await ref.putFile(file!, newMetadata);
       url = await ref.getDownloadURL();
-      User? user = FirebaseAuth.instance.currentUser;
 
-      FireStore().addImage_pro(url: url!, email: user!);
-
-      image_model_work = await FireStore().Get_Image_work();
+      FireStore().addImageUser2(url: url!, email: info_model!.email!);
     }
     setState(() {});
   }
@@ -86,7 +83,6 @@ class _Body_Home1State extends State<Body_Home1> {
 
   getdata() async {
     info_model = await FireStore().Get_Info();
-    image_model_work = await FireStore().Get_Image_work();
     setState(() {});
   }
 
@@ -109,7 +105,7 @@ class _Body_Home1State extends State<Body_Home1> {
           children: [
             Stack(
               children: [
-                if (image_model_work != null)
+                if (info_model != null && info_model!.url_work != null)
                   Container(
                     alignment: Alignment.topRight,
                     // child: GestureDetector(
@@ -130,7 +126,7 @@ class _Body_Home1State extends State<Body_Home1> {
                     height: 160.h,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage(image_model_work!.url!),
+                            image: NetworkImage(info_model!.url_work!),
                             fit: BoxFit.cover),
                         borderRadius: BorderRadius.circular(10.r),
                         color: Colors.amber),
@@ -207,12 +203,12 @@ class _Body_Home1State extends State<Body_Home1> {
                                               width: 100.w,
                                               height: 100.h,
                                               decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: FileImage(file!),
-                                                      fit: BoxFit.cover),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
+                                                  // image: DecorationImage(
+                                                  //     image: FileImage(file!),
+                                                  //     fit: BoxFit.cover),
+                                                  // borderRadius:
+                                                  //     BorderRadius.circular(
+                                                  //         10.r),
                                                   color: Colors.amber),
                                             ),
                                           Padding(
@@ -282,8 +278,10 @@ class _Body_Home1State extends State<Body_Home1> {
                                   GestureDetector(
                                       onTap: () {
                                         add_image_database();
-                                        FireStore().Update_Prof(
-                                            info_model!.id!, workShop.text);
+                                        if (workShop.text.isNotEmpty) {
+                                          FireStore().Update_Prof(
+                                              info_model!.id!, workShop.text);
+                                        }
                                         getdata();
                                         setState(() {});
                                         Navigator.pop(context);
@@ -318,7 +316,7 @@ class _Body_Home1State extends State<Body_Home1> {
             Text(
               '   ${info_model?.workshop_name}',
               style: TextStyle(
-                  color: Colors.black,
+                  color: const Color.fromARGB(255, 136, 26, 26),
                   fontSize: 25.sp,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Marhey'),

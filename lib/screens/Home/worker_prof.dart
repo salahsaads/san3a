@@ -49,10 +49,8 @@ class _Worker_profState extends State<Worker_prof> {
   }
 
   add() async {
-    User? user = FirebaseAuth.instance.currentUser;
+    FireStore().addImageUser(url: url2!, email: info_model.email!);
 
-    FireStore().addImage_pro2(url: url2!, email: user!);
-    image_model_prof = await FireStore().Get_Image_prof2();
     setState(() {});
   }
 
@@ -61,7 +59,7 @@ class _Worker_profState extends State<Worker_prof> {
   Info_Model info_model = Info_Model();
   getdata() async {
     info_model = await FireStore().Get_Info();
-    image_model_prof = await FireStore().Get_Image_prof2();
+
     setState(() {});
   }
 
@@ -116,7 +114,8 @@ class _Worker_profState extends State<Worker_prof> {
                     print('log out');
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => const Login_worker()),
+                        MaterialPageRoute(
+                            builder: (context) => const Login_worker()),
                         (route) => false);
                   },
                   child: MyWidget_button(
@@ -177,13 +176,13 @@ class _Worker_profState extends State<Worker_prof> {
           children: [
             Stack(
               children: [
-                if (image_model_prof.url != null)
+                if (info_model.url != null)
                   Container(
                     width: 100.w,
                     height: 100.h,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage(image_model_prof.url!),
+                            image: NetworkImage(info_model.url!),
                             fit: BoxFit.cover),
                         borderRadius: BorderRadius.circular(150.r),
                         color: Colors.amber),

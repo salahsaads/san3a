@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project/model/info_model.dart';
 import 'package:project/model/info_model_client.dart';
 
 class FireStore_client {
@@ -65,5 +66,28 @@ class FireStore_client {
       // If no user is currently authenticated, handle this case accordingly
       throw Exception("User not authenticated");
     }
+  }
+
+  ////////////////////////////////////////////////////////////////////
+
+  Future<List<Info_Model>> Get_Info_all() async {
+    // Get current authenticated user
+    List<Info_Model> productList = [];
+
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance.collection('users').get();
+
+      // Loop through the documents in the query result and convert them to Product objects
+      querySnapshot.docs.forEach((doc) {
+        Info_Model product = Info_Model.fromJson(doc.data());
+        productList.add(product);
+      });
+    } catch (e) {
+      print('Error retrieving products: $e');
+      // Handle any errors (e.g., no internet connection, Firestore permission issues)
+    }
+
+    return productList;
   }
 }

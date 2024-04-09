@@ -7,6 +7,8 @@ class Info_Model {
   String? email;
   String? workshop_name;
   String? id;
+  String? url;
+  String? url_work;
   Info_Model(
       {this.dateOfBirth,
       this.email,
@@ -14,7 +16,11 @@ class Info_Model {
       this.location,
       this.phonenumber,
       this.work,
-      this.workshop_name});
+      this.workshop_name,
+      this.url,
+      
+      this.url_work
+      });
 
   factory Info_Model.fromJson(Map<String, dynamic> json) {
     return Info_Model(
@@ -25,6 +31,8 @@ class Info_Model {
       dateOfBirth: json['dateofbirth'],
       email: json['email'],
       phonenumber: json['phonenumber'],
+      url: json['url'],
+      url_work: json['url_work']
     );
   }
 }

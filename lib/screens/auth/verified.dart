@@ -38,10 +38,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     if (isEmailVerified) {
       // TODO: implement your code after email verification
 
-
-
-
-      
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Email Successfully Verified")));
       Navigator.push(context, MaterialPageRoute(builder: (context) => Nav()));
@@ -64,12 +60,12 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         body: SingleChildScrollView(
           child: Center(
             child: Padding(
-              padding:  EdgeInsets.only(left: 20.w, right: 20.w),
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 80.h),
+                    padding: EdgeInsets.only(top: 10.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -92,18 +88,18 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       ],
                     ),
                   ),
-                 SizedBox(height: 250.h),
+                  SizedBox(height: 150.h),
                   Center(
                     child: Text(
                       'Check your \n Email',
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.w600),
                     ),
                   ),
-                   SizedBox(height: 8.h),
+                  SizedBox(height: 8.h),
                   Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 32.0.w),
+                    padding: EdgeInsets.symmetric(horizontal: 32.0.w),
                     child: Center(
                       child: Text(
                         style: TextStyle(color: Colors.grey),
@@ -112,10 +108,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       ),
                     ),
                   ),
-                   SizedBox(height: 50.h),
+                  SizedBox(height: 50.h),
                   const Center(child: CircularProgressIndicator()),
                   SizedBox(height: 50.h),
-                 Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 32.0.w),
                     child: const Center(
                       child: Text(
@@ -124,7 +120,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       ),
                     ),
                   ),
-                   SizedBox(height: 57.h),
+                  SizedBox(height: 57.h),
                   GestureDetector(
                     onTap: () {
                       try {
@@ -133,7 +129,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         debugPrint('$e');
                       }
                     },
-                    child: Custom_Buttom(text: 'Resend'),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 15.w, right: 15 .w),
+                      child: Custom_Buttom(text: 'Resend'),
+                    ),
                   ),
                 ],
               ),

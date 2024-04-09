@@ -7,7 +7,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/model/image_model_work.dart';
+import 'package:project/model/info_model.dart';
 import 'package:project/screens/Home/home.dart';
 import 'package:project/screens/Home/home2.dart';
 import 'package:project/screens/Home/home3.dart';
@@ -34,10 +34,10 @@ class _NavState extends State<Nav> {
   int _selectedIndex = 0;
 
   List<Widget> body = [Home(), const Home2(), const Home3()];
-  Image_Model_work image_model_prof = Image_Model_work();
-  getdata() async {
-    image_model_prof = await FireStore().Get_Image_prof2();
 
+  Info_Model? info_model;
+  getdata() async {
+    info_model = await FireStore().Get_Info();
     setState(() {});
   }
 
@@ -92,7 +92,8 @@ class _NavState extends State<Nav> {
                     print('log out');
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => const Login_worker()),
+                        MaterialPageRoute(
+                            builder: (context) => const Login_worker()),
                         (route) => false);
                   },
                   child: MyWidget_button(
@@ -148,9 +149,9 @@ class _NavState extends State<Nav> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50.r),
-                  image: image_model_prof.url != null
+                  image: info_model != null && info_model!.url != null
                       ? DecorationImage(
-                          image: NetworkImage(image_model_prof.url!),
+                          image: NetworkImage(info_model!.url!),
                           fit: BoxFit.cover,
                         )
                       : DecorationImage(
