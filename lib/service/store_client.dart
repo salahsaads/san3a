@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project/model/info_model.dart';
 import 'package:project/model/info_model_client.dart';
+import 'package:project/model/like1_model.dart';
 
 class FireStore_client {
   static final auth = FirebaseAuth.instance;
@@ -34,7 +35,65 @@ class FireStore_client {
 /////////////////////////////////////////////////////////////////////////////
   ///
   ///
+ CollectionReference users1 = FirebaseFirestore.instance.collection('like');
 
+  Future<void> addUser_like1(
+      {required String fullName,
+      required String location,
+      required String work,
+      required String email,
+      required String url,
+      required String work_name,
+      required String type}) {
+    // Call the user's CollectionReference to add a new user
+    return users1
+        .add({
+          'full_name': fullName,
+          'location': location,
+          'work': work,
+          'email': email,
+          'url': url,
+          'workshop_name': work_name,
+          'type': type
+        })
+        .then((value) => print("===User Added like"))
+        .catchError(
+            (error) => print("--------------Failed to add User like: $error"));
+  }
+
+  Future<List<Like1_model>> Get_like1() async {
+    // Get current authenticated user
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      try {
+        // Retrieve user data from Firestore
+        QuerySnapshot<Map<String, dynamic>> querySnapshot =
+            await FirebaseFirestore.instance.collection('like').get();
+
+        List<Like1_model> likeList = [];
+
+        if (querySnapshot.docs.isNotEmpty) {
+          // Convert all documents to Like1_model objects
+          likeList = querySnapshot.docs
+              .map((doc) => Like1_model.fromJson(doc.data()))
+              .toList();
+
+          return likeList;
+        } else {
+          // If no matching documents found, return empty list
+          return likeList;
+        }
+      } catch (e) {
+        // Handle any errors that occurred during the process
+        print("Error fetching like data: $e");
+        throw Exception("Failed to fetch like data");
+      }
+    } else {
+      // If no user is currently authenticated, handle this case accordingly
+      throw Exception("User not authenticated");
+    }
+  }
   Future<Info_Model_Client> Get_Info_client() async {
     // Get current authenticated user
     User? user = FirebaseAuth.instance.currentUser;
