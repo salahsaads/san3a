@@ -180,13 +180,54 @@ class FireStore_client {
 
     return productList;
   }
+
+  void addImag_client({required String url, required String email}) async {
+    try {
+      var collectionName = 'users_client'; // Replace with your collection name
+
+      // Query 'image_work_all' collection to find the document with the matching email
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection(collectionName)
+              .where('email', isEqualTo: email)
+              .get();
+
+      // Check if any documents match the query
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the first document (assuming there's only one document per email)
+        var imageWorkDocument = querySnapshot.docs.first;
+
+        // Extract the document ID from the 'image_work_all' collection
+        var docId = imageWorkDocument.id;
+
+        // Reference the document in the 'users' collection using the extracted docId
+        var docRef =
+            FirebaseFirestore.instance.collection(collectionName).doc(docId);
+
+        // Use set with merge option to add/update the 'url' field in the 'users' document
+        await docRef.update({
+          'url_client': url,
+        });
+
+        print('Field added successfully!');
+      } else {
+        print('No document found in image_work_all with email: $email');
+      }
+    } catch (e) {
+      print('Error adding image URL: $e');
+    }
+  }
+
   Future<List<Info_Model>> Get_Info_all_search({required String search}) async {
     // Get current authenticated user
     List<Info_Model> productList = [];
 
     try {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebaseFirestore.instance.collection('users').where('work',isEqualTo: search).get();
+          await FirebaseFirestore.instance
+              .collection('users')
+              .where('work', isEqualTo: search)
+              .get();
 
       // Loop through the documents in the query result and convert them to Product objects
       querySnapshot.docs.forEach((doc) {
@@ -201,7 +242,8 @@ class FireStore_client {
     return productList;
   }
 
-  Future<Like1_model?> Get_like1_one({required String email, required String type}) async {
+  Future<Like1_model?> Get_like1_one(
+      {required String email, required String type}) async {
     // Get current authenticated user
     User? user = FirebaseAuth.instance.currentUser;
 

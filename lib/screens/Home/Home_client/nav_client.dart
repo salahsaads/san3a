@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:project/constant/constant.dart';
+import 'package:project/model/info_model.dart';
+import 'package:project/model/info_model_client.dart';
 import 'package:project/screens/Home/Home_client/home1_client.dart';
 import 'package:project/screens/Home/Home_client/home2_clinet.dart';
 import 'package:project/screens/Home/Home_client/home3_clinet.dart';
+import 'package:project/screens/Home/Home_client/prof_client.dart';
 import 'package:project/screens/auth/login_client.dart';
-import 'package:project/service/auth_client.dart';
 import 'package:project/service/auth_service.dart';
 
 import 'package:project/widget/choose_button.dart';
+
+import '../../../service/store_client.dart';
 
 class Nav_Client extends StatefulWidget {
   Nav_Client({super.key});
@@ -34,6 +37,21 @@ class _NavState extends State<Nav_Client> {
     const Home2Client(),
     const Home3Client()
   ];
+
+  Info_Model_Client info_model_client = Info_Model_Client();
+  getdata() async {
+    info_model_client = await FireStore_client().Get_Info_client();
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getdata();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,8 +89,8 @@ class _NavState extends State<Nav_Client> {
                 height: 30.h,
               ),
               GestureDetector(
-                onTap: ()async {
-                await  Auth.SignOut();
+                onTap: () async {
+                  await Auth.SignOut();
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => Login_client()),
@@ -120,16 +138,33 @@ class _NavState extends State<Nav_Client> {
         ],
         leading: Padding(
           padding: EdgeInsets.only(left: 6.w),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50.r),
-              image: const DecorationImage(
-                image: AssetImage(
-                    'assets/WhatsApp Image 2024-03-19 at 8.43.10 PM.jpeg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: null /* add child content here */,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Client_prof()));
+            },
+            child: info_model_client.url != null
+                ? Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      image: DecorationImage(
+                        image: NetworkImage(info_model_client.url!),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: null /* add child content here */,
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.r),
+                        // image: const DecorationImage(
+                        //   image: AssetImage(
+                        //       'assets/WhatsApp Image 2024-03-19 at 8.43.10 PM.jpeg'),
+                        //   fit: BoxFit.cover,
+                        // ),
+                        color: Colors.grey),
+                    child: null /* add child content here */,
+                  ),
           ),
         ),
       ),

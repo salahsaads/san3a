@@ -1,4 +1,4 @@
-// ignore_for_file: dead_code, must_be_immutable
+// ignore_for_file: dead_code, must_be_immutable, use_build_context_synchronously
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,8 +33,12 @@ class _Home1ClientState extends State<Home1Client> {
               GestureDetector(
                 onTap: () {
                   // Navigate to search page
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Search(type: 2,)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Search(
+                                type: 2,
+                              )));
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 14.w),
@@ -324,8 +328,8 @@ class _Home1ClientState extends State<Home1Client> {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   child: GestureDetector(
-                    onDoubleTap: () async {
-                      await FireStore_client().deleteUserLike(
+                    onDoubleTap: () {
+                      FireStore_client().deleteUserLike(
                           email: like1_model.email!, type: like1_model.type!);
                       setState(() {});
                       ScaffoldMessenger.of(context).showSnackBar(

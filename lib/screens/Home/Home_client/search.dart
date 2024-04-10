@@ -197,7 +197,7 @@ class YourGridViewWidget extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(10.0.r),
                 color: Colors.white, // Background color of each grid item
                 boxShadow: [
                   BoxShadow(
@@ -214,10 +214,10 @@ class YourGridViewWidget extends StatelessWidget {
                 children: [
                   // Image or placeholder widget
                   Container(
-                    height: 90.0,
+                    height: 150.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(10.0.r),
                       color: Colors.blue, // Placeholder color if url is null
                       image: infoModel.url != null
                           ? DecorationImage(

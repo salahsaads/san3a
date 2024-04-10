@@ -214,8 +214,8 @@ class _Body_Home1State extends State<Body_Home1> {
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: GestureDetector(
-                                              onTap: () {
-                                                getImage_prof();
+                                              onTap: () async {
+                                                await getImage_prof();
                                                 setState(() {});
                                               },
                                               child: Container(

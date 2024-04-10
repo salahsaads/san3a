@@ -294,14 +294,14 @@ class YourGridViewWidget extends StatelessWidget {
                 children: [
                   // Image or placeholder widget
                   Container(
-                    height: 90.0,
+                    height: 150.0.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       color: Colors.blue, // Placeholder color if url is null
                       image: infoModel.url != null
                           ? DecorationImage(
-                              image: NetworkImage(infoModel.url!),
+                              image: NetworkImage(infoModel.url_work!),
                               fit: BoxFit.cover,
                             )
                           : null, // No image if url is null
