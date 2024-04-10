@@ -1,3 +1,6 @@
+// ignore_for_file: dead_code, must_be_immutable
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -5,6 +8,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/info_model.dart';
 import 'package:project/model/like1_model.dart';
+import 'package:project/screens/Home/Home_client/all_worker2.dart';
+import 'package:project/screens/Home/Home_client/all_workers1.dart';
+import 'package:project/screens/Home/Home_client/search.dart';
 import 'package:project/service/store_client.dart';
 
 class Home1Client extends StatefulWidget {
@@ -27,7 +33,8 @@ class _Home1ClientState extends State<Home1Client> {
               GestureDetector(
                 onTap: () {
                   // Navigate to search page
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Search(type: 2,)));
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 14.w),
@@ -66,12 +73,38 @@ class _Home1ClientState extends State<Home1Client> {
               SizedBox(height: 30.h),
               _buildListView3(),
               const Divider(thickness: 1),
-              _buildSectionTitle('حرفيين متميزين'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => All_workers1()));
+                      },
+                      child: _buildSectionTitle('المزيد')),
+                  _buildSectionTitle('حرفيين متميزين'),
+                ],
+              ),
               SizedBox(height: 30.h),
               _buildListView1(), // Add ListView.builder here
               SizedBox(height: 10.h),
               const Divider(thickness: 1),
-              _buildSectionTitle('ورش مميزه'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => All_workers2()));
+                      },
+                      child: _buildSectionTitle('المزيد')),
+                  _buildSectionTitle('ورش مميزه'),
+                ],
+              ),
               SizedBox(height: 30.h),
               _buildListView2(),
             ],
@@ -96,28 +129,9 @@ class _Home1ClientState extends State<Home1Client> {
     );
   }
 
-  // Widget _buildListView1() {
-  //   // Example: Assuming craftsmen data is a list of strings
-
-  //   return SizedBox(
-  //     height: 180.h, // Adjust the height as needed
-  //     child: ListView.builder(
-  //       reverse: true,
-  //       scrollDirection: Axis.horizontal,
-  //       itemCount: 10,
-  //       itemBuilder: (context, index) {
-  //         return Padding(
-  //           padding: EdgeInsets.symmetric(horizontal: 5.w),
-  //           child: _buildCraftsmanCard(),
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
   Widget _buildListView1() {
     return FutureBuilder<List<Info_Model>>(
-      future:
-          FireStore_client().Get_Info_all(), // Call the method to fetch data
+      future: FireStore_client().Get_Info_all(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -133,12 +147,152 @@ class _Home1ClientState extends State<Home1Client> {
               scrollDirection: Axis.horizontal,
               itemCount: infoModels?.length ?? 0,
               itemBuilder: (context, index) {
-                Info_Model infoModel = infoModels![index];
+                Info_Model info_model = infoModels![index];
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   child: GestureDetector(
-                      onDoubleTap: () {},
-                      child: _buildCraftsmanCard1(infoModel)),
+                    onDoubleTap: () {
+                      FireStore_client().addUser_like1(
+                        fullName: info_model.fullName!,
+                        location: info_model.location!,
+                        work: info_model.work!,
+                        email: info_model.email!,
+                        url: info_model.url ?? '',
+                        work_name: info_model.workshop_name!,
+                        type: '1',
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: main_color,
+                          content: Text(
+                            "❤️ تم الإضافة إلى المفضلات",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25.sp,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: 'Marhey'),
+                          ),
+                          duration: Duration(
+                              seconds: 2), // Optional: Control the duration
+                        ),
+                      );
+                      setState(() {
+                        // Update any stateful variables here
+                      });
+
+                      //awesome(context);
+                    },
+                    child: Container(
+                        width: 100.w,
+                        //height: 150.h, // Adjust width as needed
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: Colors.grey.withOpacity(0.5),
+                          //     spreadRadius: 1,
+                          //     blurRadius: 5,
+                          //     offset: Offset(0, 2),
+                          //   ),
+                          // ],
+                        ),
+                        child: Column(
+                          children: [
+                            Stack(
+                              children: [
+                                info_model.url != null
+                                    ? Container(
+                                        height: 90.h,
+                                        width: 100.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                          color: main_color,
+                                          image: DecorationImage(
+                                            image:
+                                                NetworkImage(info_model.url!),
+                                            fit: BoxFit.cover,
+                                          ), // No image if url is null
+                                        ),
+                                      )
+                                    : Container(
+                                        height: 90.h,
+                                        width: 100.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                          color: main_color,
+                                          //
+                                          //
+                                          //
+                                        ),
+                                      ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              '${info_model.fullName}',
+                              style: TextStyle(
+                                  color: sec_color,
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Marhey'),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              '${info_model.work}',
+                              style: TextStyle(
+                                  color: main_color,
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Marhey'),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              '${info_model.location}',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Marhey'),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.star_border,
+                                  size: 18,
+                                ),
+                                Icon(
+                                  Icons.star_border,
+                                  size: 18,
+                                ),
+                                Icon(
+                                  Icons.star_border,
+                                  size: 18,
+                                ),
+                                Icon(
+                                  Icons.star_border,
+                                  size: 18,
+                                ),
+                                Icon(
+                                  Icons.star_border,
+                                  size: 18,
+                                )
+                              ],
+                            ),
+                          ],
+                        )),
+                  ),
                 );
               },
             ),
@@ -148,408 +302,267 @@ class _Home1ClientState extends State<Home1Client> {
     );
   }
 
-  Widget _buildCraftsmanCard1(Info_Model info_model) {
-    return GestureDetector(
-      onDoubleTap: () {
-        FireStore_client().addUser_like1(
-            fullName: info_model.fullName!,
-            location: info_model.location!,
-            work: info_model.work!,
-            email: info_model.email!,
-            url: info_model.url ?? '',
-            work_name: info_model.workshop_name!,
-            type: '1');
-      },
-      child: Container(
-          width: 100.w,
-          //height: 150.h, // Adjust width as needed
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.r),
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: Colors.grey.withOpacity(0.5),
-            //     spreadRadius: 1,
-            //     blurRadius: 5,
-            //     offset: Offset(0, 2),
-            //   ),
-            // ],
-          ),
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  info_model.url != null
-                      ? Container(
-                          height: 90.h,
-                          width: 100.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
-                            color: main_color,
-                            image: DecorationImage(
-                              image: NetworkImage(info_model.url!),
-                              fit: BoxFit.cover,
-                            ), // No image if url is null
+  Widget _buildListView3() {
+    return FutureBuilder<List<Like1_model>>(
+      future: FireStore_client().Get_like1(), // Call the method to fetch data
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error fetching data: ${snapshot.error}'));
+        } else {
+          List<Like1_model>? infoModels = snapshot.data;
+
+          return SizedBox(
+            height: 180.h, // Adjust the height as needed
+            child: ListView.builder(
+              reverse: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: infoModels?.length ?? 0,
+              itemBuilder: (context, index) {
+                Like1_model like1_model = infoModels![index];
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  child: GestureDetector(
+                    onDoubleTap: () async {
+                      await FireStore_client().deleteUserLike(
+                          email: like1_model.email!, type: like1_model.type!);
+                      setState(() {});
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: main_color,
+                          content: Text(
+                            "❤️ تم الحذف إلى المفضلات",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25.sp,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: 'Marhey'),
                           ),
-                        )
-                      : Container(
-                          height: 90.h,
-                          width: 100.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
-                            color: main_color,
-                            //
-                            //
-                            //
-                          ),
+                          duration: Duration(
+                              seconds: 2), // Optional: Control the duration
                         ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
+                      );
+                    },
                     child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      child: Icon(
-                        Icons.favorite_border_outlined,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                '${info_model.fullName}',
-                style: TextStyle(
-                    color: sec_color,
-                    fontSize: 8.sp,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Marhey'),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                '${info_model.work}',
-                style: TextStyle(
-                    color: main_color,
-                    fontSize: 8.sp,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Marhey'),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                '${info_model.location}',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 8.sp,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Marhey'),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.star_border,
-                    size: 18,
+                        width: 100.w,
+                        //height: 150.h, // Adjust width as needed
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: Colors.grey.withOpacity(0.5),
+                          //     spreadRadius: 1,
+                          //     blurRadius: 5,
+                          //     offset: Offset(0, 2),
+                          //   ),
+                          // ],
+                        ),
+                        child: Column(
+                          children: [
+                            Stack(
+                              children: [
+                                like1_model.url != null
+                                    ? Container(
+                                        height: 90.h,
+                                        width: 100.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                          color: main_color,
+                                          image: DecorationImage(
+                                            image:
+                                                NetworkImage(like1_model.url!),
+                                            fit: BoxFit.cover,
+                                          ), // No image if url is null
+                                        ),
+                                      )
+                                    : Container(
+                                        height: 90.h,
+                                        width: 100.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                          color: main_color,
+                                          //
+                                          //
+                                          //
+                                        ),
+                                      ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
+                                    child:
+                                        Icon(Icons.favorite, color: Colors.red),
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              like1_model.type == '1'
+                                  ? '${like1_model.fullName}'
+                                  : '${like1_model.workshop_name}',
+                              style: TextStyle(
+                                  color: sec_color,
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Marhey'),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              '${like1_model.work}',
+                              style: TextStyle(
+                                  color: main_color,
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Marhey'),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              '${like1_model.location}',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Marhey'),
+                            ),
+                          ],
+                        )),
                   ),
-                  Icon(
-                    Icons.star_border,
-                    size: 18,
-                  ),
-                  Icon(
-                    Icons.star_border,
-                    size: 18,
-                  ),
-                  Icon(
-                    Icons.star_border,
-                    size: 18,
-                  ),
-                  Icon(
-                    Icons.star_border,
-                    size: 18,
-                  )
-                ],
-              ),
-            ],
-          )),
+                );
+              },
+            ),
+          );
+        }
+      },
     );
   }
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-///ورشه مميزه
+  ///ورشه مميزه
 
-Widget _buildListView2() {
-  return FutureBuilder<List<Info_Model>>(
-    future: FireStore_client().Get_Info_all(), // Call the method to fetch data
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (snapshot.hasError) {
-        return Center(child: Text('Error fetching data: ${snapshot.error}'));
-      } else {
-        List<Info_Model>? infoModels = snapshot.data;
+  Widget _buildListView2() {
+    return FutureBuilder<List<Info_Model>>(
+      future:
+          FireStore_client().Get_Info_all(), // Call the method to fetch data
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error fetching data: ${snapshot.error}'));
+        } else {
+          List<Info_Model>? infoModels = snapshot.data;
 
-        return SizedBox(
-          height: 180.h, // Adjust the height as needed
-          child: ListView.builder(
-            reverse: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: infoModels?.length ?? 0,
-            itemBuilder: (context, index) {
-              Info_Model infoModel = infoModels![index];
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: GestureDetector(
-                    onDoubleTap: () {}, child: _buildCraftsmanCard2(infoModel)),
-              );
-            },
-          ),
-        );
-      }
-    },
-  );
-}
-
-Widget _buildCraftsmanCard2(Info_Model info_model) {
-  return GestureDetector(
-    onDoubleTap: () {
-      FireStore_client().addUser_like1(
-          fullName: info_model.fullName!,
-          location: info_model.location!,
-          work: info_model.work!,
-          email: info_model.email!,
-          url: info_model.url ?? '',
-          work_name: info_model.workshop_name!,
-          type: '2');
-    },
-    child: Container(
-        width: 100.w,
-        //height: 150.h, // Adjust width as needed
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.grey.withOpacity(0.5),
-          //     spreadRadius: 1,
-          //     blurRadius: 5,
-          //     offset: Offset(0, 2),
-          //   ),
-          // ],
-        ),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                info_model.url_work != null
-                    ? Container(
-                        height: 90.h,
-                        width: 100.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: main_color,
-                          image: DecorationImage(
-                            image: NetworkImage(info_model.url_work!),
-                            fit: BoxFit.cover,
-                          ), // No image if url is null
+          return SizedBox(
+            height: 180.h, // Adjust the height as needed
+            child: ListView.builder(
+                reverse: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: infoModels?.length ?? 0,
+                itemBuilder: (context, index) {
+                  Info_Model infoModel = infoModels![index];
+                  return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5.w),
+                      child: GestureDetector(
+                        onDoubleTap: () {
+                          FireStore_client().addUser_like1(
+                            fullName: infoModel.fullName!,
+                            location: infoModel.location!,
+                            work: infoModel.work!,
+                            email: infoModel.email!,
+                            url: infoModel.url ?? '',
+                            work_name: infoModel.workshop_name!,
+                            type: '2',
+                          );
+                          setState(() {
+                            // Update the UI after adding the like
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: main_color,
+                            content: Text(
+                              "❤️ تم الإضافة إلى المفضلات",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25.sp,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: 'Marhey'),
+                            ),
+                            duration: Duration(
+                                seconds: 2), // Optional: Control the duration
+                          ));
+                        },
+                        child: Container(
+                          width: 100.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors
+                                .white, // Example color, replace with your color
+                          ),
+                          child: Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  if (infoModel.url_work != null)
+                                    Container(
+                                      height: 90.h,
+                                      width: 100.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors
+                                            .grey, // Example color, replace with your color
+                                        image: DecorationImage(
+                                          image:
+                                              NetworkImage(infoModel.url_work!),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                infoModel.workshop_name ?? '',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                infoModel.work ?? '',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                infoModel.location ?? '',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      )
-                    : Container(
-                        height: 90.h,
-                        width: 100.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: main_color,
-                          //
-                          //
-                          //
-                        ),
-                      ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                    child: Icon(
-                      Icons.favorite_border_outlined,
-                    ),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              '${info_model.workshop_name}',
-              style: TextStyle(
-                  color: sec_color,
-                  fontSize: 8.sp,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Marhey'),
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              '${info_model.work}',
-              style: TextStyle(
-                  color: main_color,
-                  fontSize: 8.sp,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Marhey'),
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              '${info_model.location}',
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 8.sp,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Marhey'),
-            ),
-          ],
-        )),
-  );
-}
-
-Widget _buildListView3() {
-  return FutureBuilder<List<Like1_model>>(
-    future: FireStore_client().Get_like1(), // Call the method to fetch data
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (snapshot.hasError) {
-        return Center(child: Text('Error fetching data: ${snapshot.error}'));
-      } else {
-        List<Like1_model>? infoModels = snapshot.data;
-
-        return SizedBox(
-          height: 180.h, // Adjust the height as needed
-          child: ListView.builder(
-            reverse: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: infoModels?.length ?? 0,
-            itemBuilder: (context, index) {
-              Like1_model like1_model = infoModels![index];
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: GestureDetector(
-                    onDoubleTap: () {},
-                    child: _buildCraftsmanCard3(like1_model)),
-              );
-            },
-          ),
-        );
-      }
-    },
-  );
-}
-
-Widget _buildCraftsmanCard3(Like1_model like1_model) {
-  return GestureDetector(
-    onDoubleTap: () {},
-    child: Container(
-        width: 100.w,
-        //height: 150.h, // Adjust width as needed
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.grey.withOpacity(0.5),
-          //     spreadRadius: 1,
-          //     blurRadius: 5,
-          //     offset: Offset(0, 2),
-          //   ),
-          // ],
-        ),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                like1_model.url != null
-                    ? Container(
-                        height: 90.h,
-                        width: 100.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: main_color,
-                          image: DecorationImage(
-                            image: NetworkImage(like1_model.url!),
-                            fit: BoxFit.cover,
-                          ), // No image if url is null
-                        ),
-                      )
-                    : Container(
-                        height: 90.h,
-                        width: 100.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: main_color,
-                          //
-                          //
-                          //
-                        ),
-                      ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                    child: Icon(Icons.favorite, color: Colors.red),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              like1_model.type == '1'
-                  ? '${like1_model.fullName}'
-                  : '${like1_model.workshop_name}',
-              style: TextStyle(
-                  color: sec_color,
-                  fontSize: 8.sp,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Marhey'),
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              '${like1_model.work}',
-              style: TextStyle(
-                  color: main_color,
-                  fontSize: 8.sp,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Marhey'),
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              '${like1_model.location}',
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 8.sp,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Marhey'),
-            ),
-          ],
-        )),
-  );
+                      ));
+                }),
+          );
+        }
+      },
+    );
+  }
 }

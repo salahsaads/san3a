@@ -35,7 +35,8 @@ class FireStore_client {
 /////////////////////////////////////////////////////////////////////////////
   ///
   ///
- CollectionReference users1 = FirebaseFirestore.instance.collection('like');
+
+  CollectionReference users1 = FirebaseFirestore.instance.collection('like');
 
   Future<void> addUser_like1(
       {required String fullName,
@@ -59,6 +60,35 @@ class FireStore_client {
         .then((value) => print("===User Added like"))
         .catchError(
             (error) => print("--------------Failed to add User like: $error"));
+  }
+
+  final CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('like');
+
+  Future<void> deleteUserLike({
+    required String email,
+    required String type,
+  }) async {
+    try {
+      // Query for documents that match the specified email and type
+      QuerySnapshot<Object?> querySnapshot = await usersCollection
+          .where('email', isEqualTo: email)
+          .where('type', isEqualTo: type)
+          .get();
+
+      // Check if any documents match the query
+      if (querySnapshot.docs.isNotEmpty) {
+        // Delete each matching document
+        for (QueryDocumentSnapshot<Object?> document in querySnapshot.docs) {
+          await document.reference.delete();
+          print('Deleted Like Document for $email and type $type');
+        }
+      } else {
+        print('No matching documents found for $email and type $type');
+      }
+    } catch (error) {
+      print('Failed to delete user like: $error');
+    }
   }
 
   Future<List<Like1_model>> Get_like1() async {
@@ -94,6 +124,7 @@ class FireStore_client {
       throw Exception("User not authenticated");
     }
   }
+
   Future<Info_Model_Client> Get_Info_client() async {
     // Get current authenticated user
     User? user = FirebaseAuth.instance.currentUser;
@@ -148,5 +179,61 @@ class FireStore_client {
     }
 
     return productList;
+  }
+  Future<List<Info_Model>> Get_Info_all_search({required String search}) async {
+    // Get current authenticated user
+    List<Info_Model> productList = [];
+
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance.collection('users').where('work',isEqualTo: search).get();
+
+      // Loop through the documents in the query result and convert them to Product objects
+      querySnapshot.docs.forEach((doc) {
+        Info_Model product = Info_Model.fromJson(doc.data());
+        productList.add(product);
+      });
+    } catch (e) {
+      print('Error retrieving products: $e');
+      // Handle any errors (e.g., no internet connection, Firestore permission issues)
+    }
+
+    return productList;
+  }
+
+  Future<Like1_model?> Get_like1_one({required String email, required String type}) async {
+    // Get current authenticated user
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      try {
+        // Retrieve user data from Firestore
+        QuerySnapshot<Map<String, dynamic>> querySnapshot =
+            await FirebaseFirestore.instance
+                .collection('like')
+                .where('email', isEqualTo: email)
+                .where('type', isEqualTo: type)
+                .limit(1) // Limit the result to one document
+                .get();
+
+        if (querySnapshot.docs.isNotEmpty) {
+          // Convert the document data to a Like1_model object
+          Like1_model likeModel =
+              Like1_model.fromJson(querySnapshot.docs.first.data());
+
+          return likeModel;
+        } else {
+          // If no matching document found, return null
+          return null;
+        }
+      } catch (e) {
+        // Handle any errors that occurred during the process
+        print("Error fetching like data: $e");
+        throw Exception("Failed to fetch like data");
+      }
+    } else {
+      // If no user is currently authenticated, handle this case accordingly
+      throw Exception("User not authenticated");
+    }
   }
 }
