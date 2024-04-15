@@ -326,7 +326,59 @@ class _Register_clientState extends State<Register_client_Email> {
                 ),
 
                 //------------------------------------------------------------------------------------------------------------------
+                SizedBox(
+                  height: 50.w,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 3.w,
+                          vertical: 3.h), // Adjust the padding as needed
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey, // Set the border color
+                          width: 2.0.w, // Set the border width
+                        ),
+                        borderRadius: BorderRadius.circular(12.0
+                            .r), // Set border radius if you want rounded corners
+                      ),
+                      child: Icon(
+                        Icons.location_on,
+                        size: 20.sp,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      '  موقعك',
+                      style: TextStyle(
+                          color: sec_color,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Marhey'),
+                    ),
+                  ],
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'من فضلك ادخل الموقع';
+                    }
+                    return null;
+                  },
+                  controller: loaction,
+                  decoration: InputDecoration(
+                      suffixIcon: Icon(
+                    Icons.location_on,
+                  )),
+                )
 
+                //------------------------------------------
+                ,
+
+                SizedBox(
+                  height: 30.h,
+                ),
                 SizedBox(
                   height: 50.h,
                 ),
@@ -342,6 +394,7 @@ class _Register_clientState extends State<Register_client_Email> {
                           email_type: widget.email_type,
                         );
                         FireStore_client().addUser_client(
+                            location: loaction.text,
                             email_type: widget.email_type,
                             fullName: fullname.text,
                             phonenumber: phoneNumber.text,

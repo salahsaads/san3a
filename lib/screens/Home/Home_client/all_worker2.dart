@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/info_model.dart';
@@ -148,7 +149,7 @@ class _All_workersState extends State<All_workers2> {
                   padding: EdgeInsets.symmetric(horizontal: 14.w),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 70.h,
+                    height: 50.h,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(20.r),
@@ -294,7 +295,7 @@ class YourGridViewWidget extends StatelessWidget {
                 children: [
                   // Image or placeholder widget
                   Container(
-                    height: 150.0.h,
+                    height: 100.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
@@ -335,17 +336,6 @@ class YourGridViewWidget extends StatelessWidget {
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Marhey',
-                    ),
-                  ),
-                  SizedBox(height: 5.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      5,
-                      (index) => Icon(
-                        Icons.star_border,
-                        size: 18.0,
-                      ),
                     ),
                   ),
                 ],

@@ -391,6 +391,7 @@ class _Worker_profState extends State<Client_prof> {
                 ),
               ],
             ),
+
             SizedBox(
               height: 10.h,
             ),
@@ -408,11 +409,62 @@ class _Worker_profState extends State<Client_prof> {
             SizedBox(
               height: 10.h,
             ),
-
             Divider(
               thickness: 0.9,
               color: Colors.grey[400],
             ),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 3.w,
+                      vertical: 3.h), // Adjust the padding as needed
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey, // Set the border color
+                      width: 2.0.w, // Set the border width
+                    ),
+                    borderRadius: BorderRadius.circular(12.0
+                        .r), // Set border radius if you want rounded corners
+                  ),
+                  child: Icon(
+                    Icons.location_on,
+                    size: 20.sp,
+                    color: Colors.grey,
+                  ),
+                ),
+                Text(
+                  '   موقع ورشتك أو موقعك ',
+                  style: TextStyle(
+                      color: sec_color,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Marhey'),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${''}',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Marhey'),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Divider(
+              thickness: 0.9,
+              color: Colors.grey[400],
+            ),
+
             //--------------------------------------------------------------------
 
             SizedBox(

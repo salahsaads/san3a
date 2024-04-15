@@ -49,6 +49,8 @@ class _SalahState extends State<Salah> {
 
         email_type_model = await FireStore_client_worker().Get_Email_type();
         if (email_type_model != null) {
+
+          
           setState(() {});
           ok = true;
           return;

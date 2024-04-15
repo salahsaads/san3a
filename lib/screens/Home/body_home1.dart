@@ -75,9 +75,10 @@ class _Body_Home1State extends State<Body_Home1> {
       await ref.putFile(file!, metadata);
 
       url = await ref.getDownloadURL();
-      User? user = FirebaseAuth.instance.currentUser;
 
-      FireStore().addImage_work(url: url!, email: user!);
+      FireStore().addImage_work(url: url!, email: info_model!.email!);
+
+      setState(() {});
     }
   }
 
@@ -371,8 +372,11 @@ class _Body_Home1State extends State<Body_Home1> {
               height: 150.h,
               width: double.infinity,
               child: FutureBuilder<List<Image_Model_work_all>>(
-                future: FireStore()
-                    .getImageWorkAll(), // Your asynchronous function that fetches data
+                future: info_model != null && info_model!.email != null
+                    ? FireStore().getImageWorkAll(email: info_model!.email!)
+                    : Future.value([]),
+
+                // Your asynchronous function that fetches data
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // While data is being fetched, show a loading indicator

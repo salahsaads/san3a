@@ -18,7 +18,8 @@ class FireStore_client {
       {required String fullName,
       required String email_type,
       required String phonenumber,
-      required String email}) {
+      required String email,
+      required String location}) {
     // Call the user's CollectionReference to add a new user
     return users
         .add({
@@ -26,6 +27,7 @@ class FireStore_client {
           'full_name': fullName,
           'phonenumber': phonenumber,
           'email': email,
+          'location': location
         })
         .then((value) => print("===User Added"))
         .catchError(

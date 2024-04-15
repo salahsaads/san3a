@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/info_model.dart';
@@ -294,7 +295,7 @@ class YourGridViewWidget extends StatelessWidget {
                 children: [
                   // Image or placeholder widget
                   Container(
-                    height: 150.h,
+                    height: 100.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0.r),
@@ -338,16 +339,22 @@ class YourGridViewWidget extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      5,
-                      (index) => Icon(
-                        Icons.star_border,
-                        size: 18.0,
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    RatingBar.builder(
+                      itemSize: 12.sp,
+                      initialRating: infoModel.rating ?? 0,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: main_color,
                       ),
+                      onRatingUpdate: (ratings) {},
                     ),
-                  ),
+                  ]),
                 ],
               ),
             ),

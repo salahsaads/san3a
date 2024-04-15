@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project/model/comment_model.dart';
 import 'package:project/model/image_model_all.dart';
 import 'package:project/model/image_model_work.dart';
 import 'package:project/model/info_model.dart';
@@ -145,50 +146,108 @@ class FireStore {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<Image_Model_work> Get_Image_prof2() async {
-    // Get current authenticated user
-    User? user = FirebaseAuth.instance.currentUser;
+  CollectionReference ratings = FirebaseFirestore.instance.collection('rating');
 
-    if (user != null) {
-      // Retrieve user data from Firestore
-      QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebaseFirestore.instance
-              .collection('image_work_prof')
-              .where('email', isEqualTo: user.uid)
-              .get();
+// Function to get all ratings and calculate their sum
+  Future<double> getTotalRatingSum({required String email}) async {
+    double totalSum = 0.0;
 
-      if (querySnapshot.docs.isNotEmpty) {
-        // Convert the first document's data to Info_Model
-        String? id;
-        querySnapshot.docs.map((e) {
-          id = e.id;
-        });
-        Image_Model_work data =
-            Image_Model_work.fromJson(querySnapshot.docs.last.data());
-        data.id = id;
-        print('----------------------$id');
-        return data;
+    try {
+      QuerySnapshot querySnapshot =
+          await ratings.where('email_worker', isEqualTo: email).get();
+
+      // Loop through each document in the query snapshot
+      querySnapshot.docs.forEach((doc) {
+        if (doc.exists) {
+          // Extract the 'rating' field from the document data
+          dynamic ratingData = doc.get('rating');
+
+          // Validate and convert the rating data to a double
+          if (ratingData != null && ratingData is num) {
+            double rating = ratingData.toDouble();
+
+            // Add the rating to the total sum
+            totalSum += rating;
+          } else {
+            print("Invalid or missing 'rating' field in document ${doc.id}");
+          }
+        } else {
+          print("Document ${doc.id} does not exist");
+        }
+      });
+
+      print("Total Rating Sum: $totalSum");
+      if (totalSum == 0) {
+        return 0;
       } else {
-        // If no matching document found, return null or throw an error
-        // Depending on your use case
-        throw Exception("No user found with email ${user.email}");
-        // You can also return null if you prefer
-        // return null;
+        return totalSum / querySnapshot.size;
       }
-    } else {
-      // If no user is currently authenticated, handle this case accordingly
+    } catch (error) {
+      print("Failed to get total rating sum: $error");
+      return 0.0; // Return 0.0 in case of error
+    }
+  }
+
+  CollectionReference ratingsCollection =
+      FirebaseFirestore.instance.collection('rating');
+
+  Future<void> addRating(
+      {required double rating,
+      required String email,
+      required String comment,
+      required String url_user,
+      required String full_name_user}) {
+    // Call the add method on the CollectionReference to add a new document
+    return ratingsCollection
+        .add({
+          'rating': rating,
+          'email_worker': email,
+          'comment': comment,
+          'url_user': url_user,
+          'full_name_user': full_name_user
+        })
+        .then((value) => print("Rating added successfully"))
+        .catchError((error) => print("Failed to add rating: $error"));
+  }
+
+ Future<List<Comment_Model>> getComments(String email) async {
+    // Check if user is authenticated
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
       throw Exception("User not authenticated");
+    }
+
+    // Retrieve comments from Firestore
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+        .collection('rating')
+        .where('email_worker', isEqualTo: email)
+        .get();
+
+    List<Comment_Model> comments = [];
+
+    if (querySnapshot.docs.isNotEmpty) {
+      // Convert each document's data to Comment_Model and add to the list
+      for (QueryDocumentSnapshot<Map<String, dynamic>> doc in querySnapshot.docs) {
+        Comment_Model comment = Comment_Model.fromJson(doc.data());
+        comments.add(comment);
+      }
+      return comments;
+    } else {
+      // If no matching documents found, handle this case accordingly
+      throw Exception("No comments found for email $email");
+      // You can also return an empty list if you prefer
+      // return [];
     }
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////
   CollectionReference image_url_work_all =
       FirebaseFirestore.instance.collection('image_work_all');
-  Future<void> addImage_work({required String url, required User email}) {
+  Future<void> addImage_work({required String url, required String email}) {
     // Call the user's CollectionReference to add a new user
     return image_url_work_all
         .add({
-          'email': email.uid,
+          'email': email,
           'image_url': url,
         })
         .then((value) => print("Image Added"))
@@ -198,15 +257,47 @@ class FireStore {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   CollectionReference image_url_work_all2 =
       FirebaseFirestore.instance.collection('image_work_all2');
-  Future<void> addImage_work2({required String url, required User email}) {
+  Future<void> addImage_work2({required String url, required String email}) {
     // Call the user's CollectionReference to add a new user
     return image_url_work_all2
         .add({
-          'email': email.uid,
+          'email': email,
           'image_url': url,
         })
         .then((value) => print("Image Added"))
         .catchError((error) => print("Failed to add Image: $error"));
+  }
+
+// Function to update a user document based on email
+  Future<void> updateRating(
+      {required String email, required double rating}) async {
+    try {
+      // Query for the user document with the matching email
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .limit(1)
+          .get();
+
+      // Check if a document was found with the matching email
+      if (querySnapshot.size > 0) {
+        // Get the reference to the first document (assuming only one document matches)
+        DocumentSnapshot userDoc = querySnapshot.docs.first;
+
+        // Update the document with the provided data
+        await userDoc.reference.update({
+          'rating': rating,
+        });
+
+        print("User document updated successfully for email: $email");
+      } else {
+        print("No user found with email: $email");
+        // Handle case where no user was found with the specified email
+      }
+    } catch (error) {
+      print("Failed to update user document: $error");
+      // Handle any potential errors that occur during the update operation
+    }
   }
 
   Future<Info_Model> Get_Info() async {
@@ -244,7 +335,7 @@ class FireStore {
 
   ////////////////////////////////////////////////////////////////
   ///
-  Future<Image_Model_work> Get_Image_work() async {
+  Future<Image_Model_work> Get_Image_work({required String email}) async {
     // Get current authenticated user
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -253,7 +344,7 @@ class FireStore {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await FirebaseFirestore.instance
               .collection('image_work')
-              .where('email', isEqualTo: user.uid)
+              .where('email', isEqualTo: email)
               .get();
 
       if (querySnapshot.docs.isNotEmpty) {
@@ -281,7 +372,8 @@ class FireStore {
   }
 
   /////////////////////////////////////////////////////////
-  Future<List<Image_Model_work_all>> getImageWorkAll() async {
+  Future<List<Image_Model_work_all>> getImageWorkAll(
+      {required String email}) async {
     // Get current authenticated user
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -290,7 +382,7 @@ class FireStore {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await FirebaseFirestore.instance
               .collection('image_work_all')
-              .where('email', isEqualTo: user.uid)
+              .where('email', isEqualTo: email)
               .get();
 
       if (querySnapshot.docs.isNotEmpty) {
@@ -462,7 +554,8 @@ class FireStore {
   }*/
 
   /////////////////////////////////////////////////////////
-  Future<List<Image_Model_work_all>> getImageWorkAll2() async {
+  Future<List<Image_Model_work_all>> getImageWorkAll2(
+      {required String email}) async {
     // Get current authenticated user
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -471,7 +564,7 @@ class FireStore {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await FirebaseFirestore.instance
               .collection('image_work_all2')
-              .where('email', isEqualTo: user.uid)
+              .where('email', isEqualTo: email)
               .get();
 
       if (querySnapshot.docs.isNotEmpty) {
@@ -526,4 +619,7 @@ class FireStore {
       print('Error getting document ID: $e');
     }
   }
+
+
+  
 }

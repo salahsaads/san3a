@@ -1,15 +1,16 @@
 // ignore_for_file: dead_code, must_be_immutable, use_build_context_synchronously
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/info_model.dart';
 import 'package:project/model/like1_model.dart';
 import 'package:project/screens/Home/Home_client/all_worker2.dart';
 import 'package:project/screens/Home/Home_client/all_workers1.dart';
+import 'package:project/screens/Home/Home_client/prof_user_client.dart';
 import 'package:project/screens/Home/Home_client/search.dart';
 import 'package:project/service/store_client.dart';
 
@@ -44,7 +45,7 @@ class _Home1ClientState extends State<Home1Client> {
                   padding: EdgeInsets.symmetric(horizontal: 14.w),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 70.h,
+                    height: 50.h,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(20.r),
@@ -74,8 +75,8 @@ class _Home1ClientState extends State<Home1Client> {
               ),
               SizedBox(height: 30.h),
               _buildSectionTitle('المفضله'),
-              SizedBox(height: 30.h),
               _buildListView3(),
+              SizedBox(height: 30.h),
               const Divider(thickness: 1),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,7 +142,7 @@ class _Home1ClientState extends State<Home1Client> {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error fetching data: ${snapshot.error}'));
-        } else {
+        } else if (snapshot.data!.isNotEmpty) {
           List<Info_Model>? infoModels = snapshot.data;
 
           return SizedBox(
@@ -155,6 +156,14 @@ class _Home1ClientState extends State<Home1Client> {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Worker_prof2(
+                                    email: infoModels[index].email!,
+                                  )));
+                    },
                     onDoubleTap: () {
                       FireStore_client().addUser_like1(
                         fullName: info_model.fullName!,
@@ -269,29 +278,24 @@ class _Home1ClientState extends State<Home1Client> {
                             SizedBox(
                               height: 5.h,
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.star_border,
-                                  size: 18,
+                                RatingBar.builder(
+                                  itemSize: 12.sp,
+                                  initialRating: info_model.rating ?? 0,
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 4.0),
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: main_color,
+                                  ),
+                                  onRatingUpdate: (ratings) {},
                                 ),
-                                Icon(
-                                  Icons.star_border,
-                                  size: 18,
-                                ),
-                                Icon(
-                                  Icons.star_border,
-                                  size: 18,
-                                ),
-                                Icon(
-                                  Icons.star_border,
-                                  size: 18,
-                                ),
-                                Icon(
-                                  Icons.star_border,
-                                  size: 18,
-                                )
                               ],
                             ),
                           ],
@@ -299,6 +303,17 @@ class _Home1ClientState extends State<Home1Client> {
                   ),
                 );
               },
+            ),
+          );
+        } else {
+          return Center(
+            child: Text(
+              'لا يوجد حرفي',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Marhey'),
             ),
           );
         }
@@ -314,7 +329,7 @@ class _Home1ClientState extends State<Home1Client> {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error fetching data: ${snapshot.error}'));
-        } else {
+        } else if (snapshot.data!.isNotEmpty) {
           List<Like1_model>? infoModels = snapshot.data;
 
           return SizedBox(
@@ -328,6 +343,14 @@ class _Home1ClientState extends State<Home1Client> {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Worker_prof2(
+                                    email: infoModels[index].email!,
+                                  )));
+                    },
                     onDoubleTap: () {
                       FireStore_client().deleteUserLike(
                           email: like1_model.email!, type: like1_model.type!);
@@ -336,10 +359,10 @@ class _Home1ClientState extends State<Home1Client> {
                         SnackBar(
                           backgroundColor: main_color,
                           content: Text(
-                            "❤️ تم الحذف إلى المفضلات",
+                            "❤️ تم الحذف من المفضلات",
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 25.sp,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.w800,
                                 fontFamily: 'Marhey'),
                           ),
@@ -441,11 +464,26 @@ class _Home1ClientState extends State<Home1Client> {
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Marhey'),
                             ),
+
+
+
+                            
                           ],
                         )),
                   ),
                 );
               },
+            ),
+          );
+        } else {
+          return Center(
+            child: Text(
+              'لم تقم بالاضافه الي المفضله',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Marhey'),
             ),
           );
         }
@@ -465,7 +503,7 @@ class _Home1ClientState extends State<Home1Client> {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error fetching data: ${snapshot.error}'));
-        } else {
+        } else if (snapshot.data!.isNotEmpty) {
           List<Info_Model>? infoModels = snapshot.data;
 
           return SizedBox(
@@ -479,6 +517,14 @@ class _Home1ClientState extends State<Home1Client> {
                   return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5.w),
                       child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Worker_prof2(
+                                        email: infoModels[index].email!,
+                                      )));
+                        },
                         onDoubleTap: () {
                           FireStore_client().addUser_like1(
                             fullName: infoModel.fullName!,
@@ -564,6 +610,17 @@ class _Home1ClientState extends State<Home1Client> {
                         ),
                       ));
                 }),
+          );
+        } else {
+          return Center(
+            child: Text(
+              'لا يوجود ورشه',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Marhey'),
+            ),
           );
         }
       },

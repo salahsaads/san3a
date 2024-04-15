@@ -4,10 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class MyWidget_button extends StatefulWidget {
-  MyWidget_button(
-      {super.key, required this.text, required this.back_color1});
+  MyWidget_button({super.key, required this.text, required this.back_color1});
   String text;
-  Color back_color1 ;
+  Color back_color1;
   @override
   State<MyWidget_button> createState() => _MyWidget_buttonState();
 }
@@ -17,7 +16,7 @@ class _MyWidget_buttonState extends State<MyWidget_button> {
   Widget build(BuildContext context) {
     return Container(
       height: 55.h,
-      width: 350.w,
+      width: 450.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
           // border: Border.all(color: Colors.black, width: 2),
@@ -32,13 +31,13 @@ class _MyWidget_buttonState extends State<MyWidget_button> {
           ],
           borderRadius: BorderRadius.circular(10.r)),
       child: Padding(
-        padding:  EdgeInsets.only(left: 20.w, right: 20.w),
+        padding: EdgeInsets.only(left: 20.w, right: 20.w),
         child: Text(
           widget.text,
-          style:  TextStyle(
+          style: TextStyle(
               color: Colors.black,
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w800,
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w600,
               fontFamily: 'Marhey'),
         ),
       ),

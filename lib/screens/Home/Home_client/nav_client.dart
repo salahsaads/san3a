@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/model/info_model.dart';
 import 'package:project/model/info_model_client.dart';
 import 'package:project/screens/Home/Home_client/home1_client.dart';
 import 'package:project/screens/Home/Home_client/home2_clinet.dart';
@@ -111,7 +110,7 @@ class _NavState extends State<Nav_Client> {
         centerTitle: true,
         title: Image.asset(
           'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png',
-          width: 60.w,
+          width: 35.w,
         ),
         /*actions: const [
           Padding(
@@ -128,7 +127,7 @@ class _NavState extends State<Nav_Client> {
             builder: (context) => IconButton(
               icon: Icon(
                 Icons.menu,
-                size: 40.sp,
+                size: 25.sp,
                 color: main_color,
               ),
               onPressed: () => Scaffold.of(context).openEndDrawer(),
@@ -187,7 +186,7 @@ class _NavState extends State<Nav_Client> {
               hoverColor: Colors.grey[100]!,
               gap: 8,
               activeColor: main_color,
-              iconSize: 24,
+              iconSize: 25.sp,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
               duration: const Duration(milliseconds: 400),
               tabBackgroundColor: Colors.grey[100]!,

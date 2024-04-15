@@ -33,11 +33,15 @@ class _NavState extends State<Nav> {
       fontFamily: 'Marhey');
   int _selectedIndex = 0;
 
-  List<Widget> body = [Home(), const Home2(), const Home3()];
+  List<Widget> body = [Home(), Home2(), const Home3()];
 
   Info_Model? info_model;
+  double sum = 0;
   getdata() async {
     info_model = await FireStore().Get_Info();
+    sum = await FireStore().getTotalRatingSum(email: info_model!.email!);
+    FireStore().updateRating(email: info_model!.email!, rating: sum);
+
     setState(() {});
   }
 
@@ -111,7 +115,7 @@ class _NavState extends State<Nav> {
           centerTitle: true,
           title: Image.asset(
             'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png',
-            width: 60.w,
+            width: 35.w,
           ),
           /*actions: const [
             Padding(
@@ -126,13 +130,10 @@ class _NavState extends State<Nav> {
           actions: [
             Builder(
               builder: (context) => IconButton(
-                icon: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w),
-                  child: Icon(
-                    Icons.menu,
-                    size: 40.sp,
-                    color: main_color,
-                  ),
+                icon: Icon(
+                  Icons.menu,
+                  size: 20.sp,
+                  color: main_color,
                 ),
                 onPressed: () => Scaffold.of(context).openEndDrawer(),
                 tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
@@ -184,7 +185,7 @@ class _NavState extends State<Nav> {
                 hoverColor: Colors.grey[100]!,
                 gap: 8,
                 activeColor: main_color,
-                iconSize: 24.sp,
+                iconSize: 25.sp,
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                 duration: const Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.grey[100]!,

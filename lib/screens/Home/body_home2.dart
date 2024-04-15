@@ -1,10 +1,10 @@
 import 'dart:io';
 
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/constant/constant.dart';
@@ -22,6 +22,7 @@ class Body_Home2 extends StatefulWidget {
 }
 
 class _Body_Home2State extends State<Body_Home2> {
+  double Sum = 0;
   List<Image_Model_work> image_work_all2 = [];
   File? file2;
   Info_Model? info_model;
@@ -50,11 +51,13 @@ class _Body_Home2State extends State<Body_Home2> {
       await ref.putFile(file2!, metadata);
 
       url2 = await ref.getDownloadURL();
+      FireStore().addImage_work2(url: url2!, email: info_model!.email!);
     }
   }
 
   getdata() async {
     info_model = await FireStore().Get_Info();
+    Sum = await FireStore().getTotalRatingSum(email: info_model!.email!);
 
     setState(() {});
   }
@@ -133,14 +136,22 @@ class _Body_Home2State extends State<Body_Home2> {
             SizedBox(
               height: 10.h,
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.star_border),
-                Icon(Icons.star_border),
-                Icon(Icons.star_border),
-                Icon(Icons.star_border),
-                Icon(Icons.star_border)
+                RatingBar.builder(
+                  initialRating: Sum,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: main_color,
+                  ),
+                  onRatingUpdate: (ratings) {},
+                ),
               ],
             ),
             SizedBox(
@@ -160,8 +171,10 @@ class _Body_Home2State extends State<Body_Home2> {
               height: 150.h,
               width: double.infinity,
               child: FutureBuilder<List<Image_Model_work_all>>(
-                future: FireStore()
-                    .getImageWorkAll2(), // Your asynchronous function that fetches data
+                future: info_model != null && info_model!.email != null
+                    ? FireStore().getImageWorkAll2(email: info_model!.email!)
+                    : Future.value(
+                        []), // Your asynchronous function that fetches data
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // While data is being fetched, show a loading indicator
