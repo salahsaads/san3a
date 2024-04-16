@@ -43,12 +43,14 @@ class FireStore_client {
   Future<void> addUser_like1(
       {required String fullName,
       required String location,
+    
       required String work,
       required String email,
       required String url,
       required String work_name,
       required String type}) {
     // Call the user's CollectionReference to add a new user
+    User? user = FirebaseAuth.instance.currentUser;
     return users1
         .add({
           'full_name': fullName,
@@ -56,6 +58,7 @@ class FireStore_client {
           'work': work,
           'email': email,
           'url': url,
+          'email_now': user!.uid,
           'workshop_name': work_name,
           'type': type
         })
@@ -67,14 +70,16 @@ class FireStore_client {
   final CollectionReference usersCollection =
       FirebaseFirestore.instance.collection('like');
 
-  Future<void> deleteUserLike({
-    required String email,
-    required String type,
-  }) async {
+  Future<void> deleteUserLike(
+      {required String email_worker,
+      required String type,
+    }) async {
     try {
       // Query for documents that match the specified email and type
+      User? user = FirebaseAuth.instance.currentUser;
       QuerySnapshot<Object?> querySnapshot = await usersCollection
-          .where('email', isEqualTo: email)
+          .where('email', isEqualTo: email_worker)
+          .where('email_now', isEqualTo: user!.uid)
           .where('type', isEqualTo: type)
           .get();
 
@@ -83,10 +88,10 @@ class FireStore_client {
         // Delete each matching document
         for (QueryDocumentSnapshot<Object?> document in querySnapshot.docs) {
           await document.reference.delete();
-          print('Deleted Like Document for $email and type $type');
+          print('Deleted Like Document for $email_worker and type $type');
         }
       } else {
-        print('No matching documents found for $email and type $type');
+        print('No matching documents found for $email_worker and type $type');
       }
     } catch (error) {
       print('Failed to delete user like: $error');
@@ -101,7 +106,10 @@ class FireStore_client {
       try {
         // Retrieve user data from Firestore
         QuerySnapshot<Map<String, dynamic>> querySnapshot =
-            await FirebaseFirestore.instance.collection('like').get();
+            await FirebaseFirestore.instance
+                .collection('like')
+                .where('email_now', isEqualTo:user.uid)
+                .get();
 
         List<Like1_model> likeList = [];
 

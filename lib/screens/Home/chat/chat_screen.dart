@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,7 +9,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/message.dart';
 import 'package:project/model/service_model.dart';
-import 'package:project/widget/chat_bubble';
+import 'package:project/widget/chat_bubble.dart';
 
 class Chat_Page extends StatefulWidget {
   final String email_user;

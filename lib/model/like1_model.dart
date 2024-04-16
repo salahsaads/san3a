@@ -1,22 +1,22 @@
 class Like1_model {
   String? fullName;
-
   String? location;
-
+  String? c;
   String? work;
-  String? email;
+  String? email_Worker;
   String? workshop_name;
   String? type;
   String? url;
-  Like1_model({
-    this.email,
-    this.fullName,
-    this.location,
-    this.work,
-    this.workshop_name,
-    this.url,
-    this.type,
-  });
+  String? email_now;
+  Like1_model(
+      {this.email_Worker,
+      this.fullName,
+      this.location,
+      this.work,
+      this.workshop_name,
+      this.url,
+      this.type,
+      this.email_now});
 
   factory Like1_model.fromJson(Map<String, dynamic> json) {
     return Like1_model(
@@ -25,8 +25,9 @@ class Like1_model {
       work: json['work'],
       workshop_name: json['workshop_name'],
       location: json['location'],
-      email: json['email'],
+      email_Worker: json['email'],
       url: json['url'],
+      email_now: json['email_now']
     );
   }
 }

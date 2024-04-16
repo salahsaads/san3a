@@ -5,13 +5,15 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/info_model.dart';
+import 'package:project/model/info_model_client.dart';
+import 'package:project/screens/Home/Home_client/prof_user_client.dart';
 import 'package:project/screens/Home/Home_client/search.dart';
 import 'package:project/screens/auth/login_worker.dart';
 import 'package:project/service/store_client.dart';
 import 'package:project/widget/choose_button.dart';
 
 class All_workers1 extends StatefulWidget {
-  const All_workers1({super.key});
+  All_workers1({super.key});
 
   @override
   State<All_workers1> createState() => _All_workersState();
@@ -234,7 +236,7 @@ class YourGridViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height / 2,
+      height: MediaQuery.of(context).size.height / 1,
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // Number of columns in the grid
@@ -247,6 +249,14 @@ class YourGridViewWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           Info_Model infoModel = infoModels![index];
           return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Worker_prof2(
+                            email: infoModels![index].email!,
+                          )));
+            },
             onDoubleTap: () {
               // Perform Firestore operation or any other actions
               FireStore_client().addUser_like1(
@@ -294,20 +304,37 @@ class YourGridViewWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Image or placeholder widget
-                  Container(
-                    height: 100.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0.r),
-                      color: Colors.blue, // Placeholder color if url is null
-                      image: infoModel.url != null
-                          ? DecorationImage(
-                              image: NetworkImage(infoModel.url!),
-                              fit: BoxFit.cover,
-                            )
-                          : null, // No image if url is null
-                    ),
-                  ),
+                  infoModel.url != null
+                      ? Container(
+                          height: 100.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0.r),
+                            color:
+                                Colors.blue, // Placeholder color if url is null
+                            image: infoModel.url != null
+                                ? DecorationImage(
+                                    image: NetworkImage(infoModel.url!),
+                                    fit: BoxFit.cover,
+                                  )
+                                : null, // No image if url is null
+                          ),
+                        )
+                      : Container(
+                          height: 100.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0.r),
+                            color:
+                                Colors.blue, // Placeholder color if url is null
+                            // image: infoModel.url != null
+                            //     ? DecorationImage(
+                            //         image: NetworkImage(infoModel.url!),
+                            //         fit: BoxFit.cover,
+                            //       )
+                            //     : null, // No image if url is null
+                          ),
+                        ),
                   SizedBox(height: 5.0),
                   Text(
                     '${infoModel.fullName}',

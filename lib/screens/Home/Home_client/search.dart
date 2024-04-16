@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/info_model.dart';
+import 'package:project/model/info_model_client.dart';
+import 'package:project/screens/Home/Home_client/prof_user_client.dart';
 import 'package:project/service/store_client.dart';
 
 class Search extends StatefulWidget {
   int type;
+
   Search({super.key, required this.type});
 
   @override
@@ -94,7 +98,12 @@ class _SearchState extends State<Search> {
 class All_workers extends StatefulWidget {
   String? search;
   int type;
-  All_workers({super.key, required this.search, required this.type});
+
+  All_workers({
+    super.key,
+    required this.search,
+    required this.type,
+  });
 
   @override
   State<All_workers> createState() => _All_workersState();
@@ -148,7 +157,12 @@ class _All_workersState extends State<All_workers> {
 class YourGridViewWidget extends StatelessWidget {
   List<Info_Model>? infoModels;
   int type;
-  YourGridViewWidget({super.key, required this.infoModels, required this.type});
+
+  YourGridViewWidget({
+    super.key,
+    required this.infoModels,
+    required this.type,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -166,6 +180,14 @@ class YourGridViewWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           Info_Model infoModel = infoModels![index];
           return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Worker_prof2(
+                            email: infoModels![index].email!,
+                          )));
+            },
             onDoubleTap: () {
               // Perform Firestore operation or any other actions
               FireStore_client().addUser_like1(
@@ -214,7 +236,7 @@ class YourGridViewWidget extends StatelessWidget {
                 children: [
                   // Image or placeholder widget
                   Container(
-                    height: 150.h,
+                    height: 100.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0.r),
@@ -262,13 +284,24 @@ class YourGridViewWidget extends StatelessWidget {
                   SizedBox(height: 5.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      5,
-                      (index) => Icon(
-                        Icons.star_border,
-                        size: 18.0,
-                      ),
-                    ),
+                    children: [
+                      RatingBar.builder(
+                        itemSize: 15.sp,
+                        initialRating: infoModel.rating!,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: main_color,
+                        ),
+                        onRatingUpdate: (rating) {
+                          print(rating);
+                        },
+                      )
+                    ],
                   ),
                 ],
               ),

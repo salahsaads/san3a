@@ -171,423 +171,201 @@ class _Worker_profState extends State<Worker_prof> {
       ),
       body: Padding(
         padding: EdgeInsets.only(left: 16.w, right: 16.w),
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Stack(
-              children: [
-                if (info_model.url != null)
-                  Container(
-                    width: 100.w,
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(info_model.url!),
-                            fit: BoxFit.cover),
-                        borderRadius: BorderRadius.circular(150.r),
-                        color: Colors.amber),
-                  )
-                else
-                  Container(
-                    width: 100.w,
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                        // image: DecorationImage(
-                        //     image: NetworkImage(image_model_prof.url!),
-                        //     fit: BoxFit.cover),
-                        borderRadius: BorderRadius.circular(150.r),
-                        color: Colors.amber),
-                  ),
-                GestureDetector(
-                  onTap: () async {
-                    await UploadImage_camera3();
-                    if (getimage) {
-                      AwesomeDialog(
-                        context: context,
-                        animType: AnimType.scale,
-                        dialogType: DialogType.info,
-                        body: Center(
-                          child: Text(
-                            'تأكيد تغير صوره الملف الشخصي ',
-                            style: TextStyle(
-                                color: sec_color,
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Marhey'),
+        child: SingleChildScrollView(
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Stack(
+                children: [
+                  if (info_model.url != null)
+                    Container(
+                      width: 100.w,
+                      height: 100.h,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(info_model.url!),
+                              fit: BoxFit.cover),
+                          borderRadius: BorderRadius.circular(150.r),
+                          color: Colors.amber),
+                    )
+                  else
+                    Container(
+                      width: 100.w,
+                      height: 100.h,
+                      decoration: BoxDecoration(
+                          // image: DecorationImage(
+                          //     image: NetworkImage(image_model_prof.url!),
+                          //     fit: BoxFit.cover),
+                          borderRadius: BorderRadius.circular(150.r),
+                          color: Colors.amber),
+                    ),
+                  GestureDetector(
+                    onTap: () async {
+                      await UploadImage_camera3();
+                      if (getimage) {
+                        AwesomeDialog(
+                          context: context,
+                          animType: AnimType.scale,
+                          dialogType: DialogType.info,
+                          body: Center(
+                            child: Text(
+                              'تأكيد تغير صوره الملف الشخصي ',
+                              style: TextStyle(
+                                  color: sec_color,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Marhey'),
+                            ),
                           ),
+                          btnCancelText: 'لا',
+                          btnOkText: 'نعم',
+                          btnOkOnPress: () {
+                            add();
+                          },
+                          btnCancelOnPress: () {},
+                        ).show();
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 3.w,
+                          vertical: 3.h), // Adjust the padding as needed
+                      decoration: BoxDecoration(
+                        color: main_color,
+                        border: Border.all(
+                          color: Colors.black, // Set the border color
+                          width: 2.0.w, // Set the border width
                         ),
-                        btnCancelText: 'لا',
-                        btnOkText: 'نعم',
-                        btnOkOnPress: () {
-                          add();
-                        },
-                        btnCancelOnPress: () {},
-                      ).show();
-                    }
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 3.w,
-                        vertical: 3.h), // Adjust the padding as needed
+                        borderRadius: BorderRadius.circular(12.0
+                            .r), // Set border radius if you want rounded corners
+                      ),
+                      child: Icon(
+                        Icons.camera_alt,
+                        size: 20.sp,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+              Row(
+                children: [
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
                     decoration: BoxDecoration(
-                      color: main_color,
                       border: Border.all(
-                        color: Colors.black, // Set the border color
+                        color: Colors.grey, // Set the border color
                         width: 2.0.w, // Set the border width
                       ),
                       borderRadius: BorderRadius.circular(12.0
                           .r), // Set border radius if you want rounded corners
                     ),
                     child: Icon(
-                      Icons.camera_alt,
+                      Icons.person,
                       size: 20.sp,
-                      color: Colors.white,
+                      color: Colors.grey,
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30.h,
-            ),
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey, // Set the border color
-                      width: 2.0.w, // Set the border width
-                    ),
-                    borderRadius: BorderRadius.circular(12.0
-                        .r), // Set border radius if you want rounded corners
+                  Text(
+                    ' الاسم بالكامل  ',
+                    style: TextStyle(
+                        color: sec_color,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Marhey'),
                   ),
-                  child: Icon(
-                    Icons.person,
-                    size: 20.sp,
-                    color: Colors.grey,
-                  ),
-                ),
-                Text(
-                  ' الاسم بالكامل  ',
-                  style: TextStyle(
-                      color: sec_color,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Marhey'),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${info_model.fullName}',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Marhey'),
+                ],
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Divider(
-              thickness: 0.9,
-              color: Colors.grey[400],
-            ),
-            //--------------------------------------------------------------------
-
-            SizedBox(
-              height: 10.h,
-            ),
-            Row(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.all(3), // Adjust the padding as needed
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey, // Set the border color
-                      width: 2.0, // Set the border width
-                    ),
-                    borderRadius: BorderRadius.circular(
-                        12.0), // Set border radius if you want rounded corners
-                  ),
-                  child: const Icon(
-                    Icons.phone,
-                    size: 20,
-                    color: Colors.grey,
-                  ),
-                ),
-                const Text(
-                  '  رقم الهاتف   ',
-                  style: TextStyle(
-                      color: sec_color,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Marhey'),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${info_model.phonenumber}',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Marhey'),
+              SizedBox(
+                height: 10.h,
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Divider(
-              thickness: 0.9,
-              color: Colors.grey[400],
-            ),
-            //--------------------------------------------------------------------
-
-            SizedBox(
-              height: 10.h,
-            ),
-
-            //------------------------------------------------------------------------------------------------------------------
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 3.w,
-                      vertical: 3.h), // Adjust the padding as needed
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey, // Set the border color
-                      width: 2.0.w, // Set the border width
-                    ),
-                    borderRadius: BorderRadius.circular(12.0
-                        .r), // Set border radius if you want rounded corners
-                  ),
-                  child: Icon(
-                    Icons.calendar_month,
-                    size: 20.sp,
-                    color: Colors.grey,
-                  ),
-                ),
-                Text(
-                  '   تاريخ الميلاد',
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${info_model.fullName}',
                   style: TextStyle(
-                      color: sec_color,
+                      color: Colors.grey,
                       fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       fontFamily: 'Marhey'),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${info_model.dateOfBirth}',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Marhey'),
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Divider(
-              thickness: 0.9,
-              color: Colors.grey[400],
-            ),
-            //--------------------------------------------------------------------
-
-            SizedBox(
-              height: 10.h,
-            ),
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 3.w,
-                      vertical: 3.h), // Adjust the padding as needed
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey, // Set the border color
-                      width: 2.0.w, // Set the border width
-                    ),
-                    borderRadius: BorderRadius.circular(12.0
-                        .r), // Set border radius if you want rounded corners
-                  ),
-                  child: Icon(
-                    Icons.email_rounded,
-                    size: 20.sp,
-                    color: Colors.grey,
-                  ),
-                ),
-                Text(
-                  '   البريد الالكتروني    ',
-                  style: TextStyle(
-                      color: sec_color,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Marhey'),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${info_model.email}',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Marhey'),
+              SizedBox(
+                height: 10.h,
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Divider(
-              thickness: 0.9,
-              color: Colors.grey[400],
-            ),
-            //--------------------------------------------------------------------
-
-            SizedBox(
-              height: 10.h,
-            ),
-            //------------------------------------------------------------------------------------------------------------------
-
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 3.w,
-                      vertical: 3.h), // Adjust the padding as needed
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey, // Set the border color
-                      width: 2.0.w, // Set the border width
-                    ),
-                    borderRadius: BorderRadius.circular(12.0
-                        .r), // Set border radius if you want rounded corners
-                  ),
-                  child: Icon(
-                    Icons.location_on,
-                    size: 20.sp,
-                    color: Colors.grey,
-                  ),
-                ),
-                Text(
-                  '   موقع ورشتك أو موقعك ',
-                  style: TextStyle(
-                      color: sec_color,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Marhey'),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${info_model.location}',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Marhey'),
+              Divider(
+                thickness: 0.9,
+                color: Colors.grey[400],
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Divider(
-              thickness: 0.9,
-              color: Colors.grey[400],
-            ),
-            //--------------------------------------------------------------------
+              //--------------------------------------------------------------------
 
-            SizedBox(
-              height: 10.h,
-            ),
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 3.w,
-                      vertical: 3.h), // Adjust the padding as needed
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey, // Set the border color
-                      width: 2.0.w, // Set the border width
-                    ),
-                    borderRadius: BorderRadius.circular(12.0
-                        .r), // Set border radius if you want rounded corners
-                  ),
-                  child: Icon(
-                    Icons.key_rounded,
-                    size: 20.sp,
-                    color: Colors.grey,
-                  ),
-                ),
-                Text(
-                  '   كلمه السر  ',
-                  style: TextStyle(
-                      color: sec_color,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Marhey'),
-                ),
-                SizedBox(
-                  width: 50.w,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    AwesomeDialog(
-                      context: context,
-                      animType: AnimType.scale,
-                      dialogType: DialogType.info,
-                      body: Center(
-                        child: Text(
-                          'تأكيد تغير الباسورد',
-                          style: TextStyle(
-                              color: sec_color,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Marhey'),
-                        ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                children: [
+                  Container(
+                    padding:
+                        const EdgeInsets.all(3), // Adjust the padding as needed
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey, // Set the border color
+                        width: 2.0, // Set the border width
                       ),
-                      btnCancelText: 'لا',
-                      btnOkText: 'نعم',
-                      btnOkOnPress: () async {
-                        await Auth.auth
-                            .sendPasswordResetEmail(email: info_model.email!);
-                      },
-                      btnCancelOnPress: () {},
-                    ).show();
-                  },
-                  child: Container(
+                      borderRadius: BorderRadius.circular(
+                          12.0), // Set border radius if you want rounded corners
+                    ),
+                    child: const Icon(
+                      Icons.phone,
+                      size: 20,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const Text(
+                    '  رقم الهاتف   ',
+                    style: TextStyle(
+                        color: sec_color,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Marhey'),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${info_model.phonenumber}',
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Marhey'),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Divider(
+                thickness: 0.9,
+                color: Colors.grey[400],
+              ),
+              //--------------------------------------------------------------------
+
+              SizedBox(
+                height: 10.h,
+              ),
+
+              //------------------------------------------------------------------------------------------------------------------
+              Row(
+                children: [
+                  Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: 3.w,
                         vertical: 3.h), // Adjust the padding as needed
@@ -600,17 +378,242 @@ class _Worker_profState extends State<Worker_prof> {
                           .r), // Set border radius if you want rounded corners
                     ),
                     child: Icon(
-                      Icons.border_color,
+                      Icons.calendar_month,
                       size: 20.sp,
                       color: Colors.grey,
                     ),
                   ),
+                  Text(
+                    '   تاريخ الميلاد',
+                    style: TextStyle(
+                        color: sec_color,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Marhey'),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${info_model.dateOfBirth}',
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Marhey'),
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Divider(
+                thickness: 0.9,
+                color: Colors.grey[400],
+              ),
+              //--------------------------------------------------------------------
 
-            //
-          ],
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 3.w,
+                        vertical: 3.h), // Adjust the padding as needed
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey, // Set the border color
+                        width: 2.0.w, // Set the border width
+                      ),
+                      borderRadius: BorderRadius.circular(12.0
+                          .r), // Set border radius if you want rounded corners
+                    ),
+                    child: Icon(
+                      Icons.email_rounded,
+                      size: 20.sp,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    '   البريد الالكتروني    ',
+                    style: TextStyle(
+                        color: sec_color,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Marhey'),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${info_model.email}',
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Marhey'),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Divider(
+                thickness: 0.9,
+                color: Colors.grey[400],
+              ),
+              //--------------------------------------------------------------------
+
+              SizedBox(
+                height: 10.h,
+              ),
+              //------------------------------------------------------------------------------------------------------------------
+
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 3.w,
+                        vertical: 3.h), // Adjust the padding as needed
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey, // Set the border color
+                        width: 2.0.w, // Set the border width
+                      ),
+                      borderRadius: BorderRadius.circular(12.0
+                          .r), // Set border radius if you want rounded corners
+                    ),
+                    child: Icon(
+                      Icons.location_on,
+                      size: 20.sp,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    '   موقع ورشتك أو موقعك ',
+                    style: TextStyle(
+                        color: sec_color,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Marhey'),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${info_model.location}',
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Marhey'),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Divider(
+                thickness: 0.9,
+                color: Colors.grey[400],
+              ),
+              //--------------------------------------------------------------------
+
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 3.w,
+                        vertical: 3.h), // Adjust the padding as needed
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey, // Set the border color
+                        width: 2.0.w, // Set the border width
+                      ),
+                      borderRadius: BorderRadius.circular(12.0
+                          .r), // Set border radius if you want rounded corners
+                    ),
+                    child: Icon(
+                      Icons.key_rounded,
+                      size: 20.sp,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Text(
+                    '   كلمه السر  ',
+                    style: TextStyle(
+                        color: sec_color,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Marhey'),
+                  ),
+                  SizedBox(
+                    width: 50.w,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      AwesomeDialog(
+                        context: context,
+                        animType: AnimType.scale,
+                        dialogType: DialogType.info,
+                        body: Center(
+                          child: Text(
+                            'تأكيد تغير الباسورد',
+                            style: TextStyle(
+                                color: sec_color,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Marhey'),
+                          ),
+                        ),
+                        btnCancelText: 'لا',
+                        btnOkText: 'نعم',
+                        btnOkOnPress: () async {
+                          await Auth.auth
+                              .sendPasswordResetEmail(email: info_model.email!);
+                        },
+                        btnCancelOnPress: () {},
+                      ).show();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 3.w,
+                          vertical: 3.h), // Adjust the padding as needed
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey, // Set the border color
+                          width: 2.0.w, // Set the border width
+                        ),
+                        borderRadius: BorderRadius.circular(12.0
+                            .r), // Set border radius if you want rounded corners
+                      ),
+                      child: Icon(
+                        Icons.border_color,
+                        size: 20.sp,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              //
+            ],
+          ),
         ),
       ),
     );

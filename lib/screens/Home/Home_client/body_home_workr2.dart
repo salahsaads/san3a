@@ -36,8 +36,6 @@ class _Body_Home2State extends State<Body_Home_worker2> {
     service_model1 = await FireStore_client_worker().Get_Services_all(
         email1: info_model_client!.email!, email2: info_model!.email!);
 
-    sum = await FireStore().getTotalRatingSum(email: info_model!.email!);
-
     setState(() {});
   }
 
@@ -113,7 +111,8 @@ class _Body_Home2State extends State<Body_Home_worker2> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 RatingBar.builder(
-                  initialRating: sum,
+                  initialRating:
+                      info_model?.rating == null ? 0 : info_model!.rating!,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,

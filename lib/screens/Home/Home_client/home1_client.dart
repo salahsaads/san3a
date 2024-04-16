@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/info_model.dart';
+import 'package:project/model/info_model_client.dart';
 import 'package:project/model/like1_model.dart';
 import 'package:project/screens/Home/Home_client/all_worker2.dart';
 import 'package:project/screens/Home/Home_client/all_workers1.dart';
@@ -22,6 +23,8 @@ class Home1Client extends StatefulWidget {
 }
 
 class _Home1ClientState extends State<Home1Client> {
+  Info_Model_Client info_model_client = Info_Model_Client();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,8 +78,8 @@ class _Home1ClientState extends State<Home1Client> {
               ),
               SizedBox(height: 30.h),
               _buildSectionTitle('المفضله'),
-              _buildListView3(),
-              SizedBox(height: 30.h),
+              _buildListView3(info_model_client: info_model_client),
+              SizedBox(height: 5.h),
               const Divider(thickness: 1),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -321,7 +324,7 @@ class _Home1ClientState extends State<Home1Client> {
     );
   }
 
-  Widget _buildListView3() {
+  Widget _buildListView3({required Info_Model_Client info_model_client}) {
     return FutureBuilder<List<Like1_model>>(
       future: FireStore_client().Get_like1(), // Call the method to fetch data
       builder: (context, snapshot) {
@@ -348,12 +351,14 @@ class _Home1ClientState extends State<Home1Client> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Worker_prof2(
-                                    email: infoModels[index].email!,
+                                    email: infoModels[index].email_Worker!,
                                   )));
                     },
                     onDoubleTap: () {
                       FireStore_client().deleteUserLike(
-                          email: like1_model.email!, type: like1_model.type!);
+                        email_worker: like1_model.email_Worker!,
+                        type: like1_model.type!,
+                      );
                       setState(() {});
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -464,10 +469,6 @@ class _Home1ClientState extends State<Home1Client> {
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Marhey'),
                             ),
-
-
-
-                            
                           ],
                         )),
                   ),
@@ -577,7 +578,22 @@ class _Home1ClientState extends State<Home1Client> {
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                    ),
+                                    )
+                                  else
+                                    Container(
+                                      height: 90.h,
+                                      width: 100.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors
+                                            .grey, // Example color, replace with your color
+                                        // image: DecorationImage(
+                                        //   image:
+                                        //       NetworkImage(infoModel.url_work!),
+                                        //   fit: BoxFit.cover,
+                                        // ),
+                                      ),
+                                    )
                                 ],
                               ),
                               SizedBox(height: 5),
@@ -585,7 +601,7 @@ class _Home1ClientState extends State<Home1Client> {
                                 infoModel.workshop_name ?? '',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 16,
+                                  fontSize: 12.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

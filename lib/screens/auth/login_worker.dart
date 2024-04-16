@@ -5,8 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/screens/Home/Home_client/nav_client.dart';
 import 'package:project/screens/Home/nav.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:project/screens/auth/choice.dart';
 import 'package:project/screens/auth/login_client.dart';
 import 'package:project/service/auth_service.dart';
@@ -19,12 +19,26 @@ class Login_worker extends StatefulWidget {
 }
 
 class _LoginState extends State<Login_worker> {
-  bool icon_check = true;
+  bool icon_check = false;
   // ignore: non_constant_identifier_names
+
   bool icon_check_o = true;
   Icon icon = const Icon(Icons.visibility_off);
   bool _save = false;
   final _formKey = GlobalKey<FormState>();
+  bool? bool_Save = false;
+  Get_Save() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    bool_Save = prefs.getBool('rememberPassword');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   TextEditingController password = TextEditingController();
   TextEditingController email = TextEditingController();
   @override
@@ -240,15 +254,17 @@ class _LoginState extends State<Login_worker> {
                         checkColor: main_color,
                         isError: true,
                         tristate: false,
-                        value: icon_check,
+                        value: bool_Save,
                         onChanged: (c) {
                           setState(() {
-                            if (icon_check == false) {
-                              icon_check = true;
+                            if (bool_Save == false) {
+                              bool_Save = true;
                             } else {
-                              icon_check = false;
+                              bool_Save = false;
                             }
                           });
+
+                     
                         },
                       ),
                     ],
@@ -394,4 +410,10 @@ class _LoginState extends State<Login_worker> {
       ),
     );
   }
+}
+
+Save_password(bool newValue) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  await prefs.setBool('rememberPassword', newValue);
 }
