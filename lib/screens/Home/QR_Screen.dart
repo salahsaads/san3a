@@ -23,12 +23,10 @@ class _ScanScreenState extends State<ScanScreen> {
   double rating = 0;
   double sum = 0;
 
-  
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    
   }
 
   TextEditingController comment = TextEditingController();
@@ -61,13 +59,13 @@ class _ScanScreenState extends State<ScanScreen> {
           .then((value) {
         setState(() {
           qrstr = value;
-          if (value == widget.service_model.email_user) {
+          if (value != widget.service_model.email_user) {
             FireStore_client_worker().delete_service1(
                 widget.service_model.email_user!,
                 widget.service_model.email_worker!);
           }
 
-          if (qrstr != '-1') {
+          if (qrstr == '-1') {
             showDialog(
                 context: context,
                 builder: (_) {
@@ -95,7 +93,7 @@ class _ScanScreenState extends State<ScanScreen> {
                       ],
                     ),
                     content: Container(
-                      height: 120.h,
+                      height: 190.h,
                       child: Column(
                         children: [
                           RatingBar.builder(

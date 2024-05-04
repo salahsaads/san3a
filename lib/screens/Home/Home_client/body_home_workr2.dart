@@ -145,8 +145,8 @@ class _Body_Home2State extends State<Body_Home_worker2> {
                           email_worker: info_model!.email!,
                           to_be_sure_user: '0',
                           to_be_sure_worker: '0',
-                          url_user: info_model_client!.url!,
-                          url_worker: info_model!.url!);
+                          url_user: info_model_client!.url ?? "",
+                          url_worker: info_model!.url ?? "");
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -353,7 +353,7 @@ class _Body_Home2State extends State<Body_Home_worker2> {
                                   height: 40.h,
                                 ),
                                 RatingBar.builder(
-                                  itemSize: 25,
+                                  itemSize: 15.sp,
                                   initialRating: Data.Rating!,
                                   minRating: 1,
                                   direction: Axis.horizontal,

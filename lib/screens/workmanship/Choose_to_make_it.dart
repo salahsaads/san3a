@@ -217,14 +217,21 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
 
               GestureDetector(
                 onTap: () async {
-                  var z = await Auth.signUpWithEmailAndPassword(
-                      widget.email, widget.password);
-                  if (z != null) {
-                    await FireStore_client_worker().addEmail_type(
-                      email: widget.email,
-                      email_type: widget.email_type,
+                  try {
+                    // Attempt to sign up the user
+                    var user = await Auth.signUpWithEmailAndPassword(
+                      widget.email,
+                      widget.password,
                     );
-                    await FireStore().addUser(
+
+                    if (user != null) {
+                      // Add user details to Firestore
+                      await FireStore_client_worker().addEmail_type(
+                        email: widget.email,
+                        email_type: widget.email_type,
+                      );
+
+                      await FireStore().addUser(
                         email_type: widget.email_type,
                         fullName: widget.fullname,
                         dateOfBirth: widget.dateofbirth,
@@ -232,14 +239,27 @@ class _Choose_to_make_itState extends State<Choose_to_make_it> {
                         phonenumber: widget.phoneNumber,
                         email: widget.email,
                         work: selectText,
-                        workshop_name: widget.workshop_name);
-                    Navigator.pushNamed(context, 'EmailVerificationScreen');
+                        workshop_name: widget.workshop_name,
+                      );
+
+                      // Navigate to email verification screen on success
+                      Navigator.pushNamed(context, 'EmailVerificationScreen');
+                    } else {
+                      // Handle sign-up failure
+                      print('User sign-up failed');
+                      // Optionally show an error message to the user
+                    }
+                  } catch (e) {
+                    // Handle any exceptions thrown during sign-up or Firestore operations
+                    print('Error: $e');
+                    // Optionally show an error message to the user
                   }
                 },
                 child: Custom_Buttom(
                   text: 'تسجيل',
                 ),
               ),
+
               SizedBox(
                 height: 40.h,
               ),

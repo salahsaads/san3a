@@ -42,8 +42,7 @@ class _EmailVerificationScreenState
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Email Successfully Verified")));
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Nav_Client
-          ()));
+          context, MaterialPageRoute(builder: (context) => Nav_Client()));
 
       timer?.cancel();
     }
@@ -68,7 +67,7 @@ class _EmailVerificationScreenState
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 80.h),
+                    padding: EdgeInsets.only(top: 30.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

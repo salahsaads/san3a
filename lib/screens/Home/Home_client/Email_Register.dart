@@ -385,29 +385,47 @@ class _Register_clientState extends State<Register_client_Email> {
                 GestureDetector(
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      var x = await Auth_client.signUpWithEmailAndPassword(
-                          email.text, password.text);
-
-                      if (x != null) {
-                        FireStore_client_worker().addEmail_type(
-                          email: email.text,
-                          email_type: widget.email_type,
+                      try {
+                        // Attempt to sign up the user
+                        var user = await Auth_client.signUpWithEmailAndPassword(
+                          email.text,
+                          password.text,
                         );
-                        FireStore_client().addUser_client(
-                            location: loaction.text,
+
+                        if (user != null) {
+                          // Add user details to Firestore
+                          await FireStore_client_worker().addEmail_type(
+                            email: email.text,
                             email_type: widget.email_type,
-                            fullName: fullname.text,
-                            phonenumber: phoneNumber.text,
-                            email: email.text);
-                        Navigator.pushNamed(
-                            context, 'EmailVerificationScreen_client');
+                          );
+
+                          await FireStore_client().addUser_client(
+                              location: loaction.text,
+                              email_type: widget.email_type,
+                              fullName: fullname.text,
+                              phonenumber: phoneNumber.text,
+                              email: email.text);
+
+                          // Navigate to email verification screen on success
+                          Navigator.pushNamed(
+                              context, 'EmailVerificationScreen_client');
+                        } else {
+                          // Handle sign-up failure
+                          print('User sign-up failed');
+                          // Optionally show an error message to the user
+                        }
+                      } catch (e) {
+                        // Handle any exceptions thrown during sign-up or Firestore operations
+                        print('Error: $e');
+                        // Optionally show an error message to the user
                       }
                     }
                   },
                   child: Custom_Buttom(
-                    text: 'التسجيل',
+                    text: 'تسجيل',
                   ),
-                )
+                ),
+
                 //------------------------------------------------------------------------------------------------------------------
               ],
             ),

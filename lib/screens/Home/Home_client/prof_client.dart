@@ -434,7 +434,7 @@ class _Worker_profState extends State<Client_prof> {
                   ),
                 ),
                 Text(
-                  '   موقع ورشتك أو موقعك ',
+                  '   موقعك ',
                   style: TextStyle(
                       color: sec_color,
                       fontSize: 14.sp,
@@ -449,7 +449,7 @@ class _Worker_profState extends State<Client_prof> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                '${''}',
+                '${info_model_client.location}',
                 style: TextStyle(
                     color: Colors.grey,
                     fontSize: 14.sp,
