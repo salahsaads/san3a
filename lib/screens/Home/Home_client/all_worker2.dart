@@ -26,11 +26,7 @@ class _All_workersState extends State<All_workers2> {
     infoModels = await FireStore_client().Get_Info_all();
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) {

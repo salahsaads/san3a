@@ -20,17 +20,17 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const Salah());
+  runApp(const San3a());
 }
 
-class Salah extends StatefulWidget {
-  const Salah({Key? key}) : super(key: key);
+class San3a extends StatefulWidget {
+  const San3a({Key? key}) : super(key: key);
 
   @override
-  State<Salah> createState() => _SalahState();
+  State<San3a> createState() => _San3aState();
 }
 
-class _SalahState extends State<Salah> {
+class _San3aState extends State<San3a> {
   Email_Type_model? email_type_model;
   bool ok = false;
 

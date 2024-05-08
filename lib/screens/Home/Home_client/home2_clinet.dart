@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
-import 'package:project/model/info_model.dart';
 import 'package:project/model/info_model_client.dart';
 import 'package:project/model/service_model.dart';
-import 'package:project/screens/Home/Home_client/Create_Screen.dart';
 import 'package:project/screens/Home/QR_Screen.dart';
 import 'package:project/screens/Home/chat/chat_screen.dart';
 import 'package:project/service/stor_client_and_worker.dart';
-import 'package:project/service/store.dart';
 import 'package:project/service/store_client.dart';
 
 class Home2Client extends StatefulWidget {
