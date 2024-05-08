@@ -193,7 +193,7 @@ class _NavState extends State<Nav_Client> {
               tabs: [
                 GButton(
                   icon: LineIcons.home,
-                  text: 'الرئسيه',
+                  text: 'الرئيسيه',
                   textStyle: optionStyle,
                 ),
                 GButton(

@@ -197,6 +197,7 @@ class _Worker_profState extends State<Client_prof> {
                     height: 100.h,
                     decoration: BoxDecoration(
                         image: DecorationImage(
+                            fit: BoxFit.cover,
                             image: AssetImage('assets/images (1).png')),
                         borderRadius: BorderRadius.circular(150.r),
                         color: Colors.amber),
