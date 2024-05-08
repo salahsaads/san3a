@@ -74,10 +74,9 @@ class _Body_Home1State extends State<Body_Home_Worker> {
                     width: 160.w,
                     height: 160.h,
                     decoration: BoxDecoration(
-                        // image: DecorationImage(
-                        //     image:
-                        //         new AssetImage("assets/FB_IMG_1659645799137.jpg"),
-                        //     fit: BoxFit.cover),
+                        image: DecorationImage(
+                            image: new AssetImage("assets/images (1).png"),
+                            fit: BoxFit.cover),
                         borderRadius: BorderRadius.circular(10.r),
                         color: Colors.amber),
                   ),

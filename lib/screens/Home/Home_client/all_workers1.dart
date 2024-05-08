@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
@@ -151,7 +152,7 @@ class _All_workersState extends State<All_workers1> {
                   padding: EdgeInsets.symmetric(horizontal: 14.w),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 70.h,
+                    height: 40.h,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(20.r),
@@ -324,16 +325,12 @@ class YourGridViewWidget extends StatelessWidget {
                           height: 100.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0.r),
-                            color:
-                                Colors.blue, // Placeholder color if url is null
-                            // image: infoModel.url != null
-                            //     ? DecorationImage(
-                            //         image: NetworkImage(infoModel.url!),
-                            //         fit: BoxFit.cover,
-                            //       )
-                            //     : null, // No image if url is null
-                          ),
+                              borderRadius: BorderRadius.circular(10.0.r),
+                              color: Colors
+                                  .blue, // Placeholder color if url is null
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage('assets/images (1).png'))),
                         ),
                   SizedBox(height: 5.0),
                   Text(

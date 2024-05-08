@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/info_model.dart';
-import 'package:project/model/info_model_client.dart';
 import 'package:project/screens/Home/Home_client/prof_user_client.dart';
 import 'package:project/screens/Home/Home_client/search.dart';
 import 'package:project/screens/auth/login_worker.dart';
@@ -25,8 +24,6 @@ class _All_workersState extends State<All_workers2> {
   getData() async {
     infoModels = await FireStore_client().Get_Info_all();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +144,7 @@ class _All_workersState extends State<All_workers2> {
                   padding: EdgeInsets.symmetric(horizontal: 14.w),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 50.h,
+                    height: 40.h,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(20.r),
@@ -234,7 +231,7 @@ class YourGridViewWidget extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.of(context).size.height / 1,
       child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // Number of columns in the grid
           crossAxisSpacing: 10.0, // Spacing between columns
           mainAxisSpacing: 10.0, // Spacing between rows
@@ -267,7 +264,7 @@ class YourGridViewWidget extends StatelessWidget {
 
               // Show SnackBar when double tapped
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   backgroundColor: Colors.blue,
                   content: Text(
                     "❤️ تم الإضافة إلى المفضلات",
@@ -291,7 +288,7 @@ class YourGridViewWidget extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 1,
                     blurRadius: 5,
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
@@ -305,56 +302,53 @@ class YourGridViewWidget extends StatelessWidget {
                           height: 100.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color:
-                                Colors.blue, // Placeholder color if url is null
-                            image: infoModel.url != null
-                                ? DecorationImage(
-                                    image: NetworkImage(infoModel.url_work!),
-                                    fit: BoxFit.cover,
-                                  )
-                                : null, // No image if url is null
-                          ),
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors
+                                  .blue, // Placeholder color if url is null
+                              image: infoModel.url != null
+                                  ? DecorationImage(
+                                      image: NetworkImage(infoModel.url_work!),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : null // No image if url is null
+                              ),
                         )
                       : Container(
                           height: 100.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color:
-                                Colors.blue, // Placeholder color if url is null
-                            // image: infoModel.url != null
-                            //     ? DecorationImage(
-                            //         image: NetworkImage(infoModel.url_work!),
-                            //         fit: BoxFit.cover,
-                            //       )
-                            //     : null, // No image if url is null
-                          ),
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.blue,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage('assets/images (1).png'),
+                              ) // Placeholder color if url is null
+                              ),
                         ),
-                  SizedBox(height: 5.0),
+                  const SizedBox(height: 5.0),
                   Text(
                     '${infoModel.workshop_name}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 14.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Marhey',
                     ),
                   ),
-                  SizedBox(height: 5.0),
+                  const SizedBox(height: 5.0),
                   Text(
                     '${infoModel.work}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.blue,
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Marhey',
                     ),
                   ),
-                  SizedBox(height: 5.0),
+                  const SizedBox(height: 5.0),
                   Text(
                     '${infoModel.location}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,

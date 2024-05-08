@@ -193,9 +193,9 @@ class _Worker_profState extends State<Worker_prof> {
                       width: 100.w,
                       height: 100.h,
                       decoration: BoxDecoration(
-                          // image: DecorationImage(
-                          //     image: NetworkImage(image_model_prof.url!),
-                          //     fit: BoxFit.cover),
+                          image: DecorationImage(
+                              image: AssetImage('assets/images (1).png'),
+                              fit: BoxFit.cover),
                           borderRadius: BorderRadius.circular(150.r),
                           color: Colors.amber),
                     ),

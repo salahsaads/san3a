@@ -156,8 +156,7 @@ class _NavState extends State<Nav> {
                           fit: BoxFit.cover,
                         )
                       : DecorationImage(
-                          image: AssetImage(
-                              'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png'),
+                          image: AssetImage('assets/images (1).png'),
                           fit: BoxFit.cover,
                         ), // No image if url is null
                 ),
@@ -193,7 +192,7 @@ class _NavState extends State<Nav> {
                 tabs: [
                   GButton(
                     icon: LineIcons.home,
-                    text: 'الرئسيه',
+                    text: 'الرئيسيه',
                     textStyle: optionStyle,
                   ),
                   GButton(

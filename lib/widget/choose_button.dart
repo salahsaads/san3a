@@ -16,18 +16,17 @@ class _MyWidget_buttonState extends State<MyWidget_button> {
   Widget build(BuildContext context) {
     return Container(
       height: 55.h,
-      width: 450.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
           // border: Border.all(color: Colors.black, width: 2),
           color: widget.back_color1,
           boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(255, 5, 5, 5).withOpacity(0.1),
-              spreadRadius: 5.r,
-              blurRadius: 7.r,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
+            // BoxShadow(
+            //   color: const Color.fromARGB(255, 5, 5, 5).withOpacity(0.1),
+            //   spreadRadius: 5.r,
+            //   blurRadius: 7.r,
+            //   offset: const Offset(0, 3), // changes position of shadow
+            // ),
           ],
           borderRadius: BorderRadius.circular(10.r)),
       child: Padding(

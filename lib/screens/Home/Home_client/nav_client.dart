@@ -145,7 +145,7 @@ class _NavState extends State<Nav_Client> {
             child: info_model_client.url != null
                 ? Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
+                      borderRadius: BorderRadius.circular(100.r),
                       image: DecorationImage(
                         image: NetworkImage(info_model_client.url!),
                         fit: BoxFit.cover,
@@ -155,12 +155,11 @@ class _NavState extends State<Nav_Client> {
                   )
                 : Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        // image: const DecorationImage(
-                        //   image: AssetImage(
-                        //       'assets/WhatsApp Image 2024-03-19 at 8.43.10 PM.jpeg'),
-                        //   fit: BoxFit.cover,
-                        // ),
+                        borderRadius: BorderRadius.circular(100.r),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images (1).png'),
+                          fit: BoxFit.cover,
+                        ),
                         color: Colors.grey),
                     child: null /* add child content here */,
                   ),

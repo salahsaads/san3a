@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -65,7 +63,7 @@ class _ScanScreenState extends State<ScanScreen> {
                 widget.service_model.email_worker!);
           }
 
-          if (qrstr == '-1') {
+          if (qrstr != '-1') {
             showDialog(
                 context: context,
                 builder: (_) {

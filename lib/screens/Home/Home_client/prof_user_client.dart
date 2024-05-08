@@ -79,7 +79,7 @@ class _Worker_prof2State extends State<Worker_prof2> {
                       alignment: Alignment.center,
                       width: 120.w,
                       height: 40.h,
-                      child: Text(
+                      child:   Text(
                         'الشخصيه',
                         style: TextStyle(
                           color: Colors.white,

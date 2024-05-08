@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/info_model_client.dart';

@@ -48,7 +48,7 @@ class _Home1ClientState extends State<Home1Client> {
                   padding: EdgeInsets.symmetric(horizontal: 14.w),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 50.h,
+                    height: 40.h,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(20.r),
@@ -115,6 +115,10 @@ class _Home1ClientState extends State<Home1Client> {
               ),
               SizedBox(height: 30.h),
               _buildListView2(),
+
+              const SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),
@@ -235,13 +239,13 @@ class _Home1ClientState extends State<Home1Client> {
                                         height: 90.h,
                                         width: 100.w,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.r),
-                                          color: main_color,
-                                          //
-                                          //
-                                          //
-                                        ),
+                                            borderRadius:
+                                                BorderRadius.circular(10.r),
+                                            color: main_color,
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: AssetImage(
+                                                    'assets/images (1).png'))),
                                       ),
                               ],
                             ),
@@ -413,13 +417,12 @@ class _Home1ClientState extends State<Home1Client> {
                                         height: 90.h,
                                         width: 100.w,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.r),
-                                          color: main_color,
-                                          //
-                                          //
-                                          //
-                                        ),
+                                            borderRadius:
+                                                BorderRadius.circular(10.r),
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: AssetImage(
+                                                    'assets/images (1).png'))),
                                       ),
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
@@ -508,7 +511,7 @@ class _Home1ClientState extends State<Home1Client> {
           List<Info_Model>? infoModels = snapshot.data;
 
           return SizedBox(
-            height: 180.h, // Adjust the height as needed
+            height: 160.h, // Adjust the height as needed
             child: ListView.builder(
                 reverse: true,
                 scrollDirection: Axis.horizontal,
@@ -584,15 +587,14 @@ class _Home1ClientState extends State<Home1Client> {
                                       height: 90.h,
                                       width: 100.w,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors
-                                            .grey, // Example color, replace with your color
-                                        // image: DecorationImage(
-                                        //   image:
-                                        //       NetworkImage(infoModel.url_work!),
-                                        //   fit: BoxFit.cover,
-                                        // ),
-                                      ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors
+                                              .grey, // Example color, replace with your color
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: AssetImage(
+                                                  'assets/images (1).png'))),
                                     )
                                 ],
                               ),

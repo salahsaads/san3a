@@ -65,8 +65,7 @@ class _Body_Home2State extends State<Body_Home_worker2> {
                         fit: BoxFit.cover,
                       )
                     : DecorationImage(
-                        image: AssetImage(
-                            'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png'),
+                        image: AssetImage('assets/images (1).png'),
                         fit: BoxFit.cover,
                       ), // No image if url is null
               ),

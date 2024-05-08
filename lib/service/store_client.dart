@@ -88,7 +88,7 @@ class FireStore_client {
         // Delete each matching document
         for (QueryDocumentSnapshot<Object?> document in querySnapshot.docs) {
           await document.reference.delete();
-          print('Deleted Like Document for $email_worker and type $type');
+           print('Deleted Like Document for $email_worker and type $type');
         }
       } else {
         print('No matching documents found for $email_worker and type $type');

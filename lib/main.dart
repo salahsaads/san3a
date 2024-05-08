@@ -49,8 +49,6 @@ class _San3aState extends State<San3a> {
 
         email_type_model = await FireStore_client_worker().Get_Email_type();
         if (email_type_model != null) {
-
-          
           setState(() {});
           ok = true;
           return;
@@ -72,19 +70,21 @@ class _San3aState extends State<San3a> {
       splitScreenMode: true,
       builder: (_, child) {
         return MaterialApp(
+          
+            debugShowCheckedModeBanner: false,
             routes: {
               'Workmanship_Register': (context) => Workmanship_Register(),
               'Home': (context) => Home(),
               "Nav": (context) => Nav(),
-              'Login_worker': (context) => Login_worker(),
-              'nav_client': (context) => Nav_Client(),
-              'EmailVerificationScreen': (context) => EmailVerificationScreen(),
+              'Login_worker': (context) => const Login_worker(),
+              'nav_client': (context) =>  Nav_Client(),
+              'EmailVerificationScreen':  (context) => const EmailVerificationScreen(),
               'EmailVerificationScreen_client': (context) =>
-                  EmailVerificationScreen_client()
+               const   EmailVerificationScreen_client()
             },
             home: (ok == true)
                 ? (email_type_model!.email_type == 'عميل')
-                    ? Nav_Client()
+                    ?  Nav_Client()
                     : (email_type_model!.email_type == 'صاحب صنعه')
                         ? Nav()
                         : Center(child: CircularProgressIndicator())

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/constant/constant.dart';
+import 'package:project/model/comment_model.dart';
 import 'package:project/model/image_model_all.dart';
 import 'package:project/model/image_model_work.dart';
 import 'package:project/model/info_model.dart';
@@ -94,8 +96,7 @@ class _Body_Home2State extends State<Body_Home2> {
                         fit: BoxFit.cover,
                       )
                     : DecorationImage(
-                        image: AssetImage(
-                            'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png'),
+                        image: AssetImage('assets/images (1).png'),
                         fit: BoxFit.cover,
                       ), // No image if url is null
               ),
@@ -283,8 +284,123 @@ class _Body_Home2State extends State<Body_Home2> {
                       fontFamily: 'Marhey'),
                 )),
             SizedBox(
-              height: 100.h,
+              height: 150.h,
+              width: double.infinity,
+              child: FutureBuilder<List<Comment_Model>>(
+                future: info_model != null && info_model!.email != null
+                    ? FireStore().getComments(info_model!.email!)
+                    : Future.value([]),
+
+                // Your asynchronous function that fetches data
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    // While data is being fetched, show a loading indicator
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    // If an error occurs during data fetching, display an error message
+                    return Center(
+                      child: Text(
+                        'لا يوجد تعليقات',
+                        style: TextStyle(
+                            color: sec_color,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Marhey'),
+                      ),
+                    );
+                  } else {
+                    // If data fetching is successful, build the ListView
+                    return ListView.builder(
+                      reverse: true,
+                      itemCount:
+                          snapshot.data!.length, // Assuming snapshot has data
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        // Use data from snapshot to populate the list item
+                        final Data = snapshot.data![index];
+                        if (snapshot.hasData) {
+                          return Card(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        '${Data.Full_name_Udser}',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.w700,
+                                          fontFamily: 'Marhey',
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 50.w,
+                                      ),
+                                      CircleAvatar(
+                                        backgroundImage:
+                                            NetworkImage(Data.Image_user!),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Text(
+                                  '${Data.Comment}',
+                                  style: TextStyle(
+                                    color: main_color,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: 'Marhey',
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 40.h,
+                                ),
+                                RatingBar.builder(
+                                  itemSize: 15.sp,
+                                  initialRating: Data.Rating!,
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 4.0),
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  onRatingUpdate: (ratings) {},
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: Text(
+                              'لا يوجد تعلقات',
+                              style: TextStyle(
+                                  color: sec_color,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Marhey'),
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  }
+                },
+              ),
             ),
+            SizedBox(
+              height: 30.h,
+            )
           ],
         ),
       ),

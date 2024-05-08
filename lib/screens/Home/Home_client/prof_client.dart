@@ -8,12 +8,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/image_model_work.dart';
-import 'package:project/model/info_model.dart';
 import 'package:project/model/info_model_client.dart';
 import 'package:project/screens/auth/login_worker.dart';
 import 'package:project/service/auth_client.dart';
-import 'package:project/service/auth_service.dart';
-import 'package:project/service/store.dart';
 import 'package:project/service/store_client.dart';
 import 'package:project/widget/choose_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -98,9 +95,12 @@ class _Worker_profState extends State<Client_prof> {
                 SizedBox(
                   height: 100.h,
                 ),
-                MyWidget_button(
-                  text: 'تواصل معانا',
-                  back_color1: Colors.white,
+                GestureDetector(
+                  onTap: () {},
+                  child: MyWidget_button(
+                    text: 'تواصل معانا',
+                    back_color1: Colors.white,
+                  ),
                 ),
                 SizedBox(
                   height: 30.h,
@@ -196,9 +196,8 @@ class _Worker_profState extends State<Client_prof> {
                     width: 100.w,
                     height: 100.h,
                     decoration: BoxDecoration(
-                        // image: DecorationImage(
-                        //     image: NetworkImage(image_model_prof.url!),
-                        //     fit: BoxFit.cover),
+                        image: DecorationImage(
+                            image: AssetImage('assets/images (1).png')),
                         borderRadius: BorderRadius.circular(150.r),
                         color: Colors.amber),
                   ),
