@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:project/constant/constant.dart';
 import 'package:project/model/info_model.dart';
 import 'package:project/model/info_model_client.dart';
@@ -24,106 +25,109 @@ class Home1Client extends StatefulWidget {
 
 class _Home1ClientState extends State<Home1Client> {
   Info_Model_Client info_model_client = Info_Model_Client();
+  bool result = false;
+  Checker() async {
+    result = await InternetConnectionChecker().hasConnection;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 50.h),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  // Navigate to search page
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Search(
-                                type: 2,
-                              )));
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 14.w),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          'بحث',
-                          style: TextStyle(
-                            color: sec_color,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'Marhey',
-                          ),
+        body: Padding(
+      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 50.h),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () {
+                // Navigate to search page
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Search(
+                              type: 2,
+                            )));
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 14.w),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 40.h,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'بحث',
+                        style: TextStyle(
+                          color: sec_color,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Marhey',
                         ),
-                        SizedBox(width: 15.w),
-                        Icon(
-                          Icons.search,
-                          size: 30.sp,
-                        ),
-                        SizedBox(width: 10.w),
-                      ],
-                    ),
+                      ),
+                      SizedBox(width: 15.w),
+                      Icon(
+                        Icons.search,
+                        size: 30.sp,
+                      ),
+                      SizedBox(width: 10.w),
+                    ],
                   ),
                 ),
               ),
-              SizedBox(height: 30.h),
-              _buildSectionTitle('المفضله'),
-              _buildListView3(info_model_client: info_model_client),
-              SizedBox(height: 5.h),
-              const Divider(thickness: 1),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => All_workers1()));
-                      },
-                      child: _buildSectionTitle('المزيد')),
-                  _buildSectionTitle('حرفيين متميزين'),
-                ],
-              ),
-              SizedBox(height: 30.h),
-              _buildListView1(), // Add ListView.builder here
-              SizedBox(height: 10.h),
-              const Divider(thickness: 1),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => All_workers2()));
-                      },
-                      child: _buildSectionTitle('المزيد')),
-                  _buildSectionTitle('ورش مميزه'),
-                ],
-              ),
-              SizedBox(height: 30.h),
-              _buildListView2(),
+            ),
+            SizedBox(height: 30.h),
+            _buildSectionTitle('المفضله'),
+            _buildListView3(info_model_client: info_model_client),
+            SizedBox(height: 5.h),
+            const Divider(thickness: 1),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => All_workers1()));
+                    },
+                    child: _buildSectionTitle('المزيد')),
+                _buildSectionTitle('حرفيين متميزين'),
+              ],
+            ),
+            SizedBox(height: 30.h),
+            _buildListView1(), // Add ListView.builder here
+            SizedBox(height: 10.h),
+            const Divider(thickness: 1),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => All_workers2()));
+                    },
+                    child: _buildSectionTitle('المزيد')),
+                _buildSectionTitle('ورش مميزه'),
+              ],
+            ),
+            SizedBox(height: 30.h),
+            _buildListView2(),
 
-              const SizedBox(
-                height: 20,
-              )
-            ],
-          ),
+            const SizedBox(
+              height: 20,
+            )
+          ],
         ),
       ),
-    );
+    ));
   }
 
   Widget _buildSectionTitle(String title) {

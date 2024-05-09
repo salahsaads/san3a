@@ -110,7 +110,7 @@ class _NavState extends State<Nav_Client> {
         centerTitle: true,
         title: Image.asset(
           'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png',
-          width: 35.w,
+          width: 40.w,
         ),
         /*actions: const [
           Padding(
@@ -144,8 +144,10 @@ class _NavState extends State<Nav_Client> {
             },
             child: info_model_client.url != null
                 ? Container(
+                   
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.r),
+                      color: Colors.grey,
                       image: DecorationImage(
                         image: NetworkImage(info_model_client.url!),
                         fit: BoxFit.cover,

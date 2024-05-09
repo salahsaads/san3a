@@ -24,13 +24,13 @@ class _HomeState extends State<Home> {
   Get_data() async {
     info_model = await FireStore().Get_Info();
     sum = await FireStore().getTotalRatingSum(email: info_model!.email!);
-    
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    Get_data();
   }
 
   @override

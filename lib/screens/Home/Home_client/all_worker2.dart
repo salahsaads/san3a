@@ -305,7 +305,7 @@ class YourGridViewWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors
                                   .blue, // Placeholder color if url is null
-                              image: infoModel.url != null
+                              image: infoModel.url_work != null
                                   ? DecorationImage(
                                       image: NetworkImage(infoModel.url_work!),
                                       fit: BoxFit.cover,

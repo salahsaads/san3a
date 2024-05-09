@@ -115,7 +115,7 @@ class _NavState extends State<Nav> {
           centerTitle: true,
           title: Image.asset(
             'assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png',
-            width: 35.w,
+            width: 40.w,
           ),
           /*actions: const [
             Padding(

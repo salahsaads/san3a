@@ -15,7 +15,7 @@ class Home2Client extends StatefulWidget {
   @override
   State<Home2Client> createState() => _Home2ClientState();
 }
-
+ 
 class _Home2ClientState extends State<Home2Client> {
   Info_Model_Client? info_model_client;
   getdata() async {
