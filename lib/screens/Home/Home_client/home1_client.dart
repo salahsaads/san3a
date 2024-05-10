@@ -362,8 +362,8 @@ class _Home1ClientState extends State<Home1Client> {
                                     email: infoModels[index].email_Worker!,
                                   )));
                     },
-                    onDoubleTap: () {
-                      FireStore_client().deleteUserLike(
+                    onDoubleTap: () async {
+                      await FireStore_client().deleteUserLike(
                         email_worker: like1_model.email_Worker!,
                         type: like1_model.type!,
                       );

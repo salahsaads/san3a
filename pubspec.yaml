@@ -61,8 +61,8 @@ dependencies:
   url_launcher: ^6.2.6
   internet_connection_checker: ^1.0.0+1
   flutter_launcher_icons: ^0.13.1
-flutter_icons:
-  android: true
+flutter_launcher_icons:
+  android: "launcher_icon"
   ios: true
   image_path: "assets/WhatsApp Image 2024-03-09 at 4.54.36 PM.png"
   min_sdk_android: 21

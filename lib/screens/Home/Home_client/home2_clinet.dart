@@ -223,13 +223,13 @@ class _Home2ClientState extends State<Home2Client> {
                                     TextButton(
                                         style: ButtonStyle(
                                           backgroundColor:
-                                              MaterialStateProperty.all<Color>(
+                                              WidgetStateProperty.all<Color>(
                                                   main_color), // Set background color
-                                          overlayColor: MaterialStateProperty
+                                          overlayColor: WidgetStateProperty
                                               .all<Color>(Colors
                                                   .white), // Set overlay color when pressed
                                           foregroundColor:
-                                              MaterialStateProperty.all<Color>(
+                                              WidgetStateProperty.all<Color>(
                                                   Colors
                                                       .white), // Set text color
                                         ),

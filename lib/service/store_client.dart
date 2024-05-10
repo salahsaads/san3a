@@ -43,7 +43,6 @@ class FireStore_client {
   Future<void> addUser_like1(
       {required String fullName,
       required String location,
-    
       required String work,
       required String email,
       required String url,
@@ -70,10 +69,10 @@ class FireStore_client {
   final CollectionReference usersCollection =
       FirebaseFirestore.instance.collection('like');
 
-  Future<void> deleteUserLike(
-      {required String email_worker,
-      required String type,
-    }) async {
+  Future<void> deleteUserLike({
+    required String email_worker,
+    required String type,
+  }) async {
     try {
       // Query for documents that match the specified email and type
       User? user = FirebaseAuth.instance.currentUser;
@@ -88,7 +87,7 @@ class FireStore_client {
         // Delete each matching document
         for (QueryDocumentSnapshot<Object?> document in querySnapshot.docs) {
           await document.reference.delete();
-           print('Deleted Like Document for $email_worker and type $type');
+          print('Deleted Like Document for $email_worker and type $type');
         }
       } else {
         print('No matching documents found for $email_worker and type $type');
@@ -108,7 +107,7 @@ class FireStore_client {
         QuerySnapshot<Map<String, dynamic>> querySnapshot =
             await FirebaseFirestore.instance
                 .collection('like')
-                .where('email_now', isEqualTo:user.uid)
+                .where('email_now', isEqualTo: user.uid)
                 .get();
 
         List<Like1_model> likeList = [];
@@ -191,7 +190,45 @@ class FireStore_client {
     return productList;
   }
 
-  void addImag_client({required String url, required String email}) async {
+  Future<String> delate_service(
+      {required String email1, required String email2}) async {
+    try {
+      var collectionName = 'services'; // Replace with your collection name
+
+      // Query 'image_work_all' collection to find the document with the matching email
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection(collectionName)
+              .where('email_worker', isEqualTo: email2)
+              .where('email_user', isEqualTo: email1)
+              .get();
+
+      // Check if any documents match the query
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the first document (assuming there's only one document per email)
+        var imageWorkDocument = querySnapshot.docs.first;
+
+        // Extract the document ID from the 'image_work_all' collection
+        var docId = imageWorkDocument.id;
+
+        // Reference the document in the 'users' collection using the extracted docId
+        var docRef =
+            FirebaseFirestore.instance.collection(collectionName).doc(docId);
+
+        // Use set with merge option to add/update the 'url' field in the 'users' document
+        await docRef.delete();
+
+        return 'yes';
+      } else {
+        return 'no';
+      }
+    } catch (e) {
+      return 'no';
+    }
+  }
+
+  Future<String> addImag_client(
+      {required String url, required String email}) async {
     try {
       var collectionName = 'users_client'; // Replace with your collection name
 
@@ -219,12 +256,12 @@ class FireStore_client {
           'url_client': url,
         });
 
-        print('Field added successfully!');
+        return 'yes';
       } else {
-        print('No document found in image_work_all with email: $email');
+        return 'no';
       }
     } catch (e) {
-      print('Error adding image URL: $e');
+      return 'no';
     }
   }
 

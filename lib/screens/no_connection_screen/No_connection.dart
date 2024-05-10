@@ -18,14 +18,17 @@ class _NoconnectionState extends State<Noconnection> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Image.asset('assets/undefined (1).png'),
-            Text('تفقد اتصالك بالشبكه  واعد\n          تشغيل التطبيق',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Marhey')),
+            Center(
+              child: Text('تفقد اتصالك بالشبكه  واعد\n          تشغيل التطبيق',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Marhey')),
+            ),
             // SizedBox(
             //   height: 40,
             // ),

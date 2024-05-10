@@ -49,7 +49,7 @@ class _Worker_profState extends State<Client_prof> {
   }
 
   add() async {
-    FireStore_client()
+   await FireStore_client()
         .addImag_client(url: url2!, email: info_model_client.email!);
 
     setState(() {});

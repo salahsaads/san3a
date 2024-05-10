@@ -104,10 +104,24 @@ class _Home3ClientState extends State<Home3Client> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Icon(
-                                      Icons.cancel_presentation_rounded,
-                                      size: 30.sp,
-                                    ),
+                                    IconButton(
+                                        onPressed: () async {
+                                          String x;
+
+                                          x = await FireStore_client()
+                                              .delate_service(
+                                                  email1:
+                                                      service_model.email_user!,
+                                                  email2: service_model
+                                                      .email_worker!);
+                                          if (x == 'yes') {
+                                            setState(() {});
+                                          }
+                                        },
+                                        icon: Icon(
+                                          Icons.cancel_presentation_rounded,
+                                          size: 30.sp,
+                                        )),
                                     Row(
                                       children: [
                                         Column(
@@ -170,15 +184,14 @@ class _Home3ClientState extends State<Home3Client> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          FireStore_client_worker()
-                                              .to_be_sure_user(
-                                                  email1:
-                                                      service_model.email_user!,
-                                                  email2: service_model
-                                                      .email_worker!);
-                                        });
+                                      onTap: () async {
+                                        await FireStore_client_worker()
+                                            .to_be_sure_user(
+                                                email1:
+                                                    service_model.email_user!,
+                                                email2: service_model
+                                                    .email_worker!);
+                                        setState(() {});
                                       },
                                       child: Container(
                                         padding: EdgeInsets.symmetric(
@@ -229,9 +242,9 @@ class _Home3ClientState extends State<Home3Client> {
                                     ),
                                     TextButton(
                                         style: ButtonStyle(
-                                          backgroundColor:
-                                              WidgetStateProperty.all<Color>(
-                                                  main_color), // Set background color
+                                          backgroundColor: WidgetStateProperty.all<
+                                                  Color>(
+                                              main_color), // Set background color
                                           overlayColor: WidgetStateProperty
                                               .all<Color>(Colors
                                                   .white), // Set overlay color when pressed

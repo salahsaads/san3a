@@ -159,8 +159,8 @@ class _Home3ClientState extends State<Home3> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     GestureDetector(
-                                      onTap: () {
-                                        FireStore_client_worker()
+                                      onTap: ()async {
+                                      await  FireStore_client_worker()
                                             .to_be_sure_worker(
                                                 email1:
                                                     service_model.email_user!,

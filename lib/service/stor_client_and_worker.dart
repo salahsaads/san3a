@@ -35,7 +35,8 @@ class FireStore_client_worker {
   ///
   ///
 
-  void to_be_sure_user({required String email1, required String email2}) async {
+  Future<String> to_be_sure_user(
+      {required String email1, required String email2}) async {
     try {
       var collectionName = 'services'; // Replace with your collection name
 
@@ -64,16 +65,16 @@ class FireStore_client_worker {
           'to_be_sure_user': '1',
         });
 
-        print('Field added successfully!');
+        return 'yes';
       } else {
-        print('No document found in image_work_all with email: $email1');
+        return 'no';
       }
     } catch (e) {
-      print('Error adding image URL: $e');
+      return 'no';
     }
   }
 
-  void to_be_sure_worker(
+  Future<String> to_be_sure_worker(
       {required String email1, required String email2}) async {
     try {
       var collectionName = 'services'; // Replace with your collection name
@@ -103,12 +104,12 @@ class FireStore_client_worker {
           'to_be_sure_worker': '1',
         });
 
-        print('Field added successfully!');
+        return 'yes';
       } else {
-        print('No document found in image_work_all with email: $email1');
+        return 'no';
       }
     } catch (e) {
-      print('Error adding image URL: $e');
+      return 'no';
     }
   }
 
@@ -240,7 +241,8 @@ class FireStore_client_worker {
     }
   }
 
-  Future<List<Service_model>> Get_Services1({required String email,required String type_email}) async {
+  Future<List<Service_model>> Get_Services1(
+      {required String email, required String type_email}) async {
     try {
       // Query for documents matching the specified conditions
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
@@ -285,7 +287,8 @@ class FireStore_client_worker {
     }
   }
 
-  Future<List<Service_model>> Get_Services2({required String email,required String email_type}) async {
+  Future<List<Service_model>> Get_Services2(
+      {required String email, required String email_type}) async {
     // Get current authenticated user
 
     //Retrieve user data from Firestore

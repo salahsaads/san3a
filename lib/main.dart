@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -35,17 +36,20 @@ class San3a extends StatefulWidget {
 class _San3aState extends State<San3a> {
   Email_Type_model? email_type_model;
   bool ok = false;
-  bool result = false;
+  bool? result;
 
   checker() async {
     result = await InternetConnectionChecker().hasConnection;
+
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    checker();
+
     getEmailType();
+    checker();
   }
 
   Future<void> getEmailType() async {
@@ -90,15 +94,19 @@ class _San3aState extends State<San3a> {
               'EmailVerificationScreen_client': (context) =>
                   const EmailVerificationScreen_client()
             },
-            home: result
-                ? (ok == true)
-                    ? (email_type_model!.email_type == 'عميل')
-                        ? Nav_Client()
-                        : (email_type_model!.email_type == 'صاحب صنعه')
-                            ? Nav()
-                            : Center(child: CircularProgressIndicator())
-                    : Introduction_screen()
-                : Noconnection());
+            home: result != null
+                ? result == true
+                    ? (ok == true)
+                        ? (email_type_model!.email_type == 'عميل')
+                            ? Nav_Client()
+                            : (email_type_model!.email_type == 'صاحب صنعه')
+                                ? Nav()
+                                : Center(child: CircularProgressIndicator())
+                        : Introduction_screen()
+                    : Noconnection()
+                : Scaffold(
+                    body: Center(child: CircularProgressIndicator()),
+                  ));
       },
     );
   }
