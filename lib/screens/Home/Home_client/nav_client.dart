@@ -144,7 +144,6 @@ class _NavState extends State<Nav_Client> {
             },
             child: info_model_client.url != null
                 ? Container(
-                   
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.r),
                       color: Colors.grey,

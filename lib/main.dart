@@ -52,6 +52,40 @@ class _San3aState extends State<San3a> {
     checker();
   }
 
+  Widget buildScreenBasedOnResult() {
+    if (result != null) {
+      switch (result) {
+        case true:
+          return buildScreenForTrueResult();
+        default:
+          return Noconnection();
+      }
+    } else {
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+  }
+
+  Widget buildScreenForTrueResult() {
+    if (ok) {
+      return buildScreenBasedOnEmailType();
+    } else {
+      return Introduction_screen();
+    }
+  }
+
+  Widget buildScreenBasedOnEmailType() {
+    switch (email_type_model!.email_type) {
+      case 'عميل':
+        return Nav_Client();
+      case 'صاحب صنعه':
+        return Nav();
+      default:
+        return Center(child: CircularProgressIndicator());
+    }
+  }
+
   Future<void> getEmailType() async {
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -94,19 +128,7 @@ class _San3aState extends State<San3a> {
               'EmailVerificationScreen_client': (context) =>
                   const EmailVerificationScreen_client()
             },
-            home: result != null
-                ? result == true
-                    ? (ok == true)
-                        ? (email_type_model!.email_type == 'عميل')
-                            ? Nav_Client()
-                            : (email_type_model!.email_type == 'صاحب صنعه')
-                                ? Nav()
-                                : Center(child: CircularProgressIndicator())
-                        : Introduction_screen()
-                    : Noconnection()
-                : Scaffold(
-                    body: Center(child: CircularProgressIndicator()),
-                  ));
+            home: buildScreenBasedOnResult());
       },
     );
   }
