@@ -419,7 +419,7 @@ class FireStore_client_worker {
     }
   }
 
-  void delete_service1(String email1, String email2) async {
+  Future<void> delete_service1(String email1, String email2) async {
     try {
       // Reference to the collection
       QuerySnapshot<Map<String, dynamic>> querySnapshot =

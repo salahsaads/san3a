@@ -15,7 +15,6 @@ class CreateScreen extends StatefulWidget {
 }
 
 class _CreateScreenState extends State<CreateScreen> {
-  var qrstr = 'تم الانتهاء';
 
   @override
   Widget build(BuildContext context) {

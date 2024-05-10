@@ -6,7 +6,6 @@ import 'package:project/model/info_model.dart';
 
 import 'package:project/model/service_model.dart';
 import 'package:project/screens/Home/Home_client/Create_Screen.dart';
-import 'package:project/screens/Home/QR_Screen.dart';
 import 'package:project/screens/Home/chat/chat_screen.dart';
 import 'package:project/service/stor_client_and_worker.dart';
 import 'package:project/service/store.dart';
@@ -216,13 +215,13 @@ class _Home2ClientState extends State<Home2> {
                                     TextButton(
                                         style: ButtonStyle(
                                           backgroundColor:
-                                              MaterialStateProperty.all<Color>(
+                                              WidgetStateProperty.all<Color>(
                                                   main_color), // Set background color
-                                          overlayColor: MaterialStateProperty
+                                          overlayColor: WidgetStateProperty
                                               .all<Color>(Colors
                                                   .white), // Set overlay color when pressed
                                           foregroundColor:
-                                              MaterialStateProperty.all<Color>(
+                                              WidgetStateProperty.all<Color>(
                                                   Colors
                                                       .white), // Set text color
                                         ),
@@ -275,13 +274,13 @@ class _Home2ClientState extends State<Home2> {
                                     TextButton(
                                         style: ButtonStyle(
                                           backgroundColor:
-                                              MaterialStateProperty.all<Color>(
+                                              WidgetStateProperty.all<Color>(
                                                   main_color), // Set background color
-                                          overlayColor: MaterialStateProperty
+                                          overlayColor: WidgetStateProperty
                                               .all<Color>(Colors
                                                   .white), // Set overlay color when pressed
                                           foregroundColor:
-                                              MaterialStateProperty.all<Color>(
+                                              WidgetStateProperty.all<Color>(
                                                   Colors
                                                       .white), // Set text color
                                         ),

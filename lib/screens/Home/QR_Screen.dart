@@ -21,12 +21,6 @@ class _ScanScreenState extends State<ScanScreen> {
   double rating = 0;
   double sum = 0;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   TextEditingController comment = TextEditingController();
 
   @override
@@ -55,15 +49,15 @@ class _ScanScreenState extends State<ScanScreen> {
     try {
       FlutterBarcodeScanner.scanBarcode('#2A99CF', 'cancel', true, ScanMode.QR)
           .then((value) {
-        setState(() {
+        setState(() async {
           qrstr = value;
-          if (value != widget.service_model.email_user) {
-            FireStore_client_worker().delete_service1(
+          if (value == widget.service_model.email_user) {
+            await FireStore_client_worker().delete_service1(
                 widget.service_model.email_user!,
                 widget.service_model.email_worker!);
           }
 
-          if (qrstr != '-1') {
+          if (value == widget.service_model.email_user) {
             showDialog(
                 context: context,
                 builder: (_) {
@@ -128,8 +122,8 @@ class _ScanScreenState extends State<ScanScreen> {
                           ),
                           SizedBox(height: 20),
                           ElevatedButton(
-                            onPressed: () {
-                              FireStore().addRating(
+                            onPressed: () async {
+                              await FireStore().addRating(
                                   full_name_user:
                                       widget.service_model.fullName_user!,
                                   url_user: widget.service_model.url_user ?? '',
